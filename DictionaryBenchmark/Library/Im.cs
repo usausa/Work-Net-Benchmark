@@ -3,9 +3,6 @@
     using System;
     using System.Runtime.CompilerServices;
 
-    public delegate TValue Update<TValue>(TValue oldValue, TValue newValue);
-
-
     public sealed class ImTreeMap<TKey, TValue>
     {
         public static readonly ImTreeMap<TKey, TValue> Empty = new ImTreeMap<TKey, TValue>();
@@ -24,58 +21,6 @@
 
         public readonly int Height;
 
-        public bool IsEmpty => Height == 0;
-
-        public ImTreeMap<TKey, TValue> AddOrUpdate(TKey key, TValue value, Update<TValue> update = null)
-        {
-            return AddOrUpdate(key.GetHashCode(), key, value, update, updateOnly: false);
-        }
-
-        //public ImTreeMap<K, V> Update(K key, V value, Update<V> update = null)
-        //{
-        //    return AddOrUpdate(key.GetHashCode(), key, value, update, updateOnly: true);
-        //}
-
-        //public V GetValueOrDefault(K key, V defaultValue = default(V))
-        //{
-        //    var t = this;
-        //    var hash = key.GetHashCode();
-        //    while (t.Height != 0 && t.Hash != hash)
-        //        t = hash < t.Hash ? t.Left : t.Right;
-        //    return t.Height != 0 && (ReferenceEquals(key, t.Key) || key.Equals(t.Key))
-        //        ? t.Value : t.GetConflictedValueOrDefault(key, defaultValue);
-        //}
-
-        //public IEnumerable<KeyValue<K, V>> Enumerate()
-        //{
-        //    if (Height == 0)
-        //        yield break;
-
-        //    var parents = new ImTreeMap<K, V>[Height];
-
-        //    var tree = this;
-        //    var parentCount = -1;
-        //    while (tree.Height != 0 || parentCount != -1)
-        //    {
-        //        if (tree.Height != 0)
-        //        {
-        //            parents[++parentCount] = tree;
-        //            tree = tree.Left;
-        //        }
-        //        else
-        //        {
-        //            tree = parents[parentCount--];
-        //            yield return new KeyValue<K, V>(tree.Key, tree.Value);
-
-        //            if (tree.Conflicts != null)
-        //                for (var i = 0; i < tree.Conflicts.Length; i++)
-        //                    yield return tree.Conflicts[i];
-
-        //            tree = tree.Right;
-        //        }
-        //    }
-        //}
-
         public ImTreeMap()
         {
         }
@@ -91,29 +36,28 @@
             Height = 1 + (left.Height > right.Height ? left.Height : right.Height);
         }
 
-        internal ImTreeMap<TKey, TValue> AddOrUpdate(int hash, TKey key, TValue value, Update<TValue> update, bool updateOnly)
+        internal ImTreeMap<TKey, TValue> AddOrUpdate(int hash, TKey key, TValue value)
         {
-            return Height == 0 ? (updateOnly ? this : new ImTreeMap<TKey, TValue>(hash, key, value, null, Empty, Empty))
-                : (hash == Hash ? UpdateValueAndResolveConflicts(key, value, update, updateOnly)
+            return Height == 0 ? new ImTreeMap<TKey, TValue>(hash, key, value, null, Empty, Empty)
+                : (hash == Hash ? UpdateValueAndResolveConflicts(key, value)
                     : (hash < Hash
-                        ? With(Left.AddOrUpdate(hash, key, value, update, updateOnly), Right)
-                        : With(Left, Right.AddOrUpdate(hash, key, value, update, updateOnly))).KeepBalanced());
+                        ? With(Left.AddOrUpdate(hash, key, value), Right)
+                        : With(Left, Right.AddOrUpdate(hash, key, value))).KeepBalanced());
         }
 
-        private ImTreeMap<TKey, TValue> UpdateValueAndResolveConflicts(TKey key, TValue value, Update<TValue> update, bool updateOnly)
+        private ImTreeMap<TKey, TValue> UpdateValueAndResolveConflicts(TKey key, TValue value)
         {
             if (ReferenceEquals(Key, key) || Key.Equals(key))
-                return new ImTreeMap<TKey, TValue>(Hash, key, update == null ? value : update(Value, value), Conflicts, Left, Right);
+                return new ImTreeMap<TKey, TValue>(Hash, key, value, Conflicts, Left, Right);
 
             if (Conflicts == null) // add only if updateOnly is false.
-                return updateOnly ? this
-                    : new ImTreeMap<TKey, TValue>(Hash, Key, Value, new[] { new KeyValue<TKey, TValue>(key, value) }, Left, Right);
+                return new ImTreeMap<TKey, TValue>(Hash, Key, Value, new[] { new KeyValue<TKey, TValue>(key, value) }, Left, Right);
 
             var found = Conflicts.Length - 1;
             while (found >= 0 && !Equals(Conflicts[found].Key, Key)) --found;
+
             if (found == -1)
             {
-                if (updateOnly) return this;
                 var newConflicts = new KeyValue<TKey, TValue>[Conflicts.Length + 1];
                 Array.Copy(Conflicts, 0, newConflicts, 0, Conflicts.Length);
                 newConflicts[Conflicts.Length] = new KeyValue<TKey, TValue>(key, value);
@@ -122,17 +66,8 @@
 
             var conflicts = new KeyValue<TKey, TValue>[Conflicts.Length];
             Array.Copy(Conflicts, 0, conflicts, 0, Conflicts.Length);
-            conflicts[found] = new KeyValue<TKey, TValue>(key, update == null ? value : update(Conflicts[found].Value, value));
+            conflicts[found] = new KeyValue<TKey, TValue>(key, value);
             return new ImTreeMap<TKey, TValue>(Hash, Key, Value, conflicts, Left, Right);
-        }
-
-        internal TValue GetConflictedValueOrDefault(TKey key, TValue defaultValue)
-        {
-            if (Conflicts != null)
-                for (var i = 0; i < Conflicts.Length; i++)
-                    if (Equals(Conflicts[i].Key, key))
-                        return Conflicts[i].Value;
-            return defaultValue;
         }
 
         private ImTreeMap<TKey, TValue> KeepBalanced()
@@ -156,6 +91,15 @@
         private ImTreeMap<TKey, TValue> With(ImTreeMap<TKey, TValue> left, ImTreeMap<TKey, TValue> right)
         {
             return left == Left && right == Right ? this : new ImTreeMap<TKey, TValue>(Hash, Key, Value, Conflicts, left, right);
+        }
+
+        internal TValue GetConflictedValueOrDefault(TKey key, TValue defaultValue)
+        {
+            if (Conflicts != null)
+                for (var i = 0; i < Conflicts.Length; i++)
+                    if (Equals(Conflicts[i].Key, key))
+                        return Conflicts[i].Value;
+            return defaultValue;
         }
     }
 
@@ -206,36 +150,13 @@
             var trees = _trees;
             var tree = trees[treeIndex] ?? ImTreeMap<TKey, TValue>.Empty;
 
-            tree = tree.AddOrUpdate(hash, key, value, null, false);
+            tree = tree.AddOrUpdate(hash, key, value);
 
             var newTrees = new ImTreeMap<TKey, TValue>[NumberOfTrees];
             Array.Copy(trees, 0, newTrees, 0, NumberOfTrees);
             newTrees[treeIndex] = tree;
 
             return new ImMap<TKey, TValue>(newTrees, Count + 1);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ImMap<TKey, TValue> Update(TKey key, TValue value)
-        {
-            var hash = key.GetHashCode();
-
-            var treeIndex = hash & HashBitsToTree;
-
-            var trees = _trees;
-            var tree = trees[treeIndex];
-            if (tree == null)
-                return this;
-
-            var newTree = tree.AddOrUpdate(hash, key, value, null, true);
-            if (newTree == tree)
-                return this;
-
-            var newTrees = new ImTreeMap<TKey, TValue>[NumberOfTrees];
-            Array.Copy(trees, 0, newTrees, 0, NumberOfTrees);
-            newTrees[treeIndex] = newTree;
-
-            return new ImMap<TKey, TValue>(newTrees, Count);
         }
     }
 }
