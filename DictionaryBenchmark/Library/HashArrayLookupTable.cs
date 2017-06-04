@@ -45,7 +45,7 @@
             }
 
             value = default(TValue);
-            return true;
+            return false;
         }
     }
 }
