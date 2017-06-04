@@ -1,4 +1,6 @@
-﻿namespace DictionaryBenchmark.Library
+﻿using System;
+
+namespace DictionaryBenchmark.Library
 {
     using System.Runtime.CompilerServices;
 
@@ -46,6 +48,27 @@
             }
 
             node.Next = new Node(key, value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public TValue GetOrAdd(TKey key, Func<TKey, TValue> factory)
+        {
+            var index = key.GetHashCode() % hashCount;
+
+            var node = tables[index];
+            while (node != null)
+            {
+                if (key.Equals(node.Key))
+                {
+                    return node.Value;
+                }
+
+                node = node.Next;
+            }
+
+            var value = factory(key);
+            tables[index] = new Node(key, value);
+            return value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
