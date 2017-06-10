@@ -28,7 +28,7 @@
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryGetValue(TKey key, out TValue value)
         {
-            var index = key.GetHashCode() % hashCount;
+            var index = key.GetHashCode() & 0b1111111111;
 
             var list = tables[index];
             var length = list.Count;

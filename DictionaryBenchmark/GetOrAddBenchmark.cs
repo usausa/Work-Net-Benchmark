@@ -1,11 +1,10 @@
-﻿using System.Threading;
-
-namespace DictionaryBenchmark
+﻿namespace DictionaryBenchmark
 {
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
+    using System.Threading;
 
     using BenchmarkDotNet.Attributes;
 
@@ -34,19 +33,9 @@ namespace DictionaryBenchmark
 
         private readonly HashListLookupTable<Type, object> lookupTable1 = new HashListLookupTable<Type, object>(1024);
 
-        private readonly HashListLookupTable<Type, object> lookupTable1WithLock = new HashListLookupTable<Type, object>(1024);
-
         private readonly HashArrayLookupTable<Type, object> lookupTable2 = new HashArrayLookupTable<Type, object>(1024);
 
-        private readonly HashArrayLookupTable<Type, object> lookupTable2WithLock = new HashArrayLookupTable<Type, object>(1024);
-
-        private readonly LookupTable<Type, object> lookupTable = new LookupTable<Type, object>(1024);
-
-        private readonly LookupTable<Type, object> lookupTableWithLock = new LookupTable<Type, object>(1024);
-
         private ImMap<Type, object> imMap = ImMap<Type, object>.Empty;
-
-        private ImMap<Type, object> imMapWithLocked = ImMap<Type, object>.Empty;
 
         public GetOrAddBenchmark()
         {
@@ -56,13 +45,8 @@ namespace DictionaryBenchmark
                 dictionaryWithLock[type] = new object();
                 concurrentDictionary[type] = new object();
                 lookupTable1.Add(type, new object());
-                lookupTable1WithLock.Add(type, new object());
                 lookupTable2.Add(type, new object());
-                lookupTable2WithLock.Add(type, new object());
-                lookupTable.Add(type, new object());
-                lookupTableWithLock.Add(type, new object());
                 imMap = imMap.AddOrUpdate(type, new object());
-                imMapWithLocked = imMapWithLocked.AddOrUpdate(type, new object());
             }
         }
 
@@ -153,158 +137,54 @@ namespace DictionaryBenchmark
             concurrentDictionary.GetOrAdd(key, Factory);
         }
 
-        //[Benchmark]
-        //public void LookupTable1()
-        //{
-        //    for (var count = 0; count < Loop; count++)
-        //    {
-        //        LookupTable1Action(type00);
-        //        LookupTable1Action(type01);
-        //        LookupTable1Action(type02);
-        //        LookupTable1Action(type03);
-        //        LookupTable1Action(type04);
-        //        LookupTable1Action(type05);
-        //        LookupTable1Action(type06);
-        //        LookupTable1Action(type07);
-        //        LookupTable1Action(type08);
-        //        LookupTable1Action(type09);
-        //    }
-        //}
-
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //private void LookupTable1Action(Type key)
-        //{
-        //    lookupTable.TryGetValue(key, out object _);
-        //}
-
-        //[Benchmark]
-        //public void LookupTable1WithLock()
-        //{
-        //    for (var count = 0; count < Loop; count++)
-        //    {
-        //        LookupTable1WithLock(type00);
-        //        LookupTable1WithLock(type01);
-        //        LookupTable1WithLock(type02);
-        //        LookupTable1WithLock(type03);
-        //        LookupTable1WithLock(type04);
-        //        LookupTable1WithLock(type05);
-        //        LookupTable1WithLock(type06);
-        //        LookupTable1WithLock(type07);
-        //        LookupTable1WithLock(type08);
-        //        LookupTable1WithLock(type09);
-        //    }
-        //}
-
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //private void LookupTable1WithLock(Type key)
-        //{
-        //    lock (lookupTable1WithLock)
-        //    {
-        //        lookupTable1WithLock.TryGetValue(key, out object _);
-        //    }
-        //}
-
-        //[Benchmark]
-        //public void LookupTable2()
-        //{
-        //    for (var count = 0; count < Loop; count++)
-        //    {
-        //        LookupTable2Action(type00);
-        //        LookupTable2Action(type01);
-        //        LookupTable2Action(type02);
-        //        LookupTable2Action(type03);
-        //        LookupTable2Action(type04);
-        //        LookupTable2Action(type05);
-        //        LookupTable2Action(type06);
-        //        LookupTable2Action(type07);
-        //        LookupTable2Action(type08);
-        //        LookupTable2Action(type09);
-        //    }
-        //}
-
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //private void LookupTable2Action(Type key)
-        //{
-        //    lookupTable2.TryGetValue(key, out object _);
-        //}
-
-        //[Benchmark]
-        //public void LookupTable2WithLock()
-        //{
-        //    for (var count = 0; count < Loop; count++)
-        //    {
-        //        LookupTable2WithLock(type00);
-        //        LookupTable2WithLock(type01);
-        //        LookupTable2WithLock(type02);
-        //        LookupTable2WithLock(type03);
-        //        LookupTable2WithLock(type04);
-        //        LookupTable2WithLock(type05);
-        //        LookupTable2WithLock(type06);
-        //        LookupTable2WithLock(type07);
-        //        LookupTable2WithLock(type08);
-        //        LookupTable2WithLock(type09);
-        //    }
-        //}
-
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //private void LookupTable2WithLock(Type key)
-        //{
-        //    lock (lookupTable2WithLock)
-        //    {
-        //        lookupTable2WithLock.TryGetValue(key, out object _);
-        //    }
-        //}
-
         [Benchmark]
-        public void LookupTable()
+        public void LookupTable1()
         {
             for (var count = 0; count < Loop; count++)
             {
-                LookupTableAction(type00);
-                LookupTableAction(type01);
-                LookupTableAction(type03);
-                LookupTableAction(type03);
-                LookupTableAction(type04);
-                LookupTableAction(type05);
-                LookupTableAction(type06);
-                LookupTableAction(type07);
-                LookupTableAction(type08);
-                LookupTableAction(type09);
+                LookupTable1Action(type00);
+                LookupTable1Action(type01);
+                LookupTable1Action(type02);
+                LookupTable1Action(type03);
+                LookupTable1Action(type04);
+                LookupTable1Action(type05);
+                LookupTable1Action(type06);
+                LookupTable1Action(type07);
+                LookupTable1Action(type08);
+                LookupTable1Action(type09);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void LookupTableAction(Type key)
+        private void LookupTable1Action(Type key)
         {
-            lookupTable.GetOrAdd(key, Factory);
+            lookupTable1.TryGetValue(key, out object _);
         }
 
         [Benchmark]
-        public void LookupTableWithLock()
+        public void LookupTable2()
         {
             for (var count = 0; count < Loop; count++)
             {
-                LookupTableWithLockAction(type00);
-                LookupTableWithLockAction(type01);
-                LookupTableWithLockAction(type03);
-                LookupTableWithLockAction(type03);
-                LookupTableWithLockAction(type04);
-                LookupTableWithLockAction(type05);
-                LookupTableWithLockAction(type06);
-                LookupTableWithLockAction(type07);
-                LookupTableWithLockAction(type08);
-                LookupTableWithLockAction(type09);
+                LookupTable2Action(type00);
+                LookupTable2Action(type01);
+                LookupTable2Action(type02);
+                LookupTable2Action(type03);
+                LookupTable2Action(type04);
+                LookupTable2Action(type05);
+                LookupTable2Action(type06);
+                LookupTable2Action(type07);
+                LookupTable2Action(type08);
+                LookupTable2Action(type09);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void LookupTableWithLockAction(Type key)
+        private void LookupTable2Action(Type key)
         {
-            lock (lookupTableWithLock)
-            {
-                lookupTableWithLock.GetOrAdd(key, Factory);
-            }
+            lookupTable2.TryGetValue(key, out object _);
         }
+
         [Benchmark]
         public void ImMap()
         {
@@ -329,41 +209,6 @@ namespace DictionaryBenchmark
             if (imMap.GetValueOrDefault(key) == null)
             {
                 imMap = imMap.AddOrUpdate(key, Factory(key));
-            }
-        }
-
-        [Benchmark]
-        public void ImMapWithLocked()
-        {
-            for (var count = 0; count < Loop; count++)
-            {
-                ImMapActionWithLocked(type00);
-                ImMapActionWithLocked(type01);
-                ImMapActionWithLocked(type02);
-                ImMapActionWithLocked(type03);
-                ImMapActionWithLocked(type04);
-                ImMapActionWithLocked(type05);
-                ImMapActionWithLocked(type06);
-                ImMapActionWithLocked(type07);
-                ImMapActionWithLocked(type08);
-                ImMapActionWithLocked(type09);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ImMapActionWithLocked(Type key)
-        {
-            if (imMapWithLocked.GetValueOrDefault(key) == null)
-            {
-                var newValue = imMapWithLocked.AddOrUpdate(key, Factory(key));
-                while (true)
-                {
-                    var oldValue = imMapWithLocked;
-                    if (Interlocked.CompareExchange(ref imMapWithLocked, newValue, oldValue) == oldValue)
-                    {
-                        break;
-                    }
-                }
             }
         }
     }
