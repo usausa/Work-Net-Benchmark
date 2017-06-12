@@ -31,7 +31,7 @@
 
         private readonly ConcurrentDictionary<Type, object> concurrentDictionary = new ConcurrentDictionary<Type, object>();
 
-        private readonly HashArrayMap<Type, object> hashArrayMap = new HashArrayMap<Type, object>(1024);
+        private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap = new ConcurrentHashArrayMap<Type, object>(1024);
 
         private ImMap<Type, object> imMap = ImMap<Type, object>.Empty;
 
@@ -135,25 +135,25 @@
         //}
 
         [Benchmark]
-        public void HashArrayMap()
+        public void ConcurrentHashArrayMap()
         {
             for (var count = 0; count < Loop; count++)
             {
-                HashArrayMapAction(type00);
-                HashArrayMapAction(type01);
-                HashArrayMapAction(type02);
-                HashArrayMapAction(type03);
-                HashArrayMapAction(type04);
-                HashArrayMapAction(type05);
-                HashArrayMapAction(type06);
-                HashArrayMapAction(type07);
-                HashArrayMapAction(type08);
-                HashArrayMapAction(type09);
+                ConcurrentHashArrayMapAction(type00);
+                ConcurrentHashArrayMapAction(type01);
+                ConcurrentHashArrayMapAction(type02);
+                ConcurrentHashArrayMapAction(type03);
+                ConcurrentHashArrayMapAction(type04);
+                ConcurrentHashArrayMapAction(type05);
+                ConcurrentHashArrayMapAction(type06);
+                ConcurrentHashArrayMapAction(type07);
+                ConcurrentHashArrayMapAction(type08);
+                ConcurrentHashArrayMapAction(type09);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void HashArrayMapAction(Type key)
+        private void ConcurrentHashArrayMapAction(Type key)
         {
             if (!hashArrayMap.TryGetValue(key, out object _))
             {

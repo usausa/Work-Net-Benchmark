@@ -12,7 +12,7 @@
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     [DebuggerDisplay("Count = {" + nameof(Count) + "}")]
-    public class HashArrayMap<TKey, TValue>
+    public class ConcurrentHashArrayMap<TKey, TValue>
     {
         private static readonly Node[] EmptyNodes = new Node[0];
 
@@ -31,7 +31,7 @@
         ///
         /// </summary>
         /// <param name="count"></param>
-        public HashArrayMap(int count)
+        public ConcurrentHashArrayMap(int count)
         {
             table = CreateClearTable(count);
         }
