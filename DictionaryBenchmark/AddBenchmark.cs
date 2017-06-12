@@ -64,17 +64,7 @@
         }
 
         [Benchmark]
-        public void ConcurrentHashArrayMapFixed()
-        {
-            var hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new FixedSizeHashArrayMapStrategy(1024));
-            foreach (var type in Classes.Types)
-            {
-                hashArrayMap.AddIfNotExist(type, Factory);
-            }
-        }
-
-        [Benchmark]
-        public void ConcurrentHashArrayMapGrowth()
+        public void ConcurrentHashArrayMap()
         {
             var hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new GrowthHashArrayMapStrategy(64));
             foreach (var type in Classes.Types)

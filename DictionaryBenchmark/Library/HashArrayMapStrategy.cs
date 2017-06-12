@@ -18,26 +18,6 @@
         int CalcRequestSize(IHashArrayMapResizeContext context);
     }
 
-    public class FixedSizeHashArrayMapStrategy : IHashArrayMapStrategy
-    {
-        private readonly int size;
-
-        public FixedSizeHashArrayMapStrategy(int size)
-        {
-            this.size = size;
-        }
-
-        public int CalcInitialSize()
-        {
-            return size;
-        }
-
-        public int CalcRequestSize(IHashArrayMapResizeContext context)
-        {
-            return size;
-        }
-    }
-
     public class GrowthHashArrayMapStrategy : IHashArrayMapStrategy
     {
         private readonly int initialSize;

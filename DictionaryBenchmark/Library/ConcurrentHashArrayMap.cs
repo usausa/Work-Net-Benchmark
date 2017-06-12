@@ -23,6 +23,8 @@
 
         private Table table;
 
+        // TODO Add (max)depth to table
+
         //--------------------------------------------------------------------------------
         // Constructor
         //--------------------------------------------------------------------------------
@@ -30,7 +32,13 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="strategy"></param>
+        /// <param name="initialSize"></param>
+        /// <param name="factor"></param>
+        public ConcurrentHashArrayMap(int initialSize = 32, double factor = 1.0)
+            : this(new GrowthHashArrayMapStrategy(initialSize, factor))
+        {
+        }
+
         public ConcurrentHashArrayMap(IHashArrayMapStrategy strategy)
         {
             this.strategy = strategy;
