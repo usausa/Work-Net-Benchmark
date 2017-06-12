@@ -1,6 +1,7 @@
 ﻿namespace DictionaryBenchmark.Library
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Runtime.CompilerServices;
@@ -12,11 +13,13 @@
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     [DebuggerDisplay("Count = {" + nameof(Count) + "}")]
-    public class ConcurrentHashArrayMap<TKey, TValue>
+    public class ConcurrentHashArrayMap<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
     {
         private static readonly Node[] EmptyNodes = new Node[0];
 
         private readonly object sync = new object();
+
+        private readonly IHashArrayMapStrategy strategy;
 
         private Table table;
 
@@ -24,16 +27,14 @@
         // Constructor
         //--------------------------------------------------------------------------------
 
-        // TODO Auto? 初期数、成長判定ストラテジ？ デフォルトは個数固定？
-        // TODO AddRange?
-
         /// <summary>
         ///
         /// </summary>
-        /// <param name="count"></param>
-        public ConcurrentHashArrayMap(int count)
+        /// <param name="strategy"></param>
+        public ConcurrentHashArrayMap(IHashArrayMapStrategy strategy)
         {
-            table = CreateClearTable(count);
+            this.strategy = strategy;
+            table = CreateInitialTable();
         }
 
         //--------------------------------------------------------------------------------
@@ -45,28 +46,45 @@
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        private static int CalculateMask(int count)
+        private static uint CalculateSize(int count)
         {
-            var mask = 0;
+            uint size = 0;
 
             for (var i = 1L; i < count; i *= 2)
             {
-                mask = (mask << 1) + 1;
+                size = (size << 1) + 1;
             }
 
-            return mask;
+            return size + 1;
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="count"></param>
-        private static Table CreateClearTable(int count)
+        /// <param name="nodes"></param>
+        /// <param name="addNode"></param>
+        /// <returns></returns>
+        private static Node[] AddNode(Node[] nodes, Node addNode)
         {
-            // TODO Resize?
-            var mask = CalculateMask(count);
+            if (nodes == null)
+            {
+                return new[] { addNode };
+            }
 
-            var nodes = new Node[mask + 1L][];
+            var newNodes = new Node[nodes.Length + 1];
+            Array.Copy(nodes, 0, newNodes, 0, nodes.Length);
+            return newNodes;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        private Table CreateInitialTable()
+        {
+            var size = CalculateSize(strategy.CalcInitialSize());
+            var mask = (int)(size - 1);
+
+            var nodes = new Node[size][];
             for (var i = 0; i < nodes.Length; i++)
             {
                 nodes[i] = EmptyNodes;
@@ -78,38 +96,72 @@
         /// <summary>
         ///
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="oldTable"></param>
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static Table CreateAddTable(Table target, TKey key, TValue value)
+        private Table CreateAddTable(Table oldTable, TKey key, TValue value)
         {
-            // TODO Resizeと再配置?
-            var index = key.GetHashCode() & target.HashMask;
+            var hashCode = key.GetHashCode();
+            var addIndex = hashCode & oldTable.HashMask;
+            var requestSize = strategy.CalcRequestSize(new AddResizeContext(oldTable.Nodes.Length, oldTable.Count));
 
-            var newNodes = new Node[target.Nodes.Length][];
-
-            for (var i = 0; i < target.Nodes.Length; i++)
+            if (requestSize <= oldTable.Nodes.Length)
             {
-                var oldLength = target.Nodes[i].Length;
-                var newLength = oldLength + (i == index ? 1 : 0);
-                if (newLength > 0)
+                var nodes = new Node[oldTable.Nodes.Length][];
+
+                for (var i = 0; i < oldTable.Nodes.Length; i++)
                 {
-                    newNodes[i] = new Node[newLength];
-                    if (oldLength > 0)
+                    var oldLength = oldTable.Nodes[i].Length;
+                    var newLength = oldLength + (i == addIndex ? 1 : 0);
+                    if (newLength > 0)
                     {
-                        Array.Copy(target.Nodes[i], 0, newNodes[i], 0, oldLength);
+                        nodes[i] = new Node[newLength];
+                        if (oldLength > 0)
+                        {
+                            Array.Copy(oldTable.Nodes[i], 0, nodes[i], 0, oldLength);
+                        }
+                    }
+                    else
+                    {
+                        nodes[i] = EmptyNodes;
                     }
                 }
-                else
-                {
-                    newNodes[i] = EmptyNodes;
-                }
+
+                nodes[addIndex][nodes[addIndex].Length - 1] = new Node(key, value);
+
+                return new Table(oldTable.HashMask, nodes, oldTable.Count + 1);
             }
+            else
+            {
+                var size = CalculateSize(strategy.CalcInitialSize());
+                var mask = (int)(size - 1);
+                addIndex = hashCode & mask;
 
-            newNodes[index][newNodes[index].Length - 1] = new Node(key, value);
+                var nodes = new Node[mask + 1L][];
 
-            return new Table(CalculateMask(newNodes.Length), newNodes, target.Count + 1);
+                for (var i = 0; i < nodes.Length; i++)
+                {
+                    for (var j = 0; j < nodes[i].Length; j++)
+                    {
+                        var node = nodes[i][j];
+                        var relocateIndex = node.Key.GetHashCode() & mask;
+                        nodes[relocateIndex] = AddNode(nodes[relocateIndex], node);
+                    }
+                }
+
+                nodes[addIndex] = AddNode(nodes[addIndex], new Node(key, value));
+
+                for (var i = 0; i < nodes.Length; i++)
+                {
+                    if (nodes[i] == null)
+                    {
+                        nodes[i] = EmptyNodes;
+                    }
+                }
+
+                return new Table(mask, nodes, oldTable.Count + 1);
+            }
         }
 
         /// <summary>
@@ -150,7 +202,7 @@
         {
             lock (sync)
             {
-                var newTable = CreateClearTable(table.Count);
+                var newTable = CreateInitialTable();
                 Interlocked.Exchange(ref table, newTable);
             }
         }
@@ -217,6 +269,37 @@
         }
 
         //--------------------------------------------------------------------------------
+        // IEnumerable
+        //--------------------------------------------------------------------------------
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        {
+            var nodes = table.Nodes;
+
+            for (var i = 0; i < nodes.Length; i++)
+            {
+                for (var j = 0; j < nodes[i].Length; j++)
+                {
+                    var node = nodes[i][j];
+                    yield return new KeyValuePair<TKey, TValue>(node.Key, node.Value);
+                }
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        //--------------------------------------------------------------------------------
         // Helper
         //--------------------------------------------------------------------------------
 
@@ -245,10 +328,10 @@
         }
 
         //--------------------------------------------------------------------------------
-        // Node
+        // Inner
         //--------------------------------------------------------------------------------
 
-        private class Node
+        internal class Node
         {
             public TKey Key { get; }
 
@@ -261,7 +344,7 @@
             }
         }
 
-        private class Table
+        internal class Table
         {
             public int HashMask { get; }
 
@@ -273,6 +356,21 @@
             {
                 HashMask = hashMask;
                 Nodes = nodes;
+                Count = count;
+            }
+        }
+
+        private class AddResizeContext : IHashArrayMapResizeContext
+        {
+            public int Width { get; }
+
+            public int Growth => 1;
+
+            public int Count { get; }
+
+            public AddResizeContext(int width, int count)
+            {
+                Width = width;
                 Count = count;
             }
         }

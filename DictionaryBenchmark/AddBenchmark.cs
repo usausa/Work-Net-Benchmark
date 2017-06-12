@@ -1,0 +1,86 @@
+﻿namespace DictionaryBenchmark
+{
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+
+    using BenchmarkDotNet.Attributes;
+
+    using DictionaryBenchmark.Library;
+
+    public class AddBenchmark
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static object Factory(Type type)
+        {
+            return new object();
+        }
+
+        [Benchmark]
+        public void Dictionary()
+        {
+            // ReSharper disable once CollectionNeverQueried.Local
+            var dictionary = new Dictionary<Type, object>();
+            foreach (var type in Classes.Types)
+            {
+                dictionary[type] = new object();
+            }
+        }
+
+        [Benchmark]
+        public void DictionaryWithLock()
+        {
+            var sync = new object();
+            // ReSharper disable once CollectionNeverQueried.Local
+            var dictionary = new Dictionary<Type, object>();
+            foreach (var type in Classes.Types)
+            {
+                lock (sync)
+                {
+                    dictionary[type] = new object();
+                }
+            }
+        }
+
+        [Benchmark]
+        public void ConcurrentDictionary()
+        {
+            var concurrentDictionary = new ConcurrentDictionary<Type, object>();
+            foreach (var type in Classes.Types)
+            {
+                concurrentDictionary.GetOrAdd(type, Factory);
+            }
+        }
+
+        [Benchmark]
+        public void ConcurrentHashArrayMapFixed()
+        {
+            var hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new FixedSizeHashArrayMapStrategy(1024));
+            foreach (var type in Classes.Types)
+            {
+                hashArrayMap.AddIfNotExist(type, Factory);
+            }
+        }
+
+        //[Benchmark]
+        //public void ConcurrentHashArrayMapDynamic()
+        //{
+        //    var hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new GrowthHashArrayMapStrategy(32));
+        //    foreach (var type in Classes.Types)
+        //    {
+        //        hashArrayMap.AddIfNotExist(type, Factory);
+        //    }
+        //}
+
+        [Benchmark]
+        public void ImMap()
+        {
+            var imMap = ImMap<Type, object>.Empty;
+            foreach (var type in Classes.Types)
+            {
+                imMap = imMap.AddOrUpdate(type, null);
+            }
+        }
+    }
+}

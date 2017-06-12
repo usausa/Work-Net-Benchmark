@@ -4,13 +4,12 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
-    using System.Threading;
 
     using BenchmarkDotNet.Attributes;
 
     using DictionaryBenchmark.Library;
 
-    public class GetOrAddBenchmark
+    public class GetBenchmark
     {
         private const int Loop = 1000;
 
@@ -31,11 +30,11 @@
 
         private readonly ConcurrentDictionary<Type, object> concurrentDictionary = new ConcurrentDictionary<Type, object>();
 
-        private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap = new ConcurrentHashArrayMap<Type, object>(1024);
+        private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new FixedSizeHashArrayMapStrategy(1024));
 
         private ImMap<Type, object> imMap = ImMap<Type, object>.Empty;
 
-        public GetOrAddBenchmark()
+        public GetBenchmark()
         {
             foreach (var type in Classes.Types)
             {
@@ -53,86 +52,86 @@
             return new object();
         }
 
-        //[Benchmark]
-        //public void Dictionary()
-        //{
-        //    for (var count = 0; count < Loop; count++)
-        //    {
-        //        DictionaryAction(type00);
-        //        DictionaryAction(type01);
-        //        DictionaryAction(type02);
-        //        DictionaryAction(type03);
-        //        DictionaryAction(type04);
-        //        DictionaryAction(type05);
-        //        DictionaryAction(type06);
-        //        DictionaryAction(type07);
-        //        DictionaryAction(type08);
-        //        DictionaryAction(type09);
-        //    }
-        //}
+        [Benchmark]
+        public void Dictionary()
+        {
+            for (var count = 0; count < Loop; count++)
+            {
+                DictionaryAction(type00);
+                DictionaryAction(type01);
+                DictionaryAction(type02);
+                DictionaryAction(type03);
+                DictionaryAction(type04);
+                DictionaryAction(type05);
+                DictionaryAction(type06);
+                DictionaryAction(type07);
+                DictionaryAction(type08);
+                DictionaryAction(type09);
+            }
+        }
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //private void DictionaryAction(Type key)
-        //{
-        //    if (!dictionary.TryGetValue(key, out object _))
-        //    {
-        //        dictionary[key] = Factory(key);
-        //    }
-        //}
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void DictionaryAction(Type key)
+        {
+            if (!dictionary.TryGetValue(key, out object _))
+            {
+                dictionary[key] = Factory(key);
+            }
+        }
 
-        //[Benchmark]
-        //public void DictionaryWithLock()
-        //{
-        //    for (var count = 0; count < Loop; count++)
-        //    {
-        //        DictionaryWithLockAction(type00);
-        //        DictionaryWithLockAction(type01);
-        //        DictionaryWithLockAction(type02);
-        //        DictionaryWithLockAction(type03);
-        //        DictionaryWithLockAction(type04);
-        //        DictionaryWithLockAction(type05);
-        //        DictionaryWithLockAction(type06);
-        //        DictionaryWithLockAction(type07);
-        //        DictionaryWithLockAction(type08);
-        //        DictionaryWithLockAction(type09);
-        //    }
-        //}
+        [Benchmark]
+        public void DictionaryWithLock()
+        {
+            for (var count = 0; count < Loop; count++)
+            {
+                DictionaryWithLockAction(type00);
+                DictionaryWithLockAction(type01);
+                DictionaryWithLockAction(type02);
+                DictionaryWithLockAction(type03);
+                DictionaryWithLockAction(type04);
+                DictionaryWithLockAction(type05);
+                DictionaryWithLockAction(type06);
+                DictionaryWithLockAction(type07);
+                DictionaryWithLockAction(type08);
+                DictionaryWithLockAction(type09);
+            }
+        }
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //private void DictionaryWithLockAction(Type key)
-        //{
-        //    lock (dictionaryWithLock)
-        //    {
-        //        if (!dictionaryWithLock.TryGetValue(key, out object _))
-        //        {
-        //            dictionaryWithLock[key] = Factory(key);
-        //        }
-        //    }
-        //}
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void DictionaryWithLockAction(Type key)
+        {
+            lock (dictionaryWithLock)
+            {
+                if (!dictionaryWithLock.TryGetValue(key, out object _))
+                {
+                    dictionaryWithLock[key] = Factory(key);
+                }
+            }
+        }
 
-        //[Benchmark]
-        //public void ConcurrentDictionary()
-        //{
-        //    for (var count = 0; count < Loop; count++)
-        //    {
-        //        ConcurrentDictionaryAction(type00);
-        //        ConcurrentDictionaryAction(type01);
-        //        ConcurrentDictionaryAction(type02);
-        //        ConcurrentDictionaryAction(type03);
-        //        ConcurrentDictionaryAction(type04);
-        //        ConcurrentDictionaryAction(type05);
-        //        ConcurrentDictionaryAction(type06);
-        //        ConcurrentDictionaryAction(type07);
-        //        ConcurrentDictionaryAction(type08);
-        //        ConcurrentDictionaryAction(type09);
-        //    }
-        //}
+        [Benchmark]
+        public void ConcurrentDictionary()
+        {
+            for (var count = 0; count < Loop; count++)
+            {
+                ConcurrentDictionaryAction(type00);
+                ConcurrentDictionaryAction(type01);
+                ConcurrentDictionaryAction(type02);
+                ConcurrentDictionaryAction(type03);
+                ConcurrentDictionaryAction(type04);
+                ConcurrentDictionaryAction(type05);
+                ConcurrentDictionaryAction(type06);
+                ConcurrentDictionaryAction(type07);
+                ConcurrentDictionaryAction(type08);
+                ConcurrentDictionaryAction(type09);
+            }
+        }
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //private void ConcurrentDictionaryAction(Type key)
-        //{
-        //    concurrentDictionary.GetOrAdd(key, Factory);
-        //}
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ConcurrentDictionaryAction(Type key)
+        {
+            concurrentDictionary.GetOrAdd(key, Factory);
+        }
 
         [Benchmark]
         public void ConcurrentHashArrayMap()
