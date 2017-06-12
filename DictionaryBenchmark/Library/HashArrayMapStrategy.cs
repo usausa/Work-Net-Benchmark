@@ -57,7 +57,7 @@
 
         public int CalcRequestSize(IHashArrayMapResizeContext context)
         {
-            return (int)Math.Ceiling(context.Count * factor);
+            return (int)Math.Ceiling((context.Count + context.Growth) * factor);
         }
     }
 }

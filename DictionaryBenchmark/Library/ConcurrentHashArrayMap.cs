@@ -73,6 +73,8 @@
 
             var newNodes = new Node[nodes.Length + 1];
             Array.Copy(nodes, 0, newNodes, 0, nodes.Length);
+            newNodes[nodes.Length] = addNode;
+
             return newNodes;
         }
 
@@ -85,6 +87,7 @@
             var mask = (int)(size - 1);
 
             var nodes = new Node[size][];
+
             for (var i = 0; i < nodes.Length; i++)
             {
                 nodes[i] = EmptyNodes;
@@ -134,17 +137,17 @@
             }
             else
             {
-                var size = CalculateSize(strategy.CalcInitialSize());
+                var size = CalculateSize(requestSize);
                 var mask = (int)(size - 1);
                 addIndex = hashCode & mask;
 
-                var nodes = new Node[mask + 1L][];
+                var nodes = new Node[size][];
 
-                for (var i = 0; i < nodes.Length; i++)
+                for (var i = 0; i < oldTable.Nodes.Length; i++)
                 {
-                    for (var j = 0; j < nodes[i].Length; j++)
+                    for (var j = 0; j < oldTable.Nodes[i].Length; j++)
                     {
-                        var node = nodes[i][j];
+                        var node = oldTable.Nodes[i][j];
                         var relocateIndex = node.Key.GetHashCode() & mask;
                         nodes[relocateIndex] = AddNode(nodes[relocateIndex], node);
                     }

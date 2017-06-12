@@ -63,15 +63,15 @@
             }
         }
 
-        //[Benchmark]
-        //public void ConcurrentHashArrayMapDynamic()
-        //{
-        //    var hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new GrowthHashArrayMapStrategy(32));
-        //    foreach (var type in Classes.Types)
-        //    {
-        //        hashArrayMap.AddIfNotExist(type, Factory);
-        //    }
-        //}
+        [Benchmark]
+        public void ConcurrentHashArrayMapGrowth()
+        {
+            var hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new GrowthHashArrayMapStrategy(64));
+            foreach (var type in Classes.Types)
+            {
+                hashArrayMap.AddIfNotExist(type, Factory);
+            }
+        }
 
         [Benchmark]
         public void ImMap()

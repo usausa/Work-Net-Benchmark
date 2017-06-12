@@ -30,7 +30,9 @@
 
         private readonly ConcurrentDictionary<Type, object> concurrentDictionary = new ConcurrentDictionary<Type, object>();
 
-        private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new FixedSizeHashArrayMapStrategy(1024));
+        private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap1 = new ConcurrentHashArrayMap<Type, object>(new FixedSizeHashArrayMapStrategy(1024));
+
+        private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap2 = new ConcurrentHashArrayMap<Type, object>(new GrowthHashArrayMapStrategy(64));
 
         private ImMap<Type, object> imMap = ImMap<Type, object>.Empty;
 
@@ -41,7 +43,8 @@
                 dictionary[type] = new object();
                 dictionaryWithLock[type] = new object();
                 concurrentDictionary[type] = new object();
-                hashArrayMap.AddIfNotExist(type, new object());
+                hashArrayMap1.AddIfNotExist(type, new object());
+                hashArrayMap2.AddIfNotExist(type, new object());
                 imMap = imMap.AddOrUpdate(type, new object());
             }
         }
@@ -134,29 +137,56 @@
         }
 
         [Benchmark]
-        public void ConcurrentHashArrayMap()
+        public void ConcurrentHashArryFixedMap()
         {
             for (var count = 0; count < Loop; count++)
             {
-                ConcurrentHashArrayMapAction(type00);
-                ConcurrentHashArrayMapAction(type01);
-                ConcurrentHashArrayMapAction(type02);
-                ConcurrentHashArrayMapAction(type03);
-                ConcurrentHashArrayMapAction(type04);
-                ConcurrentHashArrayMapAction(type05);
-                ConcurrentHashArrayMapAction(type06);
-                ConcurrentHashArrayMapAction(type07);
-                ConcurrentHashArrayMapAction(type08);
-                ConcurrentHashArrayMapAction(type09);
+                ConcurrentHashArrayMapFixedAction(type00);
+                ConcurrentHashArrayMapFixedAction(type01);
+                ConcurrentHashArrayMapFixedAction(type02);
+                ConcurrentHashArrayMapFixedAction(type03);
+                ConcurrentHashArrayMapFixedAction(type04);
+                ConcurrentHashArrayMapFixedAction(type05);
+                ConcurrentHashArrayMapFixedAction(type06);
+                ConcurrentHashArrayMapFixedAction(type07);
+                ConcurrentHashArrayMapFixedAction(type08);
+                ConcurrentHashArrayMapFixedAction(type09);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ConcurrentHashArrayMapAction(Type key)
+        private void ConcurrentHashArrayMapFixedAction(Type key)
         {
-            if (!hashArrayMap.TryGetValue(key, out object _))
+            if (!hashArrayMap1.TryGetValue(key, out object _))
             {
-                hashArrayMap.AddIfNotExist(key, Factory);
+                hashArrayMap1.AddIfNotExist(key, Factory);
+            }
+        }
+
+        [Benchmark]
+        public void ConcurrentHashArryGrowthMap()
+        {
+            for (var count = 0; count < Loop; count++)
+            {
+                ConcurrentHashArrayMapGrowthAction(type00);
+                ConcurrentHashArrayMapGrowthAction(type01);
+                ConcurrentHashArrayMapGrowthAction(type02);
+                ConcurrentHashArrayMapGrowthAction(type03);
+                ConcurrentHashArrayMapGrowthAction(type04);
+                ConcurrentHashArrayMapGrowthAction(type05);
+                ConcurrentHashArrayMapGrowthAction(type06);
+                ConcurrentHashArrayMapGrowthAction(type07);
+                ConcurrentHashArrayMapGrowthAction(type08);
+                ConcurrentHashArrayMapGrowthAction(type09);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ConcurrentHashArrayMapGrowthAction(Type key)
+        {
+            if (!hashArrayMap2.TryGetValue(key, out object _))
+            {
+                hashArrayMap2.AddIfNotExist(key, Factory);
             }
         }
 
