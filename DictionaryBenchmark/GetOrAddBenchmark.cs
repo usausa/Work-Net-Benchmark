@@ -31,9 +31,7 @@
 
         private readonly ConcurrentDictionary<Type, object> concurrentDictionary = new ConcurrentDictionary<Type, object>();
 
-        private readonly HashListLookupTable<Type, object> lookupTable1 = new HashListLookupTable<Type, object>(1024);
-
-        private readonly HashArrayLookupTable<Type, object> lookupTable2 = new HashArrayLookupTable<Type, object>(1024);
+        private readonly HashArrayMap<Type, object> hashArrayMap = new HashArrayMap<Type, object>(1024);
 
         private ImMap<Type, object> imMap = ImMap<Type, object>.Empty;
 
@@ -44,8 +42,7 @@
                 dictionary[type] = new object();
                 dictionaryWithLock[type] = new object();
                 concurrentDictionary[type] = new object();
-                lookupTable1.Add(type, new object());
-                lookupTable2.Add(type, new object());
+                hashArrayMap.Add(type, new object());
                 imMap = imMap.AddOrUpdate(type, new object());
             }
         }
@@ -56,133 +53,109 @@
             return new object();
         }
 
+        //[Benchmark]
+        //public void Dictionary()
+        //{
+        //    for (var count = 0; count < Loop; count++)
+        //    {
+        //        DictionaryAction(type00);
+        //        DictionaryAction(type01);
+        //        DictionaryAction(type02);
+        //        DictionaryAction(type03);
+        //        DictionaryAction(type04);
+        //        DictionaryAction(type05);
+        //        DictionaryAction(type06);
+        //        DictionaryAction(type07);
+        //        DictionaryAction(type08);
+        //        DictionaryAction(type09);
+        //    }
+        //}
+
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //private void DictionaryAction(Type key)
+        //{
+        //    if (!dictionary.TryGetValue(key, out object _))
+        //    {
+        //        dictionary[key] = Factory(key);
+        //    }
+        //}
+
+        //[Benchmark]
+        //public void DictionaryWithLock()
+        //{
+        //    for (var count = 0; count < Loop; count++)
+        //    {
+        //        DictionaryWithLockAction(type00);
+        //        DictionaryWithLockAction(type01);
+        //        DictionaryWithLockAction(type02);
+        //        DictionaryWithLockAction(type03);
+        //        DictionaryWithLockAction(type04);
+        //        DictionaryWithLockAction(type05);
+        //        DictionaryWithLockAction(type06);
+        //        DictionaryWithLockAction(type07);
+        //        DictionaryWithLockAction(type08);
+        //        DictionaryWithLockAction(type09);
+        //    }
+        //}
+
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //private void DictionaryWithLockAction(Type key)
+        //{
+        //    lock (dictionaryWithLock)
+        //    {
+        //        if (!dictionaryWithLock.TryGetValue(key, out object _))
+        //        {
+        //            dictionaryWithLock[key] = Factory(key);
+        //        }
+        //    }
+        //}
+
+        //[Benchmark]
+        //public void ConcurrentDictionary()
+        //{
+        //    for (var count = 0; count < Loop; count++)
+        //    {
+        //        ConcurrentDictionaryAction(type00);
+        //        ConcurrentDictionaryAction(type01);
+        //        ConcurrentDictionaryAction(type02);
+        //        ConcurrentDictionaryAction(type03);
+        //        ConcurrentDictionaryAction(type04);
+        //        ConcurrentDictionaryAction(type05);
+        //        ConcurrentDictionaryAction(type06);
+        //        ConcurrentDictionaryAction(type07);
+        //        ConcurrentDictionaryAction(type08);
+        //        ConcurrentDictionaryAction(type09);
+        //    }
+        //}
+
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //private void ConcurrentDictionaryAction(Type key)
+        //{
+        //    concurrentDictionary.GetOrAdd(key, Factory);
+        //}
+
         [Benchmark]
-        public void Dictionary()
+        public void HashArrayMap()
         {
             for (var count = 0; count < Loop; count++)
             {
-                DictionaryAction(type00);
-                DictionaryAction(type01);
-                DictionaryAction(type02);
-                DictionaryAction(type03);
-                DictionaryAction(type04);
-                DictionaryAction(type05);
-                DictionaryAction(type06);
-                DictionaryAction(type07);
-                DictionaryAction(type08);
-                DictionaryAction(type09);
+                HashArrayMapAction(type00);
+                HashArrayMapAction(type01);
+                HashArrayMapAction(type02);
+                HashArrayMapAction(type03);
+                HashArrayMapAction(type04);
+                HashArrayMapAction(type05);
+                HashArrayMapAction(type06);
+                HashArrayMapAction(type07);
+                HashArrayMapAction(type08);
+                HashArrayMapAction(type09);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void DictionaryAction(Type key)
+        private void HashArrayMapAction(Type key)
         {
-            if (!dictionary.TryGetValue(key, out object _))
-            {
-                dictionary[key] = Factory(key);
-            }
-        }
-
-        [Benchmark]
-        public void DictionaryWithLock()
-        {
-            for (var count = 0; count < Loop; count++)
-            {
-                DictionaryWithLockAction(type00);
-                DictionaryWithLockAction(type01);
-                DictionaryWithLockAction(type02);
-                DictionaryWithLockAction(type03);
-                DictionaryWithLockAction(type04);
-                DictionaryWithLockAction(type05);
-                DictionaryWithLockAction(type06);
-                DictionaryWithLockAction(type07);
-                DictionaryWithLockAction(type08);
-                DictionaryWithLockAction(type09);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void DictionaryWithLockAction(Type key)
-        {
-            lock (dictionaryWithLock)
-            {
-                if (!dictionaryWithLock.TryGetValue(key, out object _))
-                {
-                    dictionaryWithLock[key] = Factory(key);
-                }
-            }
-        }
-
-        [Benchmark]
-        public void ConcurrentDictionary()
-        {
-            for (var count = 0; count < Loop; count++)
-            {
-                ConcurrentDictionaryAction(type00);
-                ConcurrentDictionaryAction(type01);
-                ConcurrentDictionaryAction(type02);
-                ConcurrentDictionaryAction(type03);
-                ConcurrentDictionaryAction(type04);
-                ConcurrentDictionaryAction(type05);
-                ConcurrentDictionaryAction(type06);
-                ConcurrentDictionaryAction(type07);
-                ConcurrentDictionaryAction(type08);
-                ConcurrentDictionaryAction(type09);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ConcurrentDictionaryAction(Type key)
-        {
-            concurrentDictionary.GetOrAdd(key, Factory);
-        }
-
-        [Benchmark]
-        public void LookupTable1()
-        {
-            for (var count = 0; count < Loop; count++)
-            {
-                LookupTable1Action(type00);
-                LookupTable1Action(type01);
-                LookupTable1Action(type02);
-                LookupTable1Action(type03);
-                LookupTable1Action(type04);
-                LookupTable1Action(type05);
-                LookupTable1Action(type06);
-                LookupTable1Action(type07);
-                LookupTable1Action(type08);
-                LookupTable1Action(type09);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void LookupTable1Action(Type key)
-        {
-            lookupTable1.TryGetValue(key, out object _);
-        }
-
-        [Benchmark]
-        public void LookupTable2()
-        {
-            for (var count = 0; count < Loop; count++)
-            {
-                LookupTable2Action(type00);
-                LookupTable2Action(type01);
-                LookupTable2Action(type02);
-                LookupTable2Action(type03);
-                LookupTable2Action(type04);
-                LookupTable2Action(type05);
-                LookupTable2Action(type06);
-                LookupTable2Action(type07);
-                LookupTable2Action(type08);
-                LookupTable2Action(type09);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void LookupTable2Action(Type key)
-        {
-            lookupTable2.TryGetValue(key, out object _);
+            hashArrayMap.TryGetValue(key, out object _);
         }
 
         [Benchmark]
