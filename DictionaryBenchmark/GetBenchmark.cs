@@ -30,11 +30,9 @@
 
         private readonly ConcurrentDictionary<Type, object> concurrentDictionary = new ConcurrentDictionary<Type, object>();
 
-        private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap1 = new ConcurrentHashArrayMap<Type, object>(new FixedSizeHashArrayMapStrategy(1024));
-
-        private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap2 = new ConcurrentHashArrayMap<Type, object>(new GrowthHashArrayMapStrategy(64));
-
         private ImMap<Type, object> imMap = ImMap<Type, object>.Empty;
+
+        private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new GrowthHashArrayMapStrategy(64));
 
         public GetBenchmark()
         {
@@ -43,8 +41,7 @@
                 dictionary[type] = new object();
                 dictionaryWithLock[type] = new object();
                 concurrentDictionary[type] = new object();
-                hashArrayMap1.AddIfNotExist(type, new object());
-                hashArrayMap2.AddIfNotExist(type, new object());
+                hashArrayMap.AddIfNotExist(type, new object());
                 imMap = imMap.AddOrUpdate(type, new object());
             }
         }
@@ -137,83 +134,56 @@
         }
 
         [Benchmark]
-        public void ConcurrentHashArryFixedMap()
+        public void AvlTree()
         {
             for (var count = 0; count < Loop; count++)
             {
-                ConcurrentHashArrayMapFixedAction(type00);
-                ConcurrentHashArrayMapFixedAction(type01);
-                ConcurrentHashArrayMapFixedAction(type02);
-                ConcurrentHashArrayMapFixedAction(type03);
-                ConcurrentHashArrayMapFixedAction(type04);
-                ConcurrentHashArrayMapFixedAction(type05);
-                ConcurrentHashArrayMapFixedAction(type06);
-                ConcurrentHashArrayMapFixedAction(type07);
-                ConcurrentHashArrayMapFixedAction(type08);
-                ConcurrentHashArrayMapFixedAction(type09);
+                AvlTreeAction(type00);
+                AvlTreeAction(type01);
+                AvlTreeAction(type02);
+                AvlTreeAction(type03);
+                AvlTreeAction(type04);
+                AvlTreeAction(type05);
+                AvlTreeAction(type06);
+                AvlTreeAction(type07);
+                AvlTreeAction(type08);
+                AvlTreeAction(type09);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ConcurrentHashArrayMapFixedAction(Type key)
-        {
-            if (!hashArrayMap1.TryGetValue(key, out object _))
-            {
-                hashArrayMap1.AddIfNotExist(key, Factory);
-            }
-        }
-
-        [Benchmark]
-        public void ConcurrentHashArryGrowthMap()
-        {
-            for (var count = 0; count < Loop; count++)
-            {
-                ConcurrentHashArrayMapGrowthAction(type00);
-                ConcurrentHashArrayMapGrowthAction(type01);
-                ConcurrentHashArrayMapGrowthAction(type02);
-                ConcurrentHashArrayMapGrowthAction(type03);
-                ConcurrentHashArrayMapGrowthAction(type04);
-                ConcurrentHashArrayMapGrowthAction(type05);
-                ConcurrentHashArrayMapGrowthAction(type06);
-                ConcurrentHashArrayMapGrowthAction(type07);
-                ConcurrentHashArrayMapGrowthAction(type08);
-                ConcurrentHashArrayMapGrowthAction(type09);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ConcurrentHashArrayMapGrowthAction(Type key)
-        {
-            if (!hashArrayMap2.TryGetValue(key, out object _))
-            {
-                hashArrayMap2.AddIfNotExist(key, Factory);
-            }
-        }
-
-        [Benchmark]
-        public void ImMap()
-        {
-            for (var count = 0; count < Loop; count++)
-            {
-                ImMapAction(type00);
-                ImMapAction(type01);
-                ImMapAction(type02);
-                ImMapAction(type03);
-                ImMapAction(type04);
-                ImMapAction(type05);
-                ImMapAction(type06);
-                ImMapAction(type07);
-                ImMapAction(type08);
-                ImMapAction(type09);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ImMapAction(Type key)
+        private void AvlTreeAction(Type key)
         {
             if (imMap.GetValueOrDefault(key) == null)
             {
                 imMap = imMap.AddOrUpdate(key, null);
+            }
+        }
+
+        [Benchmark]
+        public void ConcurrentHashArryMap()
+        {
+            for (var count = 0; count < Loop; count++)
+            {
+                ConcurrentHashArrayMapAction(type00);
+                ConcurrentHashArrayMapAction(type01);
+                ConcurrentHashArrayMapAction(type02);
+                ConcurrentHashArrayMapAction(type03);
+                ConcurrentHashArrayMapAction(type04);
+                ConcurrentHashArrayMapAction(type05);
+                ConcurrentHashArrayMapAction(type06);
+                ConcurrentHashArrayMapAction(type07);
+                ConcurrentHashArrayMapAction(type08);
+                ConcurrentHashArrayMapAction(type09);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ConcurrentHashArrayMapAction(Type key)
+        {
+            if (!hashArrayMap.TryGetValue(key, out object _))
+            {
+                hashArrayMap.AddIfNotExist(key, Factory);
             }
         }
     }

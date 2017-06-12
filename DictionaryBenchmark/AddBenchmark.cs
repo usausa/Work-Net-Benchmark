@@ -54,6 +54,16 @@
         }
 
         [Benchmark]
+        public void AvlTree()
+        {
+            var imMap = ImMap<Type, object>.Empty;
+            foreach (var type in Classes.Types)
+            {
+                imMap = imMap.AddOrUpdate(type, null);
+            }
+        }
+
+        [Benchmark]
         public void ConcurrentHashArrayMapFixed()
         {
             var hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new FixedSizeHashArrayMapStrategy(1024));
@@ -70,16 +80,6 @@
             foreach (var type in Classes.Types)
             {
                 hashArrayMap.AddIfNotExist(type, Factory);
-            }
-        }
-
-        [Benchmark]
-        public void ImMap()
-        {
-            var imMap = ImMap<Type, object>.Empty;
-            foreach (var type in Classes.Types)
-            {
-                imMap = imMap.AddOrUpdate(type, null);
             }
         }
     }
