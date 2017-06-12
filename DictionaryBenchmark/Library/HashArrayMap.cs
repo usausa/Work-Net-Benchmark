@@ -167,14 +167,20 @@
             return TryGetValueInternal(table, key, out value);
         }
 
-        public bool AddIfNotExist(TKey key, Func<TKey, TValue> valueFactory)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="valueFactory"></param>
+        /// <returns></returns>
+        public TValue AddIfNotExist(TKey key, Func<TKey, TValue> valueFactory)
         {
             lock (sync)
             {
                 // Double checked locking
-                if (TryGetValueInternal(table, key, out TValue _))
+                if (TryGetValueInternal(table, key, out TValue currentValue))
                 {
-                    return false;
+                    return currentValue;
                 }
 
                 // Rebuild
@@ -182,87 +188,33 @@
                 var newTable = CreateAddTable(table, key, value);
                 Interlocked.Exchange(ref table, newTable);
 
-                return true;
+                return value;
             }
         }
 
-        public bool AddIfNotExist(TKey key, TValue value)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public TValue AddIfNotExist(TKey key, TValue value)
         {
             lock (sync)
             {
                 // Double checked locking
-                if (TryGetValueInternal(table, key, out TValue _))
+                if (TryGetValueInternal(table, key, out TValue currentValue))
                 {
-                    return false;
+                    return currentValue;
                 }
 
                 // Rebuild
                 var newTable = CreateAddTable(table, key, value);
                 Interlocked.Exchange(ref table, newTable);
 
-                return true;
+                return value;
             }
         }
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="key"></param>
-        ///// <param name="valueFactory"></param>
-        ///// <returns></returns>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
-        //{
-        //    if (TryGetValueInternal(table, key, out TValue currentValue))
-        //    {
-        //        return currentValue;
-        //    }
-
-        //    lock (sync)
-        //    {
-        //        // Double checked locking
-        //        if (TryGetValueInternal(table, key, out TValue currentValue2))
-        //        {
-        //            return currentValue2;
-        //        }
-
-        //        // Rebuild
-        //        var value = valueFactory(key);
-        //        var newTable = CreateAddTable(table, key, value);
-        //        Interlocked.Exchange(ref table, newTable);
-
-        //        return value;
-        //    }
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="key"></param>
-        ///// <param name="value"></param>
-        ///// <returns></returns>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public TValue GetOrAdd(TKey key, TValue value)
-        //{
-        //    if (TryGetValueInternal(table, key, out TValue currentValue))
-        //    {
-        //        return currentValue;
-        //    }
-
-        //    lock (sync)
-        //    {
-        //        // Double checked locking
-        //        if (TryGetValueInternal(table, key, out TValue currentValue2))
-        //        {
-        //            return currentValue2;
-        //        }
-
-        //        var newTable = CreateAddTable(table, key, value);
-        //        Interlocked.Exchange(ref table, newTable);
-
-        //        return value;
-        //    }
-        //}
 
         //--------------------------------------------------------------------------------
         // Helper
