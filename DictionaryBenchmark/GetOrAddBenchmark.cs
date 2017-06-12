@@ -42,7 +42,7 @@
                 dictionary[type] = new object();
                 dictionaryWithLock[type] = new object();
                 concurrentDictionary[type] = new object();
-                hashArrayMap.Add(type, new object());
+                hashArrayMap.AddIfNotExist(type, new object());
                 imMap = imMap.AddOrUpdate(type, new object());
             }
         }
@@ -155,7 +155,10 @@
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void HashArrayMapAction(Type key)
         {
-            hashArrayMap.TryGetValue(key, out object _);
+            if (!hashArrayMap.TryGetValue(key, out object _))
+            {
+                hashArrayMap.AddIfNotExist(key, Factory);
+            }
         }
 
         [Benchmark]
@@ -181,7 +184,7 @@
         {
             if (imMap.GetValueOrDefault(key) == null)
             {
-                imMap = imMap.AddOrUpdate(key, Factory(key));
+                imMap = imMap.AddOrUpdate(key, null);
             }
         }
     }

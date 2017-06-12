@@ -24,7 +24,7 @@
         // Constructor
         //--------------------------------------------------------------------------------
 
-        // TODO Auto?
+        // TODO Auto? 初期数、成長判定ストラテジ？ デフォルトは個数固定？
         // TODO AddRange?
 
         /// <summary>
@@ -84,7 +84,7 @@
         /// <returns></returns>
         private static Table CreateAddTable(Table target, TKey key, TValue value)
         {
-            // TODO Resize?
+            // TODO Resizeと再配置?
             var index = key.GetHashCode() & target.HashMask;
 
             var newNodes = new Node[target.Nodes.Length][];
@@ -167,26 +167,14 @@
             return TryGetValueInternal(table, key, out value);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="valueFactory"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
+        public bool AddIfNotExist(TKey key, Func<TKey, TValue> valueFactory)
         {
-            if (TryGetValueInternal(table, key, out TValue currentValue))
-            {
-                return currentValue;
-            }
-
             lock (sync)
             {
                 // Double checked locking
-                if (TryGetValueInternal(table, key, out TValue currentValue2))
+                if (TryGetValueInternal(table, key, out TValue _))
                 {
-                    return currentValue2;
+                    return false;
                 }
 
                 // Rebuild
@@ -194,38 +182,87 @@
                 var newTable = CreateAddTable(table, key, value);
                 Interlocked.Exchange(ref table, newTable);
 
-                return value;
+                return true;
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public TValue GetOrAdd(TKey key, TValue value)
+        public bool AddIfNotExist(TKey key, TValue value)
         {
-            if (TryGetValueInternal(table, key, out TValue currentValue))
-            {
-                return currentValue;
-            }
-
             lock (sync)
             {
                 // Double checked locking
-                if (TryGetValueInternal(table, key, out TValue currentValue2))
+                if (TryGetValueInternal(table, key, out TValue _))
                 {
-                    return currentValue2;
+                    return false;
                 }
 
+                // Rebuild
                 var newTable = CreateAddTable(table, key, value);
                 Interlocked.Exchange(ref table, newTable);
 
-                return value;
+                return true;
             }
         }
+
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <param name="key"></param>
+        ///// <param name="valueFactory"></param>
+        ///// <returns></returns>
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
+        //{
+        //    if (TryGetValueInternal(table, key, out TValue currentValue))
+        //    {
+        //        return currentValue;
+        //    }
+
+        //    lock (sync)
+        //    {
+        //        // Double checked locking
+        //        if (TryGetValueInternal(table, key, out TValue currentValue2))
+        //        {
+        //            return currentValue2;
+        //        }
+
+        //        // Rebuild
+        //        var value = valueFactory(key);
+        //        var newTable = CreateAddTable(table, key, value);
+        //        Interlocked.Exchange(ref table, newTable);
+
+        //        return value;
+        //    }
+        //}
+
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <param name="key"></param>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public TValue GetOrAdd(TKey key, TValue value)
+        //{
+        //    if (TryGetValueInternal(table, key, out TValue currentValue))
+        //    {
+        //        return currentValue;
+        //    }
+
+        //    lock (sync)
+        //    {
+        //        // Double checked locking
+        //        if (TryGetValueInternal(table, key, out TValue currentValue2))
+        //        {
+        //            return currentValue2;
+        //        }
+
+        //        var newTable = CreateAddTable(table, key, value);
+        //        Interlocked.Exchange(ref table, newTable);
+
+        //        return value;
+        //    }
+        //}
 
         //--------------------------------------------------------------------------------
         // Helper
@@ -253,12 +290,6 @@
         public TValue GetValueOrDefault(TKey key, TValue defaultValue = default(TValue))
         {
             return TryGetValue(key, out TValue value) ? value : defaultValue;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Add(TKey key, TValue value)
-        {
-            return GetOrAdd(key, value).Equals(value);
         }
 
         //--------------------------------------------------------------------------------
