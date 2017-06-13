@@ -6,18 +6,19 @@
     {
         int Width { get; }
 
-        int Growth { get; }
+        int Depth { get; }
 
         int Count { get; }
 
-        int Depth { get; }
+        int Growth { get; }
+
     }
 
     public interface IHashArrayMapStrategy
     {
-        int CalcInitialSize();
+        int CalculateInitialSize();
 
-        int CalcRequestSize(IHashArrayMapResizeContext context);
+        int CalculateRequestSize(IHashArrayMapResizeContext context);
     }
 
     public class GrowthHashArrayMapStrategy : IHashArrayMapStrategy
@@ -32,12 +33,12 @@
             this.factor = factor;
         }
 
-        public int CalcInitialSize()
+        public int CalculateInitialSize()
         {
             return initialSize;
         }
 
-        public int CalcRequestSize(IHashArrayMapResizeContext context)
+        public int CalculateRequestSize(IHashArrayMapResizeContext context)
         {
             return (int)Math.Ceiling((context.Count + context.Growth) * factor);
         }

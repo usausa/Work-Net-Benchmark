@@ -86,7 +86,7 @@
         /// </summary>
         private Table CreateInitialTable()
         {
-            var size = CalculateSize(strategy.CalcInitialSize());
+            var size = CalculateSize(strategy.CalculateInitialSize());
             var mask = (int)(size - 1);
 
             var nodes = new Node[size][];
@@ -161,7 +161,7 @@
         /// <returns></returns>
         private Table CreateAddTable(Table oldTable, Node node)
         {
-            var requestSize = strategy.CalcRequestSize(new AddResizeContext(oldTable.Nodes.Length, oldTable.Depth, oldTable.Count, 1));
+            var requestSize = strategy.CalculateRequestSize(new AddResizeContext(oldTable.Nodes.Length, oldTable.Depth, oldTable.Count, 1));
 
             var size = CalculateSize(requestSize);
             var mask = (int)(size - 1);
@@ -185,7 +185,7 @@
         /// <returns></returns>
         private Table CreateAddRangeTable(Table oldTable, ICollection<Node> addNodes)
         {
-            var requestSize = strategy.CalcRequestSize(new AddResizeContext(oldTable.Nodes.Length, oldTable.Depth, oldTable.Count, addNodes.Count));
+            var requestSize = strategy.CalculateRequestSize(new AddResizeContext(oldTable.Nodes.Length, oldTable.Depth, oldTable.Count, addNodes.Count));
 
             var size = CalculateSize(requestSize);
             var mask = (int)(size - 1);
