@@ -9,6 +9,8 @@
         int Growth { get; }
 
         int Count { get; }
+
+        int Depth { get; }
     }
 
     public interface IHashArrayMapStrategy

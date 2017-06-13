@@ -72,5 +72,12 @@
                 hashArrayMap.AddIfNotExist(type, Factory);
             }
         }
+
+        [Benchmark]
+        public void ConcurrentHashArrayMapBulk()
+        {
+            var hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new GrowthHashArrayMapStrategy(64));
+            hashArrayMap.AddRangeIfNotExist(Classes.Types, Factory);
+        }
     }
 }
