@@ -9,6 +9,7 @@
 
     using DictionaryBenchmark.Library;
 
+    [Config(typeof(BenchmarkConfig))]
     public class AddBenchmark
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

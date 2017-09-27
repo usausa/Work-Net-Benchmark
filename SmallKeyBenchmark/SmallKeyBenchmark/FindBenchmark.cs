@@ -8,8 +8,9 @@
     using BenchmarkDotNet.Attributes;
 
     using Smart.Collections.Generic;
-    using Smart.Collections.Generic.Concurrent;
+    using Smart.Collections.Concurrent;
 
+    [Config(typeof(BenchmarkConfig))]
     public class FindBenchmark
     {
         private const int Loop = 100;
@@ -29,15 +30,16 @@
         private readonly Dictionary<Type, object> dic2 = new Dictionary<Type, object>();
         private readonly Dictionary<Type, object> dic3 = new Dictionary<Type, object>();
 
-        private readonly ConcurrentHashArrayMap<Type, object> map1 = new ConcurrentHashArrayMap<Type, object>();
-        private readonly ConcurrentHashArrayMap<Type, object> map2 = new ConcurrentHashArrayMap<Type, object>();
-        private readonly ConcurrentHashArrayMap<Type, object> map3 = new ConcurrentHashArrayMap<Type, object>();
+        private readonly ThreadsafeTypeHashArrayMap<object> map1 = new ThreadsafeTypeHashArrayMap<object>();
+        private readonly ThreadsafeTypeHashArrayMap<object> map2 = new ThreadsafeTypeHashArrayMap<object>();
+        private readonly ThreadsafeTypeHashArrayMap<object> map3 = new ThreadsafeTypeHashArrayMap<object>();
 
-        private readonly KeyValuePair<Type, object>[] ary1;
-        private readonly KeyValuePair<Type, object>[] ary2;
-        private readonly KeyValuePair<Type, object>[] ary3;
+        private KeyValuePair<Type, object>[] ary1;
+        private KeyValuePair<Type, object>[] ary2;
+        private KeyValuePair<Type, object>[] ary3;
 
-        public FindBenchmark()
+        [GlobalSetup]
+        public void Setup()
         {
             // 4.0us(キーが綺麗な時)
             dic1.AddRange(Classes.Types.Take(2).Select(x => new KeyValuePair<Type, object>(x, null)));
@@ -223,8 +225,7 @@
             for (var i = 0; i < array.Length; i++)
             {
                 var pair = array[i];
-                if (ReferenceEquals(pair.Key, key) || pair.Key.Equals(key))
-                //if (ReferenceEquals(pair.Key, key))
+                if (ReferenceEquals(pair.Key, key))
                 {
                     value = pair.Value;
                     return true;

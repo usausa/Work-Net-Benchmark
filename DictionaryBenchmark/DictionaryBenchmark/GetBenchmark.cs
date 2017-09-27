@@ -9,6 +9,7 @@
 
     using DictionaryBenchmark.Library;
 
+    [Config(typeof(BenchmarkConfig))]
     public class GetBenchmark
     {
         private const int Loop = 1000;
@@ -34,15 +35,19 @@
 
         private readonly ConcurrentHashArrayMap<Type, object> hashArrayMap = new ConcurrentHashArrayMap<Type, object>(new GrowthHashArrayMapStrategy(64));
 
-        public GetBenchmark()
+        [GlobalSetup]
+        public void Setup()
         {
-            foreach (var type in Classes.Types)
+            lock (dictionaryWithLock)
             {
-                dictionary[type] = new object();
-                dictionaryWithLock[type] = new object();
-                concurrentDictionary[type] = new object();
-                hashArrayMap.AddIfNotExist(type, new object());
-                imMap = imMap.AddOrUpdate(type, new object());
+                foreach (var type in Classes.Types)
+                {
+                    dictionary[type] = new object();
+                    dictionaryWithLock[type] = new object();
+                    concurrentDictionary[type] = new object();
+                    hashArrayMap.AddIfNotExist(type, new object());
+                    imMap = imMap.AddOrUpdate(type, new object());
+                }
             }
         }
 
