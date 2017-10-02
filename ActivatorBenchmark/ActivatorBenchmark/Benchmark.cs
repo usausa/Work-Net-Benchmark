@@ -122,7 +122,8 @@
             var dynamic = new DynamicMethod(
                 string.Empty,
                 typeof(object),
-                new[] { typeof(object[]) });
+                new[] { typeof(object[]) },
+                true);
             var il = dynamic.GetILGenerator();
 
             for (var i = 0; i < ctor.GetParameters().Length; i++)
