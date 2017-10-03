@@ -23,11 +23,11 @@
         }
     }
 
-    public sealed class ReflectionAcrivator0Activator : IActivator
+    public sealed class ReflectionNoParameterAcrivatorActivator : IActivator
     {
         private readonly Type type;
 
-        public ReflectionAcrivator0Activator(Type type)
+        public ReflectionNoParameterAcrivatorActivator(Type type)
         {
             this.type = type;
         }
