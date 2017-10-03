@@ -14,26 +14,23 @@
 
         private static readonly object[] Parameters8 = { 1, 1, 1, 1, 1, 1, 1, 1 };
 
-        private Func<object[], object> newFunc0;
-        private Func<object[], object> ctorFunc0;
-        private Func<object[], object> activatorFunc0;
-        private Func<object> activatorFunc0B;
-        private Func<object[], object> expressionFunc0;
-        private Func<object> expressionFunc0B;
-        private Func<object[], object> emitFunc0;
-        private Func<object> emitFunc0B;
+        private IActivator newActivator0;
+        private IActivator ctorActivator0;
+        private IActivator activatorActivator0;
+        private IActivator expressionActivator0;
+        private IActivator emitActivator0;
 
-        private Func<object[], object> newFunc1;
-        private Func<object[], object> ctorFunc1;
-        private Func<object[], object> activatorFunc1;
-        private Func<object[], object> expressionFunc1;
-        private Func<object[], object> emitFunc1;
+        private IActivator newActivator1;
+        private IActivator ctorActivator1;
+        private IActivator activatorActivator1;
+        private IActivator expressionActivator1;
+        private IActivator emitActivator1;
 
-        private Func<object[], object> newFunc8;
-        private Func<object[], object> ctorFunc8;
-        private Func<object[], object> activatorFunc8;
-        private Func<object[], object> expressionFunc8;
-        private Func<object[], object> emitFunc8;
+        private IActivator newActivator8;
+        private IActivator ctorActivator8;
+        private IActivator activatorActivator8;
+        private IActivator expressionActivator8;
+        private IActivator emitActivator8;
 
         [GlobalSetup]
         public void Setup()
@@ -47,33 +44,54 @@
             var type8 = typeof(Class8);
             var ctor8 = type8.GetConstructors()[0];
 
-            newFunc0 = parameters => new Class0();
-            ctorFunc0 = parameters => ctor0.Invoke(null);
-            activatorFunc0 = parameters => Activator.CreateInstance(type0);
-            activatorFunc0B = () => Activator.CreateInstance(type0);
-            expressionFunc0 = CreateExpressionActivator(ctor0);
-            expressionFunc0B = CreateExpressionActivator0(ctor0);
-            emitFunc0 = CreateEmitActivator(ctor0);
-            emitFunc0B = CreateEmitActivator0(ctor0);
+            newActivator0 = new New0Activator();
+            ctorActivator0 = new ReflectionConstructorActivator(ctor0);
+            activatorActivator0 = new ReflectionAcrivator0Activator(type0);
+            expressionActivator0 = new DelegateActivator(CreateExpressionActivator(ctor0));
+            emitActivator0 = new DelegateActivator(CreateEmitActivator(ctor0));
 
-            newFunc1 = parameters => new Class1((int)parameters[0]);
-            ctorFunc1 = parameters => ctor1.Invoke(parameters);
-            activatorFunc1 = parameters => Activator.CreateInstance(type1, parameters);
-            expressionFunc1 = CreateExpressionActivator(ctor1);
-            emitFunc1 = CreateEmitActivator(ctor1);
+            newActivator1 = new New1Activator();
+            ctorActivator1 = new ReflectionConstructorActivator(ctor1);
+            activatorActivator1 = new ReflectionAcrivatorActivator(type1);
+            expressionActivator1 = new DelegateActivator(CreateExpressionActivator(ctor1));
+            emitActivator1 = new DelegateActivator(CreateEmitActivator(ctor1));
 
-            newFunc8 = parameters => new Class8(
-                (int) parameters[0], (int) parameters[1], (int) parameters[2], (int) parameters[3],
-                (int) parameters[4], (int) parameters[5], (int) parameters[6], (int) parameters[7]);
-            ctorFunc8 = parameters => ctor8.Invoke(parameters);
-            activatorFunc8 = parameters => Activator.CreateInstance(type8, parameters);
-            expressionFunc8 = CreateExpressionActivator(ctor8);
-            emitFunc8 = CreateEmitActivator(ctor8);
+            newActivator8 = new New8Activator();
+            ctorActivator8 = new ReflectionConstructorActivator(ctor8);
+            activatorActivator8 = new ReflectionAcrivatorActivator(type8);
+            expressionActivator8 = new DelegateActivator(CreateExpressionActivator(ctor8));
+            emitActivator8 = new DelegateActivator(CreateEmitActivator(ctor8));
         }
 
         //--------------------------------------------------------------------------------
         // Builder
         //--------------------------------------------------------------------------------
+
+        private class New0Activator : IActivator
+        {
+            public object Create(params object[] arguments)
+            {
+                return new Class0();
+            }
+        }
+
+        private class New1Activator : IActivator
+        {
+            public object Create(params object[] arguments)
+            {
+                return new Class1((int)arguments[0]);
+            }
+        }
+
+        private class New8Activator : IActivator
+        {
+            public object Create(params object[] arguments)
+            {
+                return new Class8(
+                    (int)arguments[0], (int)arguments[1], (int)arguments[2], (int)arguments[3],
+                    (int)arguments[4], (int)arguments[5], (int)arguments[6], (int)arguments[7]);
+            }
+        }
 
         private static readonly Type ObjectArrayType = typeof(object[]);
 
@@ -109,12 +127,6 @@
             return Expression.Lambda<Func<object[], object>>(
                 Expression.New(ci, argumentsExpression),
                 parametersExpression).Compile();
-        }
-
-        // MEMO 特殊化した方が速い
-        public static Func<object> CreateExpressionActivator0(ConstructorInfo ci)
-        {
-            return Expression.Lambda<Func<object>>(Expression.New(ci)).Compile();
         }
 
         public static Func<object[], object> CreateEmitActivator(ConstructorInfo ctor)
@@ -162,20 +174,6 @@
             return (Func<object[], object>)dynamic.CreateDelegate(typeof(Func<object[], object>));
         }
 
-        public static Func<object> CreateEmitActivator0(ConstructorInfo ci)
-        {
-            var dynamic = new DynamicMethod(
-                string.Empty,
-                typeof(object),
-                Type.EmptyTypes);
-            var il = dynamic.GetILGenerator();
-
-            il.Emit(OpCodes.Newobj, ci);
-            il.Emit(OpCodes.Ret);
-
-            return (Func<object>)dynamic.CreateDelegate(typeof(Func<object>));
-        }
-
         //--------------------------------------------------------------------------------
         // Benchmark.0
         //--------------------------------------------------------------------------------
@@ -183,49 +181,31 @@
         [Benchmark]
         public object New0()
         {
-            return newFunc0(null);
+            return newActivator0.Create(null);
         }
 
         [Benchmark]
         public object Ctor0()
         {
-            return ctorFunc0(null);
+            return ctorActivator0.Create(null);
         }
 
         [Benchmark]
         public object Activator0()
         {
-            return activatorFunc0(null);
-        }
-
-        [Benchmark]
-        public object Activator0B()
-        {
-            return activatorFunc0B();
+            return activatorActivator0.Create(null);
         }
 
         [Benchmark]
         public object Expression0()
         {
-            return expressionFunc0(null);
-        }
-
-        [Benchmark]
-        public object Expression0B()
-        {
-            return expressionFunc0B();
+            return expressionActivator0.Create(null);
         }
 
         [Benchmark]
         public object Emit0()
         {
-            return emitFunc0(null);
-        }
-
-        [Benchmark]
-        public object Emit0B()
-        {
-            return emitFunc0B();
+            return emitActivator0.Create(null);
         }
 
         //--------------------------------------------------------------------------------
@@ -235,31 +215,31 @@
         [Benchmark]
         public object New1()
         {
-            return newFunc1(Parameters1);
+            return newActivator1.Create(Parameters1);
         }
 
         [Benchmark]
         public object Ctor1()
         {
-            return ctorFunc1(Parameters1);
+            return ctorActivator1.Create(Parameters1);
         }
 
         [Benchmark]
         public object Activator1()
         {
-            return activatorFunc1(Parameters1);
+            return activatorActivator1.Create(Parameters1);
         }
 
         [Benchmark]
         public object Expression1()
         {
-            return expressionFunc1(Parameters1);
+            return expressionActivator1.Create(Parameters1);
         }
 
         [Benchmark]
         public object Emit1()
         {
-            return emitFunc1(Parameters1);
+            return emitActivator1.Create(Parameters1);
         }
 
         //--------------------------------------------------------------------------------
@@ -269,31 +249,31 @@
         [Benchmark]
         public object New8()
         {
-            return newFunc8(Parameters8);
+            return newActivator8.Create(Parameters8);
         }
 
         [Benchmark]
         public object Ctor8()
         {
-            return ctorFunc8(Parameters8);
+            return ctorActivator8.Create(Parameters8);
         }
 
         [Benchmark]
         public object Activator8()
         {
-            return activatorFunc8(Parameters8);
+            return activatorActivator8.Create(Parameters8);
         }
 
         [Benchmark]
         public object Expression8()
         {
-            return expressionFunc8(Parameters8);
+            return expressionActivator8.Create(Parameters8);
         }
 
         [Benchmark]
         public object Emit8()
         {
-            return emitFunc8(Parameters8);
+            return emitActivator8.Create(Parameters8);
         }
     }
 }

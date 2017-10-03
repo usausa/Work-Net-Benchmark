@@ -23,6 +23,21 @@
         }
     }
 
+    public class ReflectionAcrivator0Activator : IActivator
+    {
+        private readonly Type type;
+
+        public ReflectionAcrivator0Activator(Type type)
+        {
+            this.type = type;
+        }
+
+        public object Create(params object[] arguments)
+        {
+            return Activator.CreateInstance(type);
+        }
+    }
+
     public class ReflectionAcrivatorActivator : IActivator
     {
         private readonly Type type;
