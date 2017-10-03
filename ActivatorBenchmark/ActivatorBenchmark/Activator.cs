@@ -8,7 +8,7 @@
         object Create(params object[] arguments);
     }
 
-    public class DelegateActivator : IActivator
+    public sealed class DelegateActivator : IActivator
     {
         private readonly Func<object[], object> func;
 
@@ -23,7 +23,7 @@
         }
     }
 
-    public class ReflectionAcrivator0Activator : IActivator
+    public sealed class ReflectionAcrivator0Activator : IActivator
     {
         private readonly Type type;
 
@@ -38,7 +38,7 @@
         }
     }
 
-    public class ReflectionAcrivatorActivator : IActivator
+    public sealed class ReflectionAcrivatorActivator : IActivator
     {
         private readonly Type type;
 
@@ -53,7 +53,7 @@
         }
     }
 
-    public class ReflectionConstructorActivator : IActivator
+    public sealed class ReflectionConstructorActivator : IActivator
     {
         private readonly ConstructorInfo ci;
 

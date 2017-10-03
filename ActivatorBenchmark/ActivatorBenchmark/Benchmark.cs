@@ -73,7 +73,7 @@
         // Builder
         //--------------------------------------------------------------------------------
 
-        private class New0Activator : IActivator
+        private sealed class New0Activator : IActivator
         {
             public object Create(params object[] arguments)
             {
@@ -81,7 +81,7 @@
             }
         }
 
-        private class New1Activator : IActivator
+        private sealed class New1Activator : IActivator
         {
             public object Create(params object[] arguments)
             {
@@ -89,7 +89,7 @@
             }
         }
 
-        private class New8Activator : IActivator
+        private sealed class New8Activator : IActivator
         {
             public object Create(params object[] arguments)
             {
@@ -205,7 +205,9 @@
                 AssemblyBuilderAccess.Run);
             var moduleBuilder = assemblyBuilder.DefineDynamicModule("DynamicActivator");
 
-            var typeBuilder = moduleBuilder.DefineType(ctor.DeclaringType.FullName + "_Activator");
+            var typeBuilder = moduleBuilder.DefineType(
+                ctor.DeclaringType.FullName + "_Activator",
+                TypeAttributes.Public | TypeAttributes.Sealed);
 
             typeBuilder.AddInterfaceImplementation(typeof(IActivator));
             var methodBuilder = typeBuilder.DefineMethod(
