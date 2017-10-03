@@ -19,18 +19,21 @@
         private IActivator activatorActivator0;
         private IActivator expressionActivator0;
         private IActivator emitActivator0;
+        private IActivator emitActivator0B;
 
         private IActivator newActivator1;
         private IActivator ctorActivator1;
         private IActivator activatorActivator1;
         private IActivator expressionActivator1;
         private IActivator emitActivator1;
+        private IActivator emitActivator1B;
 
         private IActivator newActivator8;
         private IActivator ctorActivator8;
         private IActivator activatorActivator8;
         private IActivator expressionActivator8;
         private IActivator emitActivator8;
+        private IActivator emitActivator8B;
 
         [GlobalSetup]
         public void Setup()
@@ -49,18 +52,21 @@
             activatorActivator0 = new ReflectionAcrivator0Activator(type0);
             expressionActivator0 = new DelegateActivator(CreateExpressionActivator(ctor0));
             emitActivator0 = new DelegateActivator(CreateEmitActivator(ctor0));
+            emitActivator0B = CreateDynamicActivator(ctor0);
 
             newActivator1 = new New1Activator();
             ctorActivator1 = new ReflectionConstructorActivator(ctor1);
             activatorActivator1 = new ReflectionAcrivatorActivator(type1);
             expressionActivator1 = new DelegateActivator(CreateExpressionActivator(ctor1));
             emitActivator1 = new DelegateActivator(CreateEmitActivator(ctor1));
+            emitActivator1B = CreateDynamicActivator(ctor1);
 
             newActivator8 = new New8Activator();
             ctorActivator8 = new ReflectionConstructorActivator(ctor8);
             activatorActivator8 = new ReflectionAcrivatorActivator(type8);
             expressionActivator8 = new DelegateActivator(CreateExpressionActivator(ctor8));
             emitActivator8 = new DelegateActivator(CreateEmitActivator(ctor8));
+            emitActivator8B = CreateDynamicActivator(ctor8);
         }
 
         //--------------------------------------------------------------------------------
@@ -143,15 +149,33 @@
                 il.Emit(OpCodes.Ldarg_0);
                 switch (i)
                 {
-                    case 0: il.Emit(OpCodes.Ldc_I4_0); break;
-                    case 1: il.Emit(OpCodes.Ldc_I4_1); break;
-                    case 2: il.Emit(OpCodes.Ldc_I4_2); break;
-                    case 3: il.Emit(OpCodes.Ldc_I4_3); break;
-                    case 4: il.Emit(OpCodes.Ldc_I4_4); break;
-                    case 5: il.Emit(OpCodes.Ldc_I4_5); break;
-                    case 6: il.Emit(OpCodes.Ldc_I4_6); break;
-                    case 7: il.Emit(OpCodes.Ldc_I4_7); break;
-                    case 8: il.Emit(OpCodes.Ldc_I4_8); break;
+                    case 0:
+                        il.Emit(OpCodes.Ldc_I4_0);
+                        break;
+                    case 1:
+                        il.Emit(OpCodes.Ldc_I4_1);
+                        break;
+                    case 2:
+                        il.Emit(OpCodes.Ldc_I4_2);
+                        break;
+                    case 3:
+                        il.Emit(OpCodes.Ldc_I4_3);
+                        break;
+                    case 4:
+                        il.Emit(OpCodes.Ldc_I4_4);
+                        break;
+                    case 5:
+                        il.Emit(OpCodes.Ldc_I4_5);
+                        break;
+                    case 6:
+                        il.Emit(OpCodes.Ldc_I4_6);
+                        break;
+                    case 7:
+                        il.Emit(OpCodes.Ldc_I4_7);
+                        break;
+                    case 8:
+                        il.Emit(OpCodes.Ldc_I4_8);
+                        break;
                     default:
                         if (i < 128)
                         {
@@ -172,6 +196,81 @@
             il.Emit(OpCodes.Ret);
 
             return (Func<object[], object>)dynamic.CreateDelegate(typeof(Func<object[], object>));
+        }
+
+        private static IActivator CreateDynamicActivator(ConstructorInfo ctor)
+        {
+            var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(
+                new AssemblyName("DynamicActivator"),
+                AssemblyBuilderAccess.Run);
+            var moduleBuilder = assemblyBuilder.DefineDynamicModule("DynamicActivator");
+
+            var typeBuilder = moduleBuilder.DefineType(ctor.DeclaringType.FullName + "_Activator");
+
+            typeBuilder.AddInterfaceImplementation(typeof(IActivator));
+            var methodBuilder = typeBuilder.DefineMethod(
+                nameof(IActivator.Create),
+                MethodAttributes.Public | MethodAttributes.Virtual,
+                typeof(object),
+                new[] { typeof(object[]) });
+            typeBuilder.DefineMethodOverride(methodBuilder, typeof(IActivator).GetMethod(nameof(IActivator.Create)));
+
+            var il = methodBuilder.GetILGenerator();
+
+            for (var i = 0; i < ctor.GetParameters().Length; i++)
+            {
+                il.Emit(OpCodes.Ldarg_1);
+                switch (i)
+                {
+                    case 0:
+                        il.Emit(OpCodes.Ldc_I4_0);
+                        break;
+                    case 1:
+                        il.Emit(OpCodes.Ldc_I4_1);
+                        break;
+                    case 2:
+                        il.Emit(OpCodes.Ldc_I4_2);
+                        break;
+                    case 3:
+                        il.Emit(OpCodes.Ldc_I4_3);
+                        break;
+                    case 4:
+                        il.Emit(OpCodes.Ldc_I4_4);
+                        break;
+                    case 5:
+                        il.Emit(OpCodes.Ldc_I4_5);
+                        break;
+                    case 6:
+                        il.Emit(OpCodes.Ldc_I4_6);
+                        break;
+                    case 7:
+                        il.Emit(OpCodes.Ldc_I4_7);
+                        break;
+                    case 8:
+                        il.Emit(OpCodes.Ldc_I4_8);
+                        break;
+                    default:
+                        if (i < 128)
+                        {
+                            il.Emit(OpCodes.Ldc_I4_S, (sbyte)i);
+                        }
+                        else
+                        {
+                            il.Emit(OpCodes.Ldc_I4, i);
+                        }
+                        break;
+                }
+                il.Emit(OpCodes.Ldelem_Ref);
+                var paramType = ctor.GetParameters()[i].ParameterType;
+                il.Emit(paramType.GetTypeInfo().IsValueType ? OpCodes.Unbox_Any : OpCodes.Castclass, paramType);
+            }
+
+            il.Emit(OpCodes.Newobj, ctor);
+            il.Emit(OpCodes.Ret);
+
+            var type = typeBuilder.CreateType();
+
+            return (IActivator)Activator.CreateInstance(type);
         }
 
         //--------------------------------------------------------------------------------
@@ -208,6 +307,12 @@
             return emitActivator0.Create(null);
         }
 
+        [Benchmark]
+        public object Emit0B()
+        {
+            return emitActivator0B.Create(null);
+        }
+
         //--------------------------------------------------------------------------------
         // Benchmark.1
         //--------------------------------------------------------------------------------
@@ -242,6 +347,12 @@
             return emitActivator1.Create(Parameters1);
         }
 
+        [Benchmark]
+        public object Emit1B()
+        {
+            return emitActivator1B.Create(Parameters1);
+        }
+
         //--------------------------------------------------------------------------------
         // Benchmark.8
         //--------------------------------------------------------------------------------
@@ -274,6 +385,12 @@
         public object Emit8()
         {
             return emitActivator8.Create(Parameters8);
+        }
+
+        [Benchmark]
+        public object Emit8B()
+        {
+            return emitActivator8B.Create(Parameters8);
         }
     }
 }
