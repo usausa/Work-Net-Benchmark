@@ -10,6 +10,11 @@
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
+        private sealed class Holder
+        {
+            public Func<object[], object> Func { get; set; }
+        }
+
         private static readonly object[] Parameters1 = { 1 };
 
         private static readonly object[] Parameters8 = { 1, 1, 1, 1, 1, 1, 1, 1 };
@@ -17,23 +22,32 @@
         private IActivator newActivator0;
         private IActivator ctorActivator0;
         private IActivator activatorActivator0;
-        private IActivator expressionActivator0;
-        private IActivator emitActivator0;
+        private IActivator expressionDelegateActivator0;
+        private IActivator emitDelegateActivator0;
         private IActivator emitActivator0B;
+        private Func<object[], object> expression0;
+        private Func<object[], object> dynamicMethod0;
+        private readonly Holder holder0 = new Holder();
 
         private IActivator newActivator1;
         private IActivator ctorActivator1;
         private IActivator activatorActivator1;
-        private IActivator expressionActivator1;
-        private IActivator emitActivator1;
+        private IActivator expressionDelegateActivator1;
+        private IActivator emitDelegateActivator1;
         private IActivator emitActivator1B;
+        private Func<object[], object> expression1;
+        private Func<object[], object> dynamicMethod1;
+        private readonly Holder holder1 = new Holder();
 
         private IActivator newActivator8;
         private IActivator ctorActivator8;
         private IActivator activatorActivator8;
-        private IActivator expressionActivator8;
-        private IActivator emitActivator8;
+        private IActivator expressionDelegateActivator8;
+        private IActivator emitDelegateActivator8;
         private IActivator emitActivator8B;
+        private Func<object[], object> expression8;
+        private Func<object[], object> dynamicMethod8;
+        private readonly Holder holder8 = new Holder();
 
         [GlobalSetup]
         public void Setup()
@@ -50,23 +64,32 @@
             newActivator0 = new New0Activator();
             ctorActivator0 = new ReflectionConstructorActivator(ctor0);
             activatorActivator0 = new ReflectionNoParameterAcrivatorActivator(type0);   // specilized
-            expressionActivator0 = new DelegateActivator(CreateExpressionActivator(ctor0));
-            emitActivator0 = new DelegateActivator(CreateEmitActivator(ctor0));
+            expression0 = CreateExpressionActivator(ctor0);
+            expressionDelegateActivator0 = new DelegateActivator(expression0);
+            dynamicMethod0 = CreateEmitActivator(ctor0);
+            emitDelegateActivator0 = new DelegateActivator(dynamicMethod0);
             emitActivator0B = CreateDynamicActivator(ctor0);
+            holder0.Func = dynamicMethod0;
 
             newActivator1 = new New1Activator();
             ctorActivator1 = new ReflectionConstructorActivator(ctor1);
             activatorActivator1 = new ReflectionAcrivatorActivator(type1);
-            expressionActivator1 = new DelegateActivator(CreateExpressionActivator(ctor1));
-            emitActivator1 = new DelegateActivator(CreateEmitActivator(ctor1));
+            expression1 = CreateExpressionActivator(ctor1);
+            expressionDelegateActivator1 = new DelegateActivator(expression1);
+            dynamicMethod1 = CreateEmitActivator(ctor1);
+            emitDelegateActivator1 = new DelegateActivator(dynamicMethod1);
             emitActivator1B = CreateDynamicActivator(ctor1);
+            holder1.Func = dynamicMethod1;
 
             newActivator8 = new New8Activator();
             ctorActivator8 = new ReflectionConstructorActivator(ctor8);
             activatorActivator8 = new ReflectionAcrivatorActivator(type8);
-            expressionActivator8 = new DelegateActivator(CreateExpressionActivator(ctor8));
-            emitActivator8 = new DelegateActivator(CreateEmitActivator(ctor8));
+            expression8 = CreateExpressionActivator(ctor8);
+            expressionDelegateActivator8 = new DelegateActivator(expression8);
+            dynamicMethod8 = CreateEmitActivator(ctor8);
+            emitDelegateActivator8 = new DelegateActivator(dynamicMethod8);
             emitActivator8B = CreateDynamicActivator(ctor8);
+            holder8.Func = dynamicMethod8;
         }
 
         //--------------------------------------------------------------------------------
@@ -246,39 +269,57 @@
         //--------------------------------------------------------------------------------
 
         [Benchmark]
-        public object New0()
+        public object NewActivator0()
         {
             return newActivator0.Create(null);
         }
 
         [Benchmark]
-        public object Ctor0()
+        public object ReflactionCtorActivator0()
         {
             return ctorActivator0.Create(null);
         }
 
         [Benchmark]
-        public object Activator0()
+        public object ReflectionActivatorActivator0()
         {
             return activatorActivator0.Create(null);
         }
 
         [Benchmark]
-        public object Expression0()
+        public object ExpressionDelegateActivator0()
         {
-            return expressionActivator0.Create(null);
+            return expressionDelegateActivator0.Create(null);
         }
 
         [Benchmark]
-        public object Emit0()
+        public object EmitDelegateActivator0()
         {
-            return emitActivator0.Create(null);
+            return emitDelegateActivator0.Create(null);
         }
 
         [Benchmark]
-        public object Emit0B()
+        public object EmitActivator0()
         {
             return emitActivator0B.Create(null);
+        }
+
+        [Benchmark]
+        public object ExpressionDirect0()
+        {
+            return expression0(null);
+        }
+
+        [Benchmark]
+        public object EmitDirect0()
+        {
+            return dynamicMethod0(null);
+        }
+
+        [Benchmark]
+        public object EmitIndirect0()
+        {
+            return holder0.Func(null);
         }
 
         //--------------------------------------------------------------------------------
@@ -286,39 +327,57 @@
         //--------------------------------------------------------------------------------
 
         [Benchmark]
-        public object New1()
+        public object NewActivator1()
         {
             return newActivator1.Create(Parameters1);
         }
 
         [Benchmark]
-        public object Ctor1()
+        public object ReflactionCtorActivator1()
         {
             return ctorActivator1.Create(Parameters1);
         }
 
         [Benchmark]
-        public object Activator1()
+        public object ReflectionActivatorActivator1()
         {
             return activatorActivator1.Create(Parameters1);
         }
 
         [Benchmark]
-        public object Expression1()
+        public object ExpressionDelegateActivator1()
         {
-            return expressionActivator1.Create(Parameters1);
+            return expressionDelegateActivator1.Create(Parameters1);
         }
 
         [Benchmark]
-        public object Emit1()
+        public object EmitDelegateActivator1()
         {
-            return emitActivator1.Create(Parameters1);
+            return emitDelegateActivator1.Create(Parameters1);
         }
 
         [Benchmark]
-        public object Emit1B()
+        public object EmitActivator1()
         {
             return emitActivator1B.Create(Parameters1);
+        }
+
+        [Benchmark]
+        public object ExpressionDirect1()
+        {
+            return expression1(Parameters1);
+        }
+
+        [Benchmark]
+        public object EmitDirect1()
+        {
+            return dynamicMethod1(Parameters1);
+        }
+
+        [Benchmark]
+        public object EmitIndirect1()
+        {
+            return holder1.Func(Parameters1);
         }
 
         //--------------------------------------------------------------------------------
@@ -326,39 +385,57 @@
         //--------------------------------------------------------------------------------
 
         [Benchmark]
-        public object New8()
+        public object NewActivator8()
         {
             return newActivator8.Create(Parameters8);
         }
 
         [Benchmark]
-        public object Ctor8()
+        public object ReflactionCtorActivator8()
         {
             return ctorActivator8.Create(Parameters8);
         }
 
         [Benchmark]
-        public object Activator8()
+        public object ReflectionActivatorActivator8()
         {
             return activatorActivator8.Create(Parameters8);
         }
 
         [Benchmark]
-        public object Expression8()
+        public object ExpressionDelegateActivator8()
         {
-            return expressionActivator8.Create(Parameters8);
+            return expressionDelegateActivator8.Create(Parameters8);
         }
 
         [Benchmark]
-        public object Emit8()
+        public object EmitDelegateActivator8()
         {
-            return emitActivator8.Create(Parameters8);
+            return emitDelegateActivator8.Create(Parameters8);
         }
 
         [Benchmark]
-        public object Emit8B()
+        public object EmitActivator8()
         {
             return emitActivator8B.Create(Parameters8);
+        }
+
+        [Benchmark]
+        public object ExpressionDirect8()
+        {
+            return expression8(Parameters8);
+        }
+
+        [Benchmark]
+        public object EmitDirect8()
+        {
+            return dynamicMethod8(Parameters8);
+        }
+
+        [Benchmark]
+        public object EmitIndirect8()
+        {
+            return holder8.Func(Parameters8);
         }
     }
 }
