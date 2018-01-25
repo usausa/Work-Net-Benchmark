@@ -10,8 +10,6 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.10.12" />
-    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
