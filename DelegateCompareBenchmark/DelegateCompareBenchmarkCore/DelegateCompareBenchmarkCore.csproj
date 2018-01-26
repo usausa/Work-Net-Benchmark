@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>DelegateCompareBenchmark</RootNamespace>
-    <AssemblyName>elegate call</AssemblyName>
+    <AssemblyName>DelegateCompareBenchmarkCore</AssemblyName>
   </PropertyGroup>
 
   <Import Project="..\DelegateCompareBenchmark\DelegateCompareBenchmark.projitems" Label="Shared" />

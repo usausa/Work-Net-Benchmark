@@ -3,6 +3,7 @@
     using System;
     using System.Reflection;
     using System.Reflection.Emit;
+
     using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Configs;
     using BenchmarkDotNet.Diagnosers;
@@ -34,6 +35,8 @@
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
+        private Func<object> callDirect;
+
         private Func<object> callStaticMethod;
 
         private Func<object> callInstanceMethod;
@@ -41,9 +44,16 @@
         [GlobalSetup]
         public void Setup()
         {
+            callDirect = () => null;
             callStaticMethod = Caller.CallStaticMethod;
             var caller = new Caller();
             callInstanceMethod = caller.CallInstanceMethod;
+        }
+
+        [Benchmark]
+        public void CallDirect()
+        {
+            callDirect();
         }
 
         [Benchmark]
