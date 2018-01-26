@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RootNamespace>DelegateCompareBenchmark</RootNamespace>
+    <AssemblyName>elegate call</AssemblyName>
+  </PropertyGroup>
+
+  <Import Project="..\DelegateCompareBenchmark\DelegateCompareBenchmark.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.10.12" />
+  </ItemGroup>
+
+</Project>
