@@ -41,6 +41,8 @@
 
         private Func<object> callInstanceMethod;
 
+        private Func<object> callDynamic;
+
         [GlobalSetup]
         public void Setup()
         {
@@ -48,6 +50,7 @@
             callStaticMethod = Caller.CallStaticMethod;
             var caller = new Caller();
             callInstanceMethod = caller.CallInstanceMethod;
+            callDynamic = Generator.Create();
         }
 
         [Benchmark]
@@ -67,6 +70,12 @@
         {
             callInstanceMethod();
         }
+
+        [Benchmark]
+        public void CallDynamic()
+        {
+            callDynamic();
+        }
     }
 
     public class Caller
@@ -79,6 +88,20 @@
         public object CallInstanceMethod()
         {
             return null;
+        }
+    }
+
+    public static class Generator
+    {
+        public static Func<object> Create()
+        {
+            var dynamic = new DynamicMethod(string.Empty, typeof(object), new[] { typeof(object) }, true);
+            var il = dynamic.GetILGenerator();
+
+            il.Emit(OpCodes.Ldnull);
+            il.Emit(OpCodes.Ret);
+
+            return (Func<object>)dynamic.CreateDelegate(typeof(Func<object>), null);
         }
     }
 }
