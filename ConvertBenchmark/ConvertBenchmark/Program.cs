@@ -1,8 +1,7 @@
-﻿using System;
-using System.Globalization;
-
-namespace ConvertBenchmark
+﻿namespace ConvertBenchmark
 {
+    using System;
+    using System.Globalization;
     using System.Reflection;
     using System.Text;
     using BenchmarkDotNet.Attributes;
