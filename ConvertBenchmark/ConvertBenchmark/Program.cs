@@ -1,4 +1,7 @@
-﻿namespace ConvertBenchmark
+﻿using System;
+using System.Globalization;
+
+namespace ConvertBenchmark
 {
     using System.Reflection;
     using System.Text;
@@ -49,22 +52,128 @@
         }
 
         [Benchmark]
-        public void Ascii()
+        public string Ascii()
         {
-            ascii.GetString(Bytes);
+            return ascii.GetString(Bytes);
         }
 
         [Benchmark]
-        public void Utf8()
+        public string Utf8()
         {
-            utf8.GetString(Bytes);
+            return utf8.GetString(Bytes);
         }
 
         [Benchmark]
-        public void Sjis()
+        public string Sjis()
         {
-            sjis.GetString(Bytes);
+            return sjis.GetString(Bytes);
         }
     }
 
+    [Config(typeof(BenchmarkConfig))]
+    public class ParseNumberBenchmark
+    {
+        private static readonly string Text = "12345678";
+
+        // Any
+
+        [Benchmark]
+        public int Any_NumberFormat_Current()
+        {
+            return Int32.Parse(Text, NumberStyles.Any, NumberFormatInfo.CurrentInfo);
+        }
+
+        [Benchmark]
+        public int Any_NumberFormat_Invariant()
+        {
+            return Int32.Parse(Text, NumberStyles.Any, NumberFormatInfo.InvariantInfo);
+        }
+
+        [Benchmark]
+        public int Any_Culture_Invariant()
+        {
+            return Int32.Parse(Text, NumberStyles.Any, CultureInfo.InvariantCulture);
+        }
+
+        // Number
+
+        [Benchmark]
+        public int Number_NumberFormat_Current()
+        {
+            return Int32.Parse(Text, NumberStyles.Number, NumberFormatInfo.CurrentInfo);
+        }
+
+        [Benchmark]
+        public int Number_NumberFormat_Invariant()
+        {
+            return Int32.Parse(Text, NumberStyles.Number, NumberFormatInfo.InvariantInfo);
+        }
+
+        [Benchmark]
+        public int Number_Culture_Invariant()
+        {
+            return Int32.Parse(Text, NumberStyles.Number, CultureInfo.InvariantCulture);
+        }
+
+        // Integer
+
+        [Benchmark]
+        public int Integer_NumberFormat_Current()
+        {
+            return Int32.Parse(Text, NumberStyles.Integer, NumberFormatInfo.CurrentInfo);
+        }
+
+        [Benchmark]
+        public int Integer_NumberFormat_Invariant()
+        {
+            return Int32.Parse(Text, NumberStyles.Integer, NumberFormatInfo.InvariantInfo);
+        }
+
+        [Benchmark]
+        public int Integer_Culture_Invariant()
+        {
+            return Int32.Parse(Text, NumberStyles.Integer, CultureInfo.InvariantCulture);
+        }
+
+        // None
+
+        [Benchmark]
+        public int None_NumberFormat_Current()
+        {
+            return Int32.Parse(Text, NumberStyles.None, NumberFormatInfo.CurrentInfo);
+        }
+
+        [Benchmark]
+        public int None_NumberFormat_Invariant()
+        {
+            return Int32.Parse(Text, NumberStyles.None, NumberFormatInfo.InvariantInfo);
+        }
+
+        [Benchmark]
+        public int None_Culture_Invariant()
+        {
+            return Int32.Parse(Text, NumberStyles.None, CultureInfo.InvariantCulture);
+        }
+
+        // Custom
+
+        [Benchmark]
+        public int Custom()
+        {
+            return ParseInt(Text);
+        }
+
+        private static int ParseInt(string str)
+        {
+            // No check
+            var value = 0;
+            for (var i = 0; i < str.Length; i++)
+            {
+                value *= 10;
+                value += str[i] - '0';
+            }
+
+            return value;
+        }
+    }
 }
