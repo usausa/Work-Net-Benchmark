@@ -1,6 +1,7 @@
 ﻿namespace CreateBenchmark
 {
     using System;
+    using System.Runtime.CompilerServices;
 
     using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Configs;
@@ -33,72 +34,149 @@
     {
     }
 
-    public static class Factory<T> where T : new()
+    public class InstanceDataFactory
     {
-        public static T Create()
+        public object Create()
         {
-            return new T();
+            return new Data();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public object CreateInline()
+        {
+            return new Data();
+        }
+    }
+
+    public static class StaticDataFactory
+    {
+        public static object Create()
+        {
+            return new Data();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static object CreateInline()
+        {
+            return new Data();
         }
     }
 
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
-        private Func<object> factory;
+        private readonly InstanceDataFactory o = new InstanceDataFactory();
 
-        private Func<object[], object> factory2;
+        private Func<object> instanceFactory;
+
+        private Func<object> instanceInlineFactory;
+
+        private Func<object> staticFactory;
+
+        private Func<object> staticInlineFactory;
+
+        private Func<object> delegateFactory1;
+
+        private Func<object[], object> delegateFactory2;
 
         [GlobalSetup]
         public void Setup()
         {
-            factory = DelegateFactory.Default.CreateFactory0(typeof(Data).GetConstructors()[0]);
-            factory2 = DelegateFactory.Default.CreateFactory(typeof(Data).GetConstructors()[0]);
+            instanceFactory = o.Create;
+            instanceInlineFactory = o.CreateInline;
+            staticFactory = StaticDataFactory.Create;
+            staticInlineFactory = StaticDataFactory.CreateInline;
+
+            delegateFactory1 = DelegateFactory.Default.CreateFactory0(typeof(Data).GetConstructors()[0]);
+            delegateFactory2 = DelegateFactory.Default.CreateFactory(typeof(Data).GetConstructors()[0]);
         }
 
-        private Data Create1()
+        // Raw
+
+        [Benchmark]
+        public object Raw()
         {
             return new Data();
         }
 
-        private static Data Create2()
+        // Class
+
+        [Benchmark]
+        public object DirectInstanceFactory()
         {
-            return new Data();
+            return o.Create();
         }
 
         [Benchmark]
-        public Data NewRaw()
+        public object DirectInstanceFactoryInline()
         {
-            return new Data();
+            return o.CreateInline();
         }
 
         [Benchmark]
-        public Data NewIndirect1()
+        public object DirectStaticFactory()
         {
-            return Create1();
+            return StaticDataFactory.Create();
         }
 
         [Benchmark]
-        public Data NewIndirect2()
+        public object DirectStaticFactoryInline()
         {
-            return Create2();
+            return StaticDataFactory.CreateInline();
+        }
+
+        // Func
+
+        [Benchmark]
+        public object InstanceFactory()
+        {
+            return instanceFactory();
         }
 
         [Benchmark]
-        public Data NewConstraint()
+        public object InstanceFactoryInline()
         {
-            return Factory<Data>.Create();
+            return instanceInlineFactory();
         }
 
         [Benchmark]
-        public Data Factory()
+        public object StaticFactory()
         {
-            return (Data)factory();
+            return staticFactory();
         }
 
         [Benchmark]
-        public Data Factory2()
+        public object StaticFactoryInline()
         {
-            return (Data)factory2(null);
+            return staticInlineFactory();
+        }
+
+        // Delegate
+
+        [Benchmark]
+        public object DelegateFactory1()
+        {
+            return delegateFactory1();
+        }
+
+        [Benchmark]
+        public object DelegateFactory2()
+        {
+            return delegateFactory2(null);
+        }
+
+        // Delegate with cast
+
+        [Benchmark]
+        public Data DelegateFactory1WithCast()
+        {
+            return (Data)delegateFactory1();
+        }
+
+        [Benchmark]
+        public Data DelegateFactory2WithCast()
+        {
+            return (Data)delegateFactory2(null);
         }
     }
 }
