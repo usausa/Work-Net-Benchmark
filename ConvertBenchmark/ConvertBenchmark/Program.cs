@@ -89,6 +89,12 @@
         }
 
         [Benchmark]
+        public int Any_NumberFormat_Null()
+        {
+            return Int32.Parse(Text, NumberStyles.Any, null);
+        }
+
+        [Benchmark]
         public int Any_Culture_Invariant()
         {
             return Int32.Parse(Text, NumberStyles.Any, CultureInfo.InvariantCulture);
@@ -114,6 +120,12 @@
             return Int32.Parse(Text, NumberStyles.Number, CultureInfo.InvariantCulture);
         }
 
+        [Benchmark]
+        public int Number_Null()
+        {
+            return Int32.Parse(Text, NumberStyles.Number, null);
+        }
+
         // Integer
 
         [Benchmark]
@@ -134,6 +146,12 @@
             return Int32.Parse(Text, NumberStyles.Integer, CultureInfo.InvariantCulture);
         }
 
+        [Benchmark]
+        public int Integer_Null()
+        {
+            return Int32.Parse(Text, NumberStyles.Integer, null);
+        }
+
         // None
 
         [Benchmark]
@@ -150,6 +168,12 @@
 
         [Benchmark]
         public int None_Culture_Invariant()
+        {
+            return Int32.Parse(Text, NumberStyles.None, CultureInfo.InvariantCulture);
+        }
+
+        [Benchmark]
+        public int None_Null()
         {
             return Int32.Parse(Text, NumberStyles.None, CultureInfo.InvariantCulture);
         }
