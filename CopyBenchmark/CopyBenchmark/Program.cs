@@ -1,6 +1,7 @@
 ﻿namespace CopyBenchmark
 {
     using System;
+    using System.Runtime.CompilerServices;
 
     using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Configs;
@@ -34,7 +35,7 @@
 
         private byte[] destination;
 
-        [Params(4, 32, 64, 128)]
+        [Params(4, 32, 64, 128, 1024)]
         public int Length { get; set; }
 
         [GlobalSetup]
@@ -57,12 +58,21 @@
         }
 
         [Benchmark]
-        public unsafe void MemoryCopy()
+        public void MemoryCopy()
         {
-            fixed (byte* pSource = &source[0])
-            fixed (byte* pDestination = &destination[0])
+            FastCopy(source, 0, destination, 0, source.Length);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static unsafe void FastCopy(byte[] src, int srcOffset, byte[] dst, int dstOffset, int length)
+        {
+            if (length > 0)
             {
-                Buffer.MemoryCopy(pSource, pDestination, destination.Length, source.Length);
+                fixed (byte* pSource = &src[srcOffset])
+                fixed (byte* pDestination = &dst[dstOffset])
+                {
+                    Buffer.MemoryCopy(pSource, pDestination, length, length);
+                }
             }
         }
     }
