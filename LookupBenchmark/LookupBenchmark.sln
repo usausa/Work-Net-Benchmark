@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LookupBenchmark", "LookupBenchmark\LookupBenchmark.csproj", "{E510593C-0FF9-4A7B-8680-ED2C6FF26AAD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10C76258-8C52-4140-BB13-983670483D5A}"
+	ProjectSection(SolutionItems) = preProject
+		LookupBenchmark.sln.DotSettings = LookupBenchmark.sln.DotSettings
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,7 +26,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		        SolutionGuid = {D970677F-238A-4C44-92EC-5C81E90EB507}
 		SolutionGuid = {D8769455-69BE-4118-9321-56E3C36BE3DD}
+		        SolutionGuid = {D970677F-238A-4C44-92EC-5C81E90EB507}
 	EndGlobalSection
 EndGlobal
