@@ -39,36 +39,6 @@
         }
     }
 
-    public class NonSealedDelegateResolver : IResolver
-    {
-        private readonly Func<object> func;
-
-        public NonSealedDelegateResolver(Func<object> func)
-        {
-            this.func = func;
-        }
-
-        public object Resolve()
-        {
-            return func();
-        }
-    }
-
-    public sealed class SealedDelegateResolver : IResolver
-    {
-        private readonly Func<object> func;
-
-        public SealedDelegateResolver(Func<object> func)
-        {
-            this.func = func;
-        }
-
-        public object Resolve()
-        {
-            return func();
-        }
-    }
-
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
@@ -78,17 +48,20 @@
 
         private IResolver sealedResolver;
 
-        private IResolver nonSealedDelegateResolver;
+        private Func<object> funcNonSealed;
 
-        private IResolver sealedDelegateResolver;
+        private Func<object> funcSealed;
+
+        private Func<object> funcDirect;
 
         [GlobalSetup]
         public void Setup()
         {
             nonSealedResolver = new NonSealedResolver(result);
             sealedResolver = new SealedResolver(result);
-            nonSealedDelegateResolver = new NonSealedDelegateResolver(() => result);
-            sealedDelegateResolver = new SealedDelegateResolver(() => result);
+            funcNonSealed = nonSealedResolver.Resolve;
+            funcSealed = sealedResolver.Resolve;
+            funcDirect = () => result;
         }
 
         [Benchmark]
@@ -104,15 +77,21 @@
         }
 
         [Benchmark]
-        public object NonSealedDelegateResolver()
+        public object FuncNonSealed()
         {
-            return nonSealedDelegateResolver.Resolve();
+            return funcNonSealed();
         }
 
         [Benchmark]
-        public object SealedDelegateResolver()
+        public object FuncSealed()
         {
-            return sealedDelegateResolver.Resolve();
+            return funcSealed();
+        }
+
+        [Benchmark]
+        public object FuncDiredct()
+        {
+            return funcDirect();
         }
     }
 }
