@@ -1,16 +1,5 @@
-``` ini
+# Core 2.0
 
-BenchmarkDotNet=v0.10.9, OS=Windows 10 Redstone 2 (10.0.15063)
-Processor=Intel Core i7-4771 CPU 3.50GHz (Haswell), ProcessorCount=8
-Frequency=3415990 Hz, Resolution=292.7409 ns, Timer=TSC
-.NET Core SDK=2.0.0
-  [Host]   : .NET Core 2.0.0 (Framework 4.6.00001.0), 64bit RyuJIT
-  ShortRun : .NET Core 2.0.0 (Framework 4.6.00001.0), 64bit RyuJIT
-
-Job=ShortRun  LaunchCount=1  TargetCount=3  
-WarmupCount=3  
-
-```
  |              Method |       Mean |      Error |    StdDev |  Gen 0 | Allocated |
  |-------------------- |-----------:|-----------:|----------:|-------:|----------:|
  |    GenerativeGetter |   1.804 ns |  0.5555 ns | 0.0314 ns |      - |       0 B |
