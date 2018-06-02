@@ -1,46 +1,20 @@
 # Get
 
-``` ini
-
-BenchmarkDotNet=v0.10.9, OS=Windows 10 Redstone 2 (10.0.15063)
-Processor=Intel Core i7-4771 CPU 3.50GHz (Haswell), ProcessorCount=8
-Frequency=3415990 Hz, Resolution=292.7409 ns, Timer=TSC
-.NET Core SDK=2.0.0
-  [Host]   : .NET Core 2.0.0 (Framework 4.6.00001.0), 64bit RyuJIT
-  ShortRun : .NET Core 2.0.0 (Framework 4.6.00001.0), 64bit RyuJIT
-
-Job=ShortRun  LaunchCount=1  TargetCount=3  
-WarmupCount=3  
-
-```
- |                Method |      Mean |     Error |    StdDev |    Gen 0 | Allocated |
- |---------------------- |----------:|----------:|----------:|---------:|----------:|
- |            Dictionary | 204.57 us | 23.617 us | 1.3344 us |        - |       0 B |
- |    DictionaryWithLock | 354.53 us | 14.859 us | 0.8396 us |        - |       0 B |
- |  ConcurrentDictionary | 295.80 us |  9.869 us | 0.5576 us | 152.3438 |  640000 B |
- |               AvlTree |  57.72 us | 15.388 us | 0.8694 us |        - |       0 B |
- | ConcurrentHashArryMap |  41.85 us |  8.564 us | 0.4839 us |        - |       0 B |
+|                Method |      Mean |      Error |    StdDev |    Gen 0 | Allocated |
+|---------------------- |----------:|-----------:|----------:|---------:|----------:|
+|            Dictionary | 218.38 us |  23.081 us | 1.3041 us |        - |       0 B |
+|    DictionaryWithLock | 343.96 us |  64.851 us | 3.6642 us |        - |       0 B |
+|  ConcurrentDictionary | 305.99 us | 104.315 us | 5.8940 us | 152.3438 |  640000 B |
+|               AvlTree |  51.67 us |   5.081 us | 0.2871 us |        - |       0 B |
+| ConcurrentHashArryMap |  38.68 us |   3.713 us | 0.2098 us |        - |       0 B |
 
 # Add
 
-``` ini
-
-BenchmarkDotNet=v0.10.9, OS=Windows 10 Redstone 2 (10.0.15063)
-Processor=Intel Core i7-4771 CPU 3.50GHz (Haswell), ProcessorCount=8
-Frequency=3415990 Hz, Resolution=292.7409 ns, Timer=TSC
-.NET Core SDK=2.0.0
-  [Host]   : .NET Core 2.0.0 (Framework 4.6.00001.0), 64bit RyuJIT
-  ShortRun : .NET Core 2.0.0 (Framework 4.6.00001.0), 64bit RyuJIT
-
-Job=ShortRun  LaunchCount=1  TargetCount=3  
-WarmupCount=3  
-
-```
- |                     Method |       Mean |      Error |    StdDev |   Gen 0 | Allocated |
- |--------------------------- |-----------:|-----------:|----------:|--------:|----------:|
- |                 Dictionary |   5.541 us |  1.0307 us | 0.0582 us |  3.1891 |   13.1 KB |
- |         DictionaryWithLock |   6.987 us |  0.6192 us | 0.0350 us |  3.1967 |  13.13 KB |
- |       ConcurrentDictionary |  20.470 us |  0.4192 us | 0.0237 us |  6.5002 |  26.69 KB |
- |                    AvlTree |  13.945 us |  1.5991 us | 0.0904 us | 11.7493 |  48.15 KB |
- |     ConcurrentHashArrayMap | 230.266 us | 45.9862 us | 2.5983 us | 61.2793 | 251.22 KB |
- | ConcurrentHashArrayMapBulk |  16.645 us |  6.5233 us | 0.3686 us |  4.6387 |  19.11 KB |
+|                     Method |       Mean |      Error |    StdDev |   Gen 0 | Allocated |
+|--------------------------- |-----------:|-----------:|----------:|--------:|----------:|
+|                 Dictionary |   5.542 us |  0.3663 us | 0.0207 us |  3.1891 |   13.1 KB |
+|         DictionaryWithLock |   6.732 us |  0.6365 us | 0.0360 us |  3.1967 |  13.13 KB |
+|       ConcurrentDictionary |  19.628 us |  2.6342 us | 0.1488 us |  6.5308 |  26.81 KB |
+|                    AvlTree |  12.953 us |  0.9205 us | 0.0520 us | 11.9019 |  48.77 KB |
+|     ConcurrentHashArrayMap | 209.691 us | 56.3827 us | 3.1857 us | 60.3027 | 247.22 KB |
+| ConcurrentHashArrayMapBulk |  15.282 us |  6.1599 us | 0.3480 us |  4.6387 |  19.04 KB |

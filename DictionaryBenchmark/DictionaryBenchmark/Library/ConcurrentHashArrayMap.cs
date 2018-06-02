@@ -218,9 +218,10 @@
             var array = table.Nodes[index];
             for (var i = 0; i < array.Length; i++)
             {
-                if (ReferenceEquals(array[i].Key, key) || array[i].Key.Equals(key))
+                var node = array[i];
+                if (ReferenceEquals(node.Key, key) || node.Key.Equals(key))
                 {
-                    value = array[i].Value;
+                    value = node.Value;
                     return true;
                 }
             }
