@@ -1,15 +1,8 @@
 # DynamicMethodBenchmark
 
-# .NET Core
-
-|          Method |     Mean |     Error |    StdDev |  Gen 0 | Allocated |
-|---------------- |---------:|----------:|----------:|-------:|----------:|
-|   ByTypeBuilder | 4.579 ns | 0.8055 ns | 0.0455 ns | 0.0057 |      24 B |
-| ByDynamicMethod | 3.730 ns | 0.8363 ns | 0.0473 ns | 0.0057 |      24 B |
-
-# .NET Framework
-
-|          Method |     Mean |     Error |    StdDev |  Gen 0 | Allocated |
-|---------------- |---------:|----------:|----------:|-------:|----------:|
-|   ByTypeBuilder | 3.376 ns | 0.4733 ns | 0.0267 ns | 0.0029 |      12 B |
-| ByDynamicMethod | 9.859 ns | 0.3344 ns | 0.0189 ns | 0.0028 |      12 B |
+|          Method |  Job | Runtime |     Mean |     Error |    StdDev |  Gen 0 | Allocated |
+|---------------- |----- |-------- |---------:|----------:|----------:|-------:|----------:|
+|   ByTypeBuilder |  Clr |     Clr | 3.551 ns | 0.0433 ns | 0.0405 ns | 0.0057 |      24 B |
+| ByDynamicMethod |  Clr |     Clr | 8.733 ns | 0.0345 ns | 0.0269 ns | 0.0057 |      24 B |
+|   ByTypeBuilder | Core |    Core | 4.555 ns | 0.0421 ns | 0.0374 ns | 0.0057 |      24 B |
+| ByDynamicMethod | Core |    Core | 4.134 ns | 0.0517 ns | 0.0459 ns | 0.0057 |      24 B |

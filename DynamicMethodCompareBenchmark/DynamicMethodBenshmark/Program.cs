@@ -23,7 +23,7 @@
         {
             Add(MarkdownExporter.Default, MarkdownExporter.GitHub);
             Add(MemoryDiagnoser.Default);
-            Add(Job.ShortRun);
+            Add(Job.Core, Job.Clr);
         }
     }
 
@@ -34,9 +34,9 @@
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
-        public Func<object> funcByTypeBuilder;
+        private Func<object> funcByTypeBuilder;
 
-        public Func<object> funcByDyanmicMethod;
+        private Func<object> funcByDyanmicMethod;
 
         [GlobalSetup]
         public void Setup()
