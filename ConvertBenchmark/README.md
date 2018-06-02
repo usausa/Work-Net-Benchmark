@@ -2,26 +2,30 @@
 
 ## Encoding.GetString()
 
-| Method |     Mean |    Error |    StdDev |  Gen 0 | Allocated |
-|------- |---------:|---------:|----------:|-------:|----------:|
-|  Ascii | 28.21 ns | 15.16 ns | 0.8565 ns | 0.0114 |      48 B |
-|   Utf8 | 41.01 ns | 13.23 ns | 0.7475 ns | 0.0114 |      48 B |
-|   Sjis | 84.14 ns | 27.51 ns | 1.5544 ns | 0.0113 |      48 B |
+| Method |     Mean |     Error |    StdDev |  Gen 0 | Allocated |
+|------- |---------:|----------:|----------:|-------:|----------:|
+|  Ascii | 31.06 ns | 0.2019 ns | 0.2896 ns | 0.0114 |      48 B |
+|   Utf8 | 32.46 ns | 0.2424 ns | 0.3553 ns | 0.0114 |      48 B |
+|   Sjis | 68.69 ns | 0.5794 ns | 0.8672 ns | 0.0113 |      48 B |
 
 ## Int32.Parse()
 
-|                         Method |       Mean |       Error |     StdDev | Allocated |
-|------------------------------- |-----------:|------------:|-----------:|----------:|
-|       Any_NumberFormat_Current | 212.727 ns | 305.8375 ns | 17.2804 ns |       0 B |
-|     Any_NumberFormat_Invariant | 120.000 ns |  71.0414 ns |  4.0140 ns |       0 B |
-|          Any_Culture_Invariant | 117.773 ns |  65.5080 ns |  3.7013 ns |       0 B |
-|    Number_NumberFormat_Current | 129.044 ns |   9.6189 ns |  0.5435 ns |       0 B |
-|  Number_NumberFormat_Invariant | 107.212 ns |  27.9492 ns |  1.5792 ns |       0 B |
-|       Number_Culture_Invariant | 103.772 ns |  18.3885 ns |  1.0390 ns |       0 B |
-|   Integer_NumberFormat_Current | 121.263 ns |   9.3660 ns |  0.5292 ns |       0 B |
-| Integer_NumberFormat_Invariant |  97.912 ns |  18.7980 ns |  1.0621 ns |       0 B |
-|      Integer_Culture_Invariant |  98.659 ns | 102.7727 ns |  5.8068 ns |       0 B |
-|      None_NumberFormat_Current | 114.012 ns |  10.0818 ns |  0.5696 ns |       0 B |
-|    None_NumberFormat_Invariant |  94.781 ns |  38.1496 ns |  2.1555 ns |       0 B |
-|         None_Culture_Invariant |  94.553 ns |  56.4761 ns |  3.1910 ns |       0 B |
-|                         Custom |   6.902 ns |   0.8404 ns |  0.0475 ns |       0 B |
+|                         Method |       Mean |     Error |    StdDev | Allocated |
+|------------------------------- |-----------:|----------:|----------:|----------:|
+|       Any_NumberFormat_Current | 126.861 ns | 0.8978 ns | 1.2876 ns |       0 B |
+|     Any_NumberFormat_Invariant | 115.088 ns | 0.3262 ns | 0.4355 ns |       0 B |
+|          Any_NumberFormat_Null | 118.778 ns | 1.1297 ns | 1.6559 ns |       0 B |
+|          Any_Culture_Invariant | 110.987 ns | 0.4620 ns | 0.6626 ns |       0 B |
+|    Number_NumberFormat_Current | 114.473 ns | 0.4748 ns | 0.6656 ns |       0 B |
+|  Number_NumberFormat_Invariant | 103.461 ns | 0.4319 ns | 0.6195 ns |       0 B |
+|       Number_Culture_Invariant |  97.739 ns | 0.5764 ns | 0.8267 ns |       0 B |
+|                    Number_Null | 106.187 ns | 1.0655 ns | 1.5948 ns |       0 B |
+|   Integer_NumberFormat_Current | 101.507 ns | 0.4205 ns | 0.6294 ns |       0 B |
+| Integer_NumberFormat_Invariant |  90.334 ns | 0.3993 ns | 0.5727 ns |       0 B |
+|      Integer_Culture_Invariant |  85.299 ns | 0.5309 ns | 0.7947 ns |       0 B |
+|                   Integer_Null |  93.407 ns | 0.5681 ns | 0.8503 ns |       0 B |
+|      None_NumberFormat_Current |  95.776 ns | 0.7554 ns | 1.0834 ns |       0 B |
+|    None_NumberFormat_Invariant |  82.447 ns | 0.4122 ns | 0.6170 ns |       0 B |
+|         None_Culture_Invariant |  77.509 ns | 0.3780 ns | 0.5540 ns |       0 B |
+|                      None_Null |  77.350 ns | 0.3660 ns | 0.5364 ns |       0 B |
+|                         Custom |   7.007 ns | 0.0396 ns | 0.0580 ns |       0 B |
