@@ -1,42 +1,29 @@
-``` ini
-
-BenchmarkDotNet=v0.10.9, OS=Windows 10.0.16299
-Processor=Intel Core i7-4771 CPU 3.50GHz (Haswell), ProcessorCount=8
-Frequency=3415990 Hz, Resolution=292.7409 ns, Timer=TSC
-.NET Core SDK=2.1.4
-  [Host]   : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
-  ShortRun : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
-
-Job=ShortRun  LaunchCount=1  TargetCount=3  
-WarmupCount=3  
-
-```
- |                        Method |         Mean |       Error |    StdDev |  Gen 0 | Allocated |
- |------------------------------ |-------------:|------------:|----------:|-------:|----------:|
- |                 NewActivator0 |     3.725 ns |   0.5491 ns | 0.0310 ns | 0.0057 |      24 B |
- |      ReflactionCtorActivator0 |   121.955 ns |  17.8064 ns | 1.0061 ns | 0.0055 |      24 B |
- | ReflectionActivatorActivator0 |    48.965 ns |   6.9948 ns | 0.3952 ns | 0.0057 |      24 B |
- |  ExpressionDelegateActivator0 |     4.140 ns |   1.3665 ns | 0.0772 ns | 0.0057 |      24 B |
- |        EmitDelegateActivator0 |     5.250 ns |   3.0814 ns | 0.1741 ns | 0.0057 |      24 B |
- |                EmitActivator0 |     3.734 ns |   1.6805 ns | 0.0950 ns | 0.0057 |      24 B |
- |             ExpressionDirect0 |     3.146 ns |   1.1807 ns | 0.0667 ns | 0.0057 |      24 B |
- |                   EmitDirect0 |     4.131 ns |   2.1635 ns | 0.1222 ns | 0.0057 |      24 B |
- |                 EmitIndirect0 |     3.919 ns |   2.2928 ns | 0.1295 ns | 0.0057 |      24 B |
- |                 NewActivator1 |     4.305 ns |   0.1877 ns | 0.0106 ns | 0.0057 |      24 B |
- |      ReflactionCtorActivator1 |   200.705 ns |  16.1349 ns | 0.9117 ns | 0.0131 |      56 B |
- | ReflectionActivatorActivator1 |   608.902 ns | 163.7097 ns | 9.2499 ns | 0.0906 |     384 B |
- |  ExpressionDelegateActivator1 |     4.858 ns |   0.9647 ns | 0.0545 ns | 0.0057 |      24 B |
- |        EmitDelegateActivator1 |     5.739 ns |   1.6867 ns | 0.0953 ns | 0.0057 |      24 B |
- |                EmitActivator1 |     4.660 ns |   1.5499 ns | 0.0876 ns | 0.0057 |      24 B |
- |             ExpressionDirect1 |     3.511 ns |   1.3458 ns | 0.0760 ns | 0.0057 |      24 B |
- |                   EmitDirect1 |     4.431 ns |   2.7331 ns | 0.1544 ns | 0.0057 |      24 B |
- |                 EmitIndirect1 |     4.600 ns |   0.9476 ns | 0.0535 ns | 0.0057 |      24 B |
- |                 NewActivator8 |    11.137 ns |   1.7284 ns | 0.0977 ns | 0.0114 |      48 B |
- |      ReflactionCtorActivator8 |   582.627 ns | 158.7625 ns | 8.9704 ns | 0.0315 |     136 B |
- | ReflectionActivatorActivator8 | 1,354.474 ns | 128.0155 ns | 7.2331 ns | 0.1411 |     600 B |
- |  ExpressionDelegateActivator8 |    11.784 ns |   3.9081 ns | 0.2208 ns | 0.0114 |      48 B |
- |        EmitDelegateActivator8 |    12.896 ns |   3.4816 ns | 0.1967 ns | 0.0114 |      48 B |
- |                EmitActivator8 |    11.492 ns |   1.6449 ns | 0.0929 ns | 0.0114 |      48 B |
- |             ExpressionDirect8 |     9.896 ns |   2.5044 ns | 0.1415 ns | 0.0114 |      48 B |
- |                   EmitDirect8 |    11.068 ns |   2.9906 ns | 0.1690 ns | 0.0114 |      48 B |
- |                 EmitIndirect8 |    11.491 ns |   3.0751 ns | 0.1737 ns | 0.0114 |      48 B |
+|                        Method |         Mean |     Error |     StdDev |       Median |  Gen 0 | Allocated |
+|------------------------------ |-------------:|----------:|-----------:|-------------:|-------:|----------:|
+|                 NewActivator0 |     3.920 ns | 0.1684 ns |  0.2415 ns |     3.910 ns | 0.0057 |      24 B |
+|      ReflactionCtorActivator0 |   107.864 ns | 1.1240 ns |  1.6121 ns |   107.834 ns | 0.0056 |      24 B |
+| ReflectionActivatorActivator0 |    46.424 ns | 1.0738 ns |  1.5740 ns |    47.475 ns | 0.0057 |      24 B |
+|  ExpressionDelegateActivator0 |     4.878 ns | 0.0451 ns |  0.0675 ns |     4.867 ns | 0.0057 |      24 B |
+|        EmitDelegateActivator0 |     5.654 ns | 0.0473 ns |  0.0664 ns |     5.636 ns | 0.0057 |      24 B |
+|                EmitActivator0 |     4.533 ns | 0.0455 ns |  0.0667 ns |     4.522 ns | 0.0057 |      24 B |
+|             ExpressionDirect0 |     3.397 ns | 0.0387 ns |  0.0580 ns |     3.379 ns | 0.0057 |      24 B |
+|                   EmitDirect0 |     4.288 ns | 0.0494 ns |  0.0739 ns |     4.286 ns | 0.0057 |      24 B |
+|                 EmitIndirect0 |     4.236 ns | 0.0435 ns |  0.0580 ns |     4.220 ns | 0.0057 |      24 B |
+|                 NewActivator1 |     4.817 ns | 0.0636 ns |  0.0932 ns |     4.801 ns | 0.0057 |      24 B |
+|      ReflactionCtorActivator1 |   175.586 ns | 1.0221 ns |  1.5298 ns |   175.033 ns | 0.0131 |      56 B |
+| ReflectionActivatorActivator1 |   538.303 ns | 1.8617 ns |  2.7289 ns |   538.407 ns | 0.0906 |     384 B |
+|  ExpressionDelegateActivator1 |     5.439 ns | 0.0482 ns |  0.0676 ns |     5.420 ns | 0.0057 |      24 B |
+|        EmitDelegateActivator1 |     6.577 ns | 0.1681 ns |  0.2517 ns |     6.499 ns | 0.0057 |      24 B |
+|                EmitActivator1 |     4.711 ns | 0.0591 ns |  0.0866 ns |     4.699 ns | 0.0057 |      24 B |
+|             ExpressionDirect1 |     4.047 ns | 0.0365 ns |  0.0535 ns |     4.037 ns | 0.0057 |      24 B |
+|                   EmitDirect1 |     4.885 ns | 0.0293 ns |  0.0401 ns |     4.881 ns | 0.0057 |      24 B |
+|                 EmitIndirect1 |     5.056 ns | 0.0501 ns |  0.0749 ns |     5.058 ns | 0.0057 |      24 B |
+|                 NewActivator8 |    12.616 ns | 0.1037 ns |  0.1520 ns |    12.563 ns | 0.0114 |      48 B |
+|      ReflactionCtorActivator8 |   541.898 ns | 2.4604 ns |  3.6064 ns |   540.702 ns | 0.0315 |     136 B |
+| ReflectionActivatorActivator8 | 1,217.849 ns | 8.2934 ns | 12.1564 ns | 1,215.503 ns | 0.1411 |     600 B |
+|  ExpressionDelegateActivator8 |    12.087 ns | 0.1246 ns |  0.1827 ns |    12.094 ns | 0.0114 |      48 B |
+|        EmitDelegateActivator8 |    13.380 ns | 0.1549 ns |  0.2318 ns |    13.321 ns | 0.0114 |      48 B |
+|                EmitActivator8 |    12.575 ns | 0.0637 ns |  0.0933 ns |    12.575 ns | 0.0114 |      48 B |
+|             ExpressionDirect8 |    10.365 ns | 0.0479 ns |  0.0686 ns |    10.376 ns | 0.0114 |      48 B |
+|                   EmitDirect8 |    11.879 ns | 0.1189 ns |  0.1743 ns |    11.869 ns | 0.0114 |      48 B |
+|                 EmitIndirect8 |    11.508 ns | 0.0862 ns |  0.1291 ns |    11.505 ns | 0.0114 |      48 B |
