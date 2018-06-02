@@ -1,7 +1,6 @@
 ﻿namespace DelegateCompareBenchmark
 {
     using System;
-    using System.Reflection;
     using System.Reflection.Emit;
 
     using BenchmarkDotNet.Attributes;
@@ -24,7 +23,7 @@
         {
             Add(MarkdownExporter.Default, MarkdownExporter.GitHub);
             Add(MemoryDiagnoser.Default);
-            Add(Job.ShortRun);
+            Add(Job.Core, Job.Clr);
         }
     }
 

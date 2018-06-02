@@ -1,19 +1,12 @@
 # DelegateCompareBenchmark
 
-# .NET Core
-
-|             Method |     Mean |     Error |    StdDev | Allocated |
-|------------------- |---------:|----------:|----------:|----------:|
-|         CallDirect | 1.787 ns | 0.2376 ns | 0.0134 ns |       0 B |
-|   CallStaticMethod | 2.369 ns | 0.2570 ns | 0.0145 ns |       0 B |
-| CallInstanceMethod | 1.540 ns | 0.2750 ns | 0.0155 ns |       0 B |
-|        CallDynamic | 1.403 ns | 0.7042 ns | 0.0398 ns |       0 B |
-
-# .NET Framework
-
-|             Method |     Mean |     Error |    StdDev | Allocated |
-|------------------- |---------:|----------:|----------:|----------:|
-|         CallDirect | 1.736 ns | 0.1731 ns | 0.0098 ns |       0 B |
-|   CallStaticMethod | 1.884 ns | 0.1907 ns | 0.0108 ns |       0 B |
-| CallInstanceMethod | 1.715 ns | 0.3316 ns | 0.0187 ns |       0 B |
-|        CallDynamic | 1.093 ns | 0.3110 ns | 0.0176 ns |       0 B |
+|             Method |  Job | Runtime |      Mean |     Error |    StdDev | Allocated |
+|------------------- |----- |-------- |----------:|----------:|----------:|----------:|
+|         CallDirect |  Clr |     Clr | 1.1138 ns | 0.0183 ns | 0.0171 ns |       0 B |
+|   CallStaticMethod |  Clr |     Clr | 1.9434 ns | 0.0129 ns | 0.0121 ns |       0 B |
+| CallInstanceMethod |  Clr |     Clr | 1.0833 ns | 0.0138 ns | 0.0122 ns |       0 B |
+|        CallDynamic |  Clr |     Clr | 0.8433 ns | 0.0153 ns | 0.0143 ns |       0 B |
+|         CallDirect | Core |    Core | 1.4681 ns | 0.0152 ns | 0.0135 ns |       0 B |
+|   CallStaticMethod | Core |    Core | 1.9953 ns | 0.0267 ns | 0.0250 ns |       0 B |
+| CallInstanceMethod | Core |    Core | 1.7633 ns | 0.0218 ns | 0.0204 ns |       0 B |
+|        CallDynamic | Core |    Core | 1.1209 ns | 0.0130 ns | 0.0115 ns |       0 B |
