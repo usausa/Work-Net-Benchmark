@@ -11,15 +11,15 @@ Job=ShortRun  LaunchCount=1  TargetCount=3
 WarmupCount=3  
 
 ```
-|          Method |       Mean |       Error |    StdDev |  Gen 0 | Allocated |
-|---------------- |-----------:|------------:|----------:|-------:|----------:|
-|         IntMul9 |   3.795 ns |   1.1284 ns | 0.0638 ns |      - |       0 B |
-|        LongMul9 |   5.107 ns |   0.5173 ns | 0.0292 ns |      - |       0 B |
-|  BigIntegerMul9 | 182.702 ns |  12.4738 ns | 0.7048 ns |      - |       0 B |
-|         IntDiv9 |  28.877 ns |   0.7487 ns | 0.0423 ns |      - |       0 B |
-|        LongDiv9 |  68.746 ns |   5.5819 ns | 0.3154 ns |      - |       0 B |
-|  BigIntegerDiv9 | 173.845 ns |  17.7195 ns | 1.0012 ns |      - |       0 B |
-|       LongMul19 |  10.975 ns |   2.6544 ns | 0.1500 ns |      - |       0 B |
-| BigIntegerMul19 | 722.111 ns | 137.7166 ns | 7.7812 ns | 0.1612 |     680 B |
-|       LongDiv19 | 183.697 ns |   3.1387 ns | 0.1773 ns |      - |       0 B |
-| BigIntegerDiv19 | 787.486 ns | 121.2683 ns | 6.8519 ns | 0.1440 |     608 B |
+|          Method |       Mean |     Error |    StdDev |  Gen 0 | Allocated |
+|---------------- |-----------:|----------:|----------:|-------:|----------:|
+|         IntMul9 |   3.385 ns | 0.0290 ns | 0.0406 ns |      - |       0 B |
+|        LongMul9 |   5.029 ns | 0.0350 ns | 0.0513 ns |      - |       0 B |
+|  BigIntegerMul9 | 178.026 ns | 0.8738 ns | 1.2249 ns |      - |       0 B |
+|         IntDiv9 |   5.211 ns | 0.0272 ns | 0.0399 ns |      - |       0 B |
+|        LongDiv9 |   7.154 ns | 0.0472 ns | 0.0646 ns |      - |       0 B |
+|  BigIntegerDiv9 | 172.462 ns | 0.9724 ns | 1.3946 ns |      - |       0 B |
+|       LongMul19 |  10.745 ns | 0.0736 ns | 0.1079 ns |      - |       0 B |
+| BigIntegerMul19 | 674.607 ns | 3.4352 ns | 4.7022 ns | 0.1612 |     680 B |
+|       LongDiv19 |  17.157 ns | 2.6453 ns | 3.8775 ns |      - |       0 B |
+| BigIntegerDiv19 | 747.416 ns | 3.4505 ns | 5.0577 ns | 0.1440 |     608 B |
