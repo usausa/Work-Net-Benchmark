@@ -11,21 +11,22 @@ Job=MediumRun  IterationCount=15  LaunchCount=2
 WarmupCount=10  
 
 ```
-|                 Method |     Mean |     Error |    StdDev |   Median |  Gen 0 | Allocated |
-|----------------------- |---------:|----------:|----------:|---------:|-------:|----------:|
-|          FactoryStatic | 3.025 ns | 0.0665 ns | 0.0933 ns | 3.018 ns | 0.0057 |      24 B |
-|    FactoryStaticInline | 4.139 ns | 0.0361 ns | 0.0540 ns | 4.133 ns | 0.0057 |      24 B |
-|        FactoryInstance | 3.153 ns | 0.0381 ns | 0.0559 ns | 3.142 ns | 0.0057 |      24 B |
-|  FactoryInstanceInline | 4.173 ns | 0.0449 ns | 0.0658 ns | 4.158 ns | 0.0057 |      24 B |
-|         FactoryVirtual | 4.526 ns | 0.0484 ns | 0.0710 ns | 4.544 ns | 0.0057 |      24 B |
-|   FactoryVirtualInline | 4.674 ns | 0.0374 ns | 0.0524 ns | 4.668 ns | 0.0057 |      24 B |
-|          FactorySealed | 4.559 ns | 0.0470 ns | 0.0689 ns | 4.559 ns | 0.0057 |      24 B |
-|    FactorySealedInline | 4.480 ns | 0.0431 ns | 0.0632 ns | 4.478 ns | 0.0057 |      24 B |
-|         DelegateStatic | 5.043 ns | 0.0567 ns | 0.0813 ns | 5.028 ns | 0.0057 |      24 B |
-|   DelegateStaticInline | 5.262 ns | 0.0424 ns | 0.0622 ns | 5.251 ns | 0.0057 |      24 B |
-|       DelegateInstance | 4.276 ns | 0.0374 ns | 0.0525 ns | 4.277 ns | 0.0057 |      24 B |
-| DelegateInstanceInline | 4.186 ns | 0.0405 ns | 0.0593 ns | 4.191 ns | 0.0057 |      24 B |
-|        DelegateVirtual | 4.192 ns | 0.0340 ns | 0.0498 ns | 4.191 ns | 0.0057 |      24 B |
-|  DelegateVirtualInline | 4.438 ns | 0.0349 ns | 0.0523 ns | 4.438 ns | 0.0057 |      24 B |
-|         DelegateSealed | 4.293 ns | 0.0555 ns | 0.0796 ns | 4.290 ns | 0.0057 |      24 B |
-|   DelegateSealedInline | 4.205 ns | 0.0546 ns | 0.0800 ns | 4.172 ns | 0.0057 |      24 B |
+|                 Method |     Mean |     Error |    StdDev |  Gen 0 | Allocated |
+|----------------------- |---------:|----------:|----------:|-------:|----------:|
+|          FactoryStatic | 2.661 ns | 0.0470 ns | 0.0674 ns | 0.0057 |      24 B |
+|    FactoryStaticInline | 3.904 ns | 0.0622 ns | 0.0930 ns | 0.0057 |      24 B |
+|        FactoryInstance | 2.832 ns | 0.0327 ns | 0.0468 ns | 0.0057 |      24 B |
+|  FactoryInstanceInline | 3.814 ns | 0.0508 ns | 0.0760 ns | 0.0057 |      24 B |
+|         FactoryVirtual | 4.205 ns | 0.0564 ns | 0.0844 ns | 0.0057 |      24 B |
+|   FactoryVirtualInline | 4.437 ns | 0.0734 ns | 0.1098 ns | 0.0057 |      24 B |
+|          FactorySealed | 4.290 ns | 0.0549 ns | 0.0769 ns | 0.0057 |      24 B |
+|    FactorySealedInline | 4.181 ns | 0.0434 ns | 0.0650 ns | 0.0057 |      24 B |
+|         DelegateDirect | 3.866 ns | 0.0417 ns | 0.0624 ns | 0.0057 |      24 B |
+|         DelegateStatic | 4.926 ns | 0.0439 ns | 0.0630 ns | 0.0057 |      24 B |
+|   DelegateStaticInline | 4.842 ns | 0.0534 ns | 0.0783 ns | 0.0057 |      24 B |
+|       DelegateInstance | 3.808 ns | 0.0394 ns | 0.0577 ns | 0.0057 |      24 B |
+| DelegateInstanceInline | 3.903 ns | 0.0417 ns | 0.0625 ns | 0.0057 |      24 B |
+|        DelegateVirtual | 4.177 ns | 0.0448 ns | 0.0657 ns | 0.0057 |      24 B |
+|  DelegateVirtualInline | 3.896 ns | 0.0327 ns | 0.0479 ns | 0.0057 |      24 B |
+|         DelegateSealed | 3.891 ns | 0.0498 ns | 0.0745 ns | 0.0057 |      24 B |
+|   DelegateSealedInline | 3.814 ns | 0.0652 ns | 0.0956 ns | 0.0057 |      24 B |

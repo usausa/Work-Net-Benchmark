@@ -84,6 +84,8 @@
 
         private IFactory sealedInlineFactory;
 
+        private Func<object> directDelegate;
+
         private Func<object> staticDelegate;
 
         private Func<object> staticInlineDelegate;
@@ -109,6 +111,7 @@
             sealedFactory = new SealedFactory();
             sealedInlineFactory = new SealedInlineFactory();
 
+            directDelegate = () => new object();
             staticDelegate = StaticFactory.Create;
             staticInlineDelegate = StaticFactory.CreateInline;
             instanceDelegate = instanceFactory.Create;
@@ -142,6 +145,9 @@
 
         [Benchmark]
         public object FactorySealedInline() => sealedFactory.Create();
+
+        [Benchmark]
+        public object DelegateDirect() => directDelegate();
 
         [Benchmark]
         public object DelegateStatic() => staticDelegate();
