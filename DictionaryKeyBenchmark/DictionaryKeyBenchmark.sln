@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryKeyBenchmark", "DictionaryKeyBenchmark\DictionaryKeyBenchmark.csproj", "{95F51290-3621-415C-91D3-9E1A4DA44BDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16F778B7-7C8B-4C53-94D7-5154E2682166}"
+	ProjectSection(SolutionItems) = preProject
+		DictionaryKeyBenchmark.sln.DotSettings = DictionaryKeyBenchmark.sln.DotSettings
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95F51290-3621-415C-91D3-9E1A4DA44BDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95F51290-3621-415C-91D3-9E1A4DA44BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95F51290-3621-415C-91D3-9E1A4DA44BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95F51290-3621-415C-91D3-9E1A4DA44BDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {959FC56A-56D7-4944-AF37-53BE15B2ED15}
+	EndGlobalSection
+EndGlobal
