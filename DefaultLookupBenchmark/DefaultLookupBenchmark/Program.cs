@@ -135,6 +135,70 @@
         {
             UIntPtrType.GetDefaultBySequence();
         }
+
+        // Sequence2
+
+        [Benchmark(OperationsPerInvoke = NumOfTypes)]
+        public void Sequence2()
+        {
+            for (var i = 0; i < Types.Length; i++)
+            {
+                Types[i].GetDefaultBySequence2();
+            }
+        }
+
+        [Benchmark(OperationsPerInvoke = NumOfFlatTypes)]
+        public void SequenceFlat2()
+        {
+            for (var i = 0; i < FlatTypes.Length; i++)
+            {
+                FlatTypes[i].GetDefaultBySequence2();
+            }
+        }
+
+        [Benchmark]
+        public void SequenceBest2()
+        {
+            IntType.GetDefaultBySequence2();
+        }
+
+        [Benchmark]
+        public void SequenceWorst2()
+        {
+            UIntPtrType.GetDefaultBySequence2();
+        }
+
+        // Sequence3
+
+        [Benchmark(OperationsPerInvoke = NumOfTypes)]
+        public void Sequence3()
+        {
+            for (var i = 0; i < Types.Length; i++)
+            {
+                Types[i].GetDefaultBySequence3();
+            }
+        }
+
+        [Benchmark(OperationsPerInvoke = NumOfFlatTypes)]
+        public void SequenceFlat3()
+        {
+            for (var i = 0; i < FlatTypes.Length; i++)
+            {
+                FlatTypes[i].GetDefaultBySequence3();
+            }
+        }
+
+        [Benchmark]
+        public void SequenceBest3()
+        {
+            IntType.GetDefaultBySequence3();
+        }
+
+        [Benchmark]
+        public void SequenceWorst3()
+        {
+            UIntPtrType.GetDefaultBySequence3();
+        }
     }
 
     public static class TypeExtensions
@@ -154,6 +218,22 @@
         private static readonly Type DoubleType = typeof(double);
         private static readonly Type FloatType = typeof(float);
         private static readonly Type DecimalType = typeof(decimal);
+
+        private static readonly int BoolTypeHash = BoolType.GetHashCode();
+        private static readonly int ByteTypeHash = ByteType.GetHashCode();
+        private static readonly int SByteTypeHash = SByteType.GetHashCode();
+        private static readonly int ShortTypeHash = ShortType.GetHashCode();
+        private static readonly int UShortTypeHash = UShortType.GetHashCode();
+        private static readonly int IntTypeHash = IntType.GetHashCode();
+        private static readonly int UIntTypeHash = UIntType.GetHashCode();
+        private static readonly int LongTypeHash = LongType.GetHashCode();
+        private static readonly int ULongTypeHash = ULongType.GetHashCode();
+        private static readonly int IntPtrTypeHash = IntPtrType.GetHashCode();
+        private static readonly int UIntPtrTypeHash = UIntPtrType.GetHashCode();
+        private static readonly int CharTypeHash = CharType.GetHashCode();
+        private static readonly int DoubleTypeHash = DoubleType.GetHashCode();
+        private static readonly int FloatTypeHash = FloatType.GetHashCode();
+        private static readonly int DecimalTypeHash = DecimalType.GetHashCode();
 
         // Dictionary
 
@@ -196,11 +276,14 @@
         {
             public Type Type { get; }
 
+            public int Hash { get; }
+
             public object DefaultValue { get; }
 
             public Holder(Type type, object defaultValue)
             {
                 Type = type;
+                Hash = type.GetHashCode();
                 DefaultValue = defaultValue;
             }
         }
@@ -238,26 +321,43 @@
             return null;
         }
 
-        // [MEMO] slow
-        //public static object GetDefaultBySequence2(this Type type)
-        //{
-        //    if (type == IntType) return default(int);
-        //    if (type == BoolType) return default(bool);
-        //    if (type == LongType) return default(long);
-        //    if (type == ShortType) return default(short);
-        //    if (type == DecimalType) return default(decimal);
-        //    if (type == DoubleType) return default(double);
-        //    if (type == FloatType) return default(float);
-        //    if (type == ByteType) return default(byte);
-        //    if (type == CharType) return default(char);
-        //    if (type == UIntType) return default(uint);
-        //    if (type == ULongType) return default(ulong);
-        //    if (type == UShortType) return default(ushort);
-        //    if (type == SByteType) return default(sbyte);
-        //    if (type == IntPtrType) return default(IntPtr);
-        //    if (type == UIntPtrType) return default(UIntPtr);
+        public static object GetDefaultBySequence2(this Type type)
+        {
+            var hash = type.GetHashCode();
+            for (var i = 0; i < DefaultValueHolders.Length; i++)
+            {
+                var holder = DefaultValueHolders[i];
+                if (holder.Hash == hash && holder.Type == type)
+                {
+                    return holder.DefaultValue;
+                }
+            }
 
-        //    return null;
-        //}
+            return null;
+        }
+
+
+
+        public static object GetDefaultBySequence3(this Type type)
+        {
+            var hash = type.GetHashCode();
+            if ((hash == IntTypeHash) && (type == IntType)) return default(int);
+            if ((hash == BoolTypeHash) && (type == BoolType)) return default(bool);
+            if ((hash == LongTypeHash) && (type == LongType)) return default(long);
+            if ((hash == ShortTypeHash) && (type == ShortType)) return default(short);
+            if ((hash == DecimalTypeHash) && (type == DecimalType)) return default(decimal);
+            if ((hash == DoubleTypeHash) && (type == DoubleType)) return default(double);
+            if ((hash == FloatTypeHash) && (type == FloatType)) return default(float);
+            if ((hash == ByteTypeHash) && (type == ByteType)) return default(byte);
+            if ((hash == CharTypeHash) && (type == CharType)) return default(char);
+            if ((hash == UIntTypeHash) && (type == UIntType)) return default(uint);
+            if ((hash == ULongTypeHash) && (type == ULongType)) return default(ulong);
+            if ((hash == UShortTypeHash) && (type == UShortType)) return default(ushort);
+            if ((hash == SByteTypeHash) && (type == SByteType)) return default(sbyte);
+            if ((hash == IntPtrTypeHash) && (type == IntPtrType)) return default(IntPtr);
+            if ((hash == UIntPtrTypeHash) && (type == UIntPtrType)) return default(UIntPtr);
+
+            return null;
+        }
     }
 }
