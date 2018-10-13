@@ -95,21 +95,21 @@
         public void Key1()
         {
             var key1 = new Info1(typeof(object), "100");
-            infomations1.AddIfNotExist(key1, instance);
+            infomations1.TryGetValue(key1, out _);
         }
 
         [Benchmark]
         public void Key2()
         {
             var key2 = new Info2(typeof(object), "100");
-            infomations2.AddIfNotExist(key2, instance);
+            infomations2.TryGetValue(key2, out _);
         }
 
         [Benchmark]
         public void Key3()
         {
             var key3 = new Info3(typeof(object), "100");
-            infomations3.AddIfNotExist(key3, instance);
+            infomations3.TryGetValue(key3, out _);
         }
     }
 }
