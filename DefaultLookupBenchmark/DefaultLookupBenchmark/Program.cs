@@ -10,6 +10,8 @@
     using BenchmarkDotNet.Jobs;
     using BenchmarkDotNet.Running;
 
+    using Smart.Collections.Concurrent;
+
     public static class Program
     {
         public static void Main(string[] args)
@@ -101,6 +103,26 @@
             for (var i = 0; i < FlatTypes.Length; i++)
             {
                 FlatTypes[i].GetDefaultByDictionary();
+            }
+        }
+
+        // HashArrayMap
+
+        [Benchmark(OperationsPerInvoke = NumOfTypes)]
+        public void HashArrayMap()
+        {
+            for (var i = 0; i < Types.Length; i++)
+            {
+                Types[i].GetDefaultByHashArrayMap();
+            }
+        }
+
+        [Benchmark(OperationsPerInvoke = NumOfFlatTypes)]
+        public void HashArrayMapFlat()
+        {
+            for (var i = 0; i < FlatTypes.Length; i++)
+            {
+                FlatTypes[i].GetDefaultByHashArrayMap();
             }
         }
 
@@ -268,7 +290,38 @@
 
         // HashArray
 
-        //private static readonly Thew
+        private static readonly ThreadsafeTypeHashArrayMap<object> DefaultValueMap = new ThreadsafeTypeHashArrayMap<object>();
+
+        private static readonly Func<Type, object> Factory = Activator.CreateInstance;
+
+        static TypeExtensions()
+        {
+            DefaultValueMap.AddIfNotExist(typeof(bool), false);
+            DefaultValueMap.AddIfNotExist(typeof(byte), (byte)0);
+            DefaultValueMap.AddIfNotExist(typeof(sbyte), (sbyte)0);
+            DefaultValueMap.AddIfNotExist(typeof(short), (short)0);
+            DefaultValueMap.AddIfNotExist(typeof(ushort), (ushort)0);
+            DefaultValueMap.AddIfNotExist(typeof(int), 0);
+            DefaultValueMap.AddIfNotExist(typeof(uint), 0U);
+            DefaultValueMap.AddIfNotExist(typeof(long), 0L);
+            DefaultValueMap.AddIfNotExist(typeof(ulong), 0UL);
+            DefaultValueMap.AddIfNotExist(typeof(IntPtr), IntPtr.Zero);
+            DefaultValueMap.AddIfNotExist(typeof(UIntPtr), UIntPtr.Zero);
+            DefaultValueMap.AddIfNotExist(typeof(char), '\0');
+            DefaultValueMap.AddIfNotExist(typeof(double), 0.0);
+            DefaultValueMap.AddIfNotExist(typeof(float), 0.0f);
+            DefaultValueMap.AddIfNotExist(typeof(decimal), 0m);
+        }
+
+        public static object GetDefaultByHashArrayMap(this Type type)
+        {
+            if (DefaultValueMap.TryGetValue(type, out var value))
+            {
+                return value;
+            }
+
+            return DefaultValueMap.AddIfNotExist(type, Factory);
+        }
 
         // Sequence
 
