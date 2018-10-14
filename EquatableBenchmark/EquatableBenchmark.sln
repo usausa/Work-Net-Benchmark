@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquatableBenchmark", "EquatableBenchmark\EquatableBenchmark.csproj", "{384D1174-A7AF-4842-8FAC-EFDA072AA9FC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D690762F-A6BC-4DD2-A5BB-098CC1B4BE9E}"
+	ProjectSection(SolutionItems) = preProject
+		EquatableBenchmark.sln.DotSettings = EquatableBenchmark.sln.DotSettings
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
