@@ -27,414 +27,163 @@
             Add(MarkdownExporter.Default, MarkdownExporter.GitHub);
             Add(MemoryDiagnoser.Default);
             Add(Job.MediumRun);
+            //Add(Job.ShortRun);
         }
     }
 
-    public sealed class MapperKey
+    public sealed class ClassEquatableKey : IEquatable<ClassEquatableKey>
     {
         public Type Type { get; }
 
         public string Profile { get; }
 
-        public MapperKey(Type type, string profile)
+        public ClassEquatableKey(Type type, string profile)
         {
             Type = type;
             Profile = profile;
+        }
+
+        public bool Equals(ClassEquatableKey other)
+        {
+            return String.Equals(Profile, other.Profile) && Type == other.Type;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is null)
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj is MapperKey other)
-            {
-                return Type == other.Type && Profile == other.Profile;
-            }
-
-            return false;
+            return obj is ClassEquatableKey other && Equals(other);
         }
 
         public override int GetHashCode()
         {
-            var hash = Type.GetHashCode();
-            hash = hash ^ Profile.GetHashCode();
-            return hash;
+            unchecked
+            {
+                return Profile == null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
+            }
         }
     }
 
-    public sealed class MapperKey2 : IEquatable<MapperKey2>
+    public sealed class ClassKey
     {
         public Type Type { get; }
 
         public string Profile { get; }
 
-        public MapperKey2(Type type, string profile)
+        public ClassKey(Type type, string profile)
         {
             Type = type;
             Profile = profile;
         }
 
-        public bool Equals(MapperKey2 other) => Type == other.Type && Profile == other.Profile;
-
-        public override bool Equals(object obj) => obj is MapperKey2 other && Equals(other);
-
-        public override int GetHashCode() => (Type, Profile).GetHashCode();
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return Profile == null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
+            }
+        }
     }
 
-    public sealed class MapperKey3
+    public sealed class ClassKeyComparer : IEqualityComparer<ClassKey>
+    {
+        public bool Equals(ClassKey x, ClassKey y)
+        {
+            return String.Equals(x.Profile, y.Profile) && x.Type == y.Type;
+        }
+
+        public int GetHashCode(ClassKey obj)
+        {
+            return obj.GetHashCode();
+        }
+    }
+
+    public readonly struct StructEquatableKey : IEquatable<StructEquatableKey>
     {
         public Type Type { get; }
 
         public string Profile { get; }
 
-        public MapperKey3(Type type, string profile)
+        public StructEquatableKey(Type type, string profile)
         {
             Type = type;
             Profile = profile;
         }
 
-        public override bool Equals(object obj) => obj is MapperKey3 other && Type == other.Type && Profile == other.Profile;
-
-        public override int GetHashCode() => (Type, Profile).GetHashCode();
-    }
-
-    public readonly struct MapperKeyStruct
-    {
-        public Type Type { get; }
-
-        public string Profile { get; }
-
-        public MapperKeyStruct(Type type, string profile)
+        public bool Equals(StructEquatableKey other)
         {
-            Type = type;
-            Profile = profile;
+            return String.Equals(Profile, other.Profile) && Type == other.Type;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is null)
-            {
-                return false;
-            }
-
-            if (obj is MapperKeyStruct other)
-            {
-                return Type == other.Type && Profile == other.Profile;
-            }
-
-            return false;
+            return obj is StructEquatableKey other && Equals(other);
         }
 
         public override int GetHashCode()
         {
-            var hash = Type.GetHashCode();
-            hash = hash ^ Profile.GetHashCode();
-            return hash;
+            unchecked
+            {
+                return Profile == null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
+            }
         }
     }
 
-    public readonly struct MapperKeyStruct2 : IEquatable<MapperKeyStruct2>
+    public readonly struct StructKey
     {
         public Type Type { get; }
 
         public string Profile { get; }
 
-        public MapperKeyStruct2(Type type, string profile)
+        public StructKey(Type type, string profile)
         {
             Type = type;
             Profile = profile;
         }
 
-        public bool Equals(MapperKeyStruct2 other) => Type == other.Type && Profile == other.Profile;
-
-        public override bool Equals(object obj) => obj is MapperKeyStruct2 other && Equals(other);
-
-        public override int GetHashCode() => (Type, Profile).GetHashCode();
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return Profile == null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
+            }
+        }
     }
 
-    public readonly struct MapperKeyStruct3
+    public readonly struct StructKeyComparer : IEqualityComparer<StructKey>
     {
-        public Type Type { get; }
-
-        public string Profile { get; }
-
-        public MapperKeyStruct3(Type type, string profile)
+        public bool Equals(StructKey x, StructKey y)
         {
-            Type = type;
-            Profile = profile;
+            return String.Equals(x.Profile, y.Profile) && x.Type == y.Type;
         }
 
-        public override bool Equals(object obj) => obj is MapperKeyStruct3 other && Type == other.Type && Profile == other.Profile;
-
-        public override int GetHashCode() => (Type, Profile).GetHashCode();
+        public int GetHashCode(StructKey obj)
+        {
+            return obj.GetHashCode();
+        }
     }
 
 
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
-        private readonly Dictionary<MapperKey, object> dic = new Dictionary<MapperKey, object>();
-        private readonly Dictionary<MapperKey2, object> dic2 = new Dictionary<MapperKey2, object>();
-        private readonly Dictionary<MapperKey3, object> dic3 = new Dictionary<MapperKey3, object>();
-        private readonly Dictionary<MapperKeyStruct, object> dicS = new Dictionary<MapperKeyStruct, object>();
-        private readonly Dictionary<MapperKeyStruct2, object> dic2S = new Dictionary<MapperKeyStruct2, object>();
-        private readonly Dictionary<MapperKeyStruct3, object> dic3S = new Dictionary<MapperKeyStruct3, object>();
+        private readonly Dictionary<ClassEquatableKey, object> dicClassEquatable = new Dictionary<ClassEquatableKey, object>();
 
-        private readonly ThreadsafeHashArrayMap<MapperKey, object> map = new ThreadsafeHashArrayMap<MapperKey, object>();
-        private readonly ThreadsafeHashArrayMap<MapperKey2, object> map2 = new ThreadsafeHashArrayMap<MapperKey2, object>();
-        private readonly ThreadsafeHashArrayMap<MapperKey3, object> map3 = new ThreadsafeHashArrayMap<MapperKey3, object>();
-        private readonly ThreadsafeHashArrayMap<MapperKeyStruct, object> mapS = new ThreadsafeHashArrayMap<MapperKeyStruct, object>();
-        private readonly ThreadsafeHashArrayMap<MapperKeyStruct2, object> map2S = new ThreadsafeHashArrayMap<MapperKeyStruct2, object>();
-        private readonly ThreadsafeHashArrayMap<MapperKeyStruct3, object> map3S = new ThreadsafeHashArrayMap<MapperKeyStruct3, object>();
+        private readonly Dictionary<ClassKey, object> dicClassComparer = new Dictionary<ClassKey, object>(new ClassKeyComparer());
 
-        private readonly ThreadsafeObjectHashArrayMap<MapperKey, object> mapO = new ThreadsafeObjectHashArrayMap<MapperKey, object>();
-        private readonly ThreadsafeObjectHashArrayMap<MapperKey2, object> mapO2 = new ThreadsafeObjectHashArrayMap<MapperKey2, object>();
-        private readonly ThreadsafeObjectHashArrayMap<MapperKey3, object> mapO3 = new ThreadsafeObjectHashArrayMap<MapperKey3, object>();
+        private readonly Dictionary<StructEquatableKey, object> dicStructEquatable = new Dictionary<StructEquatableKey, object>();
 
-        private readonly MapperKey key = new MapperKey(typeof(Class00), "0");
-        private readonly MapperKey2 key2 = new MapperKey2(typeof(Class00), "0");
-        private readonly MapperKey3 key3 = new MapperKey3(typeof(Class00), "0");
-        private readonly MapperKeyStruct keyS = new MapperKeyStruct(typeof(Class00), "0");
-        private readonly MapperKeyStruct2 keyS2 = new MapperKeyStruct2(typeof(Class00), "0");
-        private readonly MapperKeyStruct3 keyS3 = new MapperKeyStruct3(typeof(Class00), "0");
+        private readonly Dictionary<StructKey, object> dicStructComparer = new Dictionary<StructKey, object>(new StructKeyComparer());
+
+        private readonly ThreadsafeHashArrayMap<ClassEquatableKey, object> hashClassEquatable = new ThreadsafeHashArrayMap<ClassEquatableKey, object>();
+
+        private readonly ThreadsafeHashArrayMap<ClassKey, object> hashClassComparer = new ThreadsafeHashArrayMap<ClassKey, object>(new ClassKeyComparer());
+
+        private readonly ThreadsafeHashArrayMap<StructEquatableKey, object> hashStructEquatable = new ThreadsafeHashArrayMap<StructEquatableKey, object>();
+
+        private readonly ThreadsafeHashArrayMap<StructKey, object> hashStructComparer = new ThreadsafeHashArrayMap<StructKey, object>(new StructKeyComparer());
 
         private readonly object instance = new object();
 
-        [GlobalSetup]
-        public void Setup()
-        {
-            foreach (var type in Classes.Types)
-            {
-                for (var i = 0; i < 2; i++)
-                {
-                    var name = i.ToString();
-
-                    dic[new MapperKey(type, name)] = instance;
-                    dic2[new MapperKey2(type, name)] = instance;
-                    dic3[new MapperKey3(type, name)] = instance;
-                    dicS[new MapperKeyStruct(type, name)] = instance;
-                    dic2S[new MapperKeyStruct2(type, name)] = instance;
-                    dic3S[new MapperKeyStruct3(type, name)] = instance;
-                    map.AddIfNotExist(new MapperKey(type, name), instance);
-                    map2.AddIfNotExist(new MapperKey2(type, name), instance);
-                    map3.AddIfNotExist(new MapperKey3(type, name), instance);
-                    mapS.AddIfNotExist(new MapperKeyStruct(type, name), instance);
-                    map2S.AddIfNotExist(new MapperKeyStruct2(type, name), instance);
-                    map3S.AddIfNotExist(new MapperKeyStruct3(type, name), instance);
-                    mapO.AddIfNotExist(new MapperKey(type, name), instance);
-                    mapO2.AddIfNotExist(new MapperKey2(type, name), instance);
-                    mapO3.AddIfNotExist(new MapperKey3(type, name), instance);
-                }
-            }
-        }
-
-        // Key cached
-
-        [Benchmark]
-        public void CachedDictionary() => dic.TryGetValue(key, out _);
-
-        [Benchmark]
-        public void CachedDictionary2() => dic2.TryGetValue(key2, out _);
-
-        [Benchmark]
-        public void CachedDictionary3() => dic3.TryGetValue(key3, out _);
-
-        [Benchmark]
-        public void CachedDictionaryS() => dicS.TryGetValue(keyS, out _);
-
-        [Benchmark]
-        public void CachedDictionary2S() => dic2S.TryGetValue(keyS2, out _);
-
-        [Benchmark]
-        public void CachedDictionary3S() => dic3S.TryGetValue(keyS3, out _);
-
-        [Benchmark]
-        public void CachedArrayMap() => map.TryGetValue(key, out _);
-
-        [Benchmark]
-        public void CachedArrayMap2() => map2.TryGetValue(key2, out _);
-
-        [Benchmark]
-        public void CachedArrayMap3() => map3.TryGetValue(key3, out _);
-
-        [Benchmark]
-        public void CachedArrayMapS() => mapS.TryGetValue(keyS, out _);
-
-        [Benchmark]
-        public void CachedArrayMap2S() => map2S.TryGetValue(keyS2, out _);
-
-        [Benchmark]
-        public void CachedArrayMap3S() => map3S.TryGetValue(keyS3, out _);
-
-        [Benchmark]
-        public void CachedArrayMapO() => mapO.TryGetValue(key, out _);
-
-        [Benchmark]
-        public void CachedArrayMapO2() => mapO2.TryGetValue(key2, out _);
-
-        [Benchmark]
-        public void CachedArrayMapO3() => mapO3.TryGetValue(key3, out _);
-
-        // Loop
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void Dictionary()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                dic.TryGetValue(new MapperKey(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void Dictionary2()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                dic2.TryGetValue(new MapperKey2(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void Dictionary3()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                dic3.TryGetValue(new MapperKey3(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void DictionaryS()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                dicS.TryGetValue(new MapperKeyStruct(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void Dictionary2S()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                dic2S.TryGetValue(new MapperKeyStruct2(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void Dictionary3S()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                dic3S.TryGetValue(new MapperKeyStruct3(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void ArrayMap()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                map.TryGetValue(new MapperKey(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void ArrayMap2()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                map2.TryGetValue(new MapperKey2(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void ArrayMap3()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                map3.TryGetValue(new MapperKey3(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void ArrayMapS()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                mapS.TryGetValue(new MapperKeyStruct(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void ArrayMap2S()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                map2S.TryGetValue(new MapperKeyStruct2(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void ArrayMap3S()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                map3S.TryGetValue(new MapperKeyStruct3(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void ArrayMapO()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                mapO.TryGetValue(new MapperKey(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void ArrayMapO2()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                mapO2.TryGetValue(new MapperKey2(Classes.Types[i], "0"), out _);
-            }
-        }
-
-        [Benchmark(OperationsPerInvoke = 10)]
-        public void ArrayMapO3()
-        {
-            for (var i = 0; i < Classes.Types.Length; i++)
-            {
-                mapO3.TryGetValue(new MapperKey3(Classes.Types[i], "0"), out _);
-            }
-        }
-    }
-
-    public class Class00 { }
-    public class Class01 { }
-    public class Class02 { }
-    public class Class03 { }
-    public class Class04 { }
-    public class Class05 { }
-    public class Class06 { }
-    public class Class07 { }
-    public class Class08 { }
-    public class Class09 { }
-
-    public static class Classes
-    {
-        public static Type[] Types => new[]
+        private static Type[] Types => new[]
         {
             typeof(Class00),
             typeof(Class01),
@@ -447,5 +196,120 @@
             typeof(Class08),
             typeof(Class09),
         };
+
+        private readonly string[] profiles = { null, "xyz" };
+
+        [GlobalSetup]
+        public void Setup()
+        {
+            foreach (var type in Types)
+            {
+                for (var i = 0; i < profiles.Length; i++)
+                {
+                    var profile = profiles[i];
+
+                    dicClassEquatable[new ClassEquatableKey(type, profile)] = instance;
+                    dicClassComparer[new ClassKey(type, profile)] = instance;
+                    dicStructEquatable[new StructEquatableKey(type, profile)] = instance;
+                    dicStructComparer[new StructKey(type, profile)] = instance;
+                    hashClassEquatable.AddIfNotExist(new ClassEquatableKey(type, profile), instance);
+                    hashClassComparer.AddIfNotExist(new ClassKey(type, profile), instance);
+                    hashStructEquatable.AddIfNotExist(new StructEquatableKey(type, profile), instance);
+                    hashStructComparer.AddIfNotExist(new StructKey(type, profile), instance);
+                }
+            }
+
+            if (!DictionaryClassEquatableNull()) throw new Exception();
+            if (!DictionaryClassEquatableProfile()) throw new Exception();
+            if (!DictionaryClassComparerNull()) throw new Exception();
+            if (!DictionaryClassComparerProfile()) throw new Exception();
+            if (!DictionaryStructEquatableNull()) throw new Exception();
+            if (!DictionaryStructEquatableProfile()) throw new Exception();
+            if (!DictionaryStructComparerNull()) throw new Exception();
+            if (!DictionaryStructComparerProfile()) throw new Exception();
+            if (!HashClassEquatableNull()) throw new Exception();
+            if (!HashClassEquatableProfile()) throw new Exception();
+            if (!HashClassComparerNull()) throw new Exception();
+            if (!HashClassComparerProfile()) throw new Exception();
+            if (!HashStructEquatableNull()) throw new Exception();
+            if (!HashStructEquatableProfile()) throw new Exception();
+            if (!HashStructComparerNull()) throw new Exception();
+            if (!HashStructComparerProfile()) throw new Exception();
+        }
+
+        [Benchmark]
+        public bool DictionaryClassEquatableNull() =>
+            dicClassEquatable.TryGetValue(new ClassEquatableKey(typeof(Class00), null), out _);
+
+        [Benchmark]
+        public bool DictionaryClassEquatableProfile() =>
+                dicClassEquatable.TryGetValue(new ClassEquatableKey(typeof(Class00), "xyz"), out _);
+
+        [Benchmark]
+        public bool DictionaryClassComparerNull() =>
+                dicClassComparer.TryGetValue(new ClassKey(typeof(Class00), null), out _);
+
+        [Benchmark]
+        public bool DictionaryClassComparerProfile() =>
+                dicClassComparer.TryGetValue(new ClassKey(typeof(Class00), "xyz"), out _);
+
+        [Benchmark]
+        public bool DictionaryStructEquatableNull() =>
+                dicStructEquatable.TryGetValue(new StructEquatableKey(typeof(Class00), null), out _);
+
+        [Benchmark]
+        public bool DictionaryStructEquatableProfile() =>
+                dicStructEquatable.TryGetValue(new StructEquatableKey(typeof(Class00), "xyz"), out _);
+
+        [Benchmark]
+        public bool DictionaryStructComparerNull() =>
+                dicStructComparer.TryGetValue(new StructKey(typeof(Class00), null), out _);
+
+        [Benchmark]
+        public bool DictionaryStructComparerProfile() =>
+                dicStructComparer.TryGetValue(new StructKey(typeof(Class00), "xyz"), out _);
+
+        [Benchmark]
+        public bool HashClassEquatableNull() =>
+                hashClassEquatable.TryGetValue(new ClassEquatableKey(typeof(Class00), null), out _);
+
+        [Benchmark]
+        public bool HashClassEquatableProfile() =>
+                hashClassEquatable.TryGetValue(new ClassEquatableKey(typeof(Class00), "xyz"), out _);
+
+        [Benchmark]
+        public bool HashClassComparerNull() =>
+                hashClassComparer.TryGetValue(new ClassKey(typeof(Class00), null), out _);
+
+        [Benchmark]
+        public bool HashClassComparerProfile() =>
+                hashClassComparer.TryGetValue(new ClassKey(typeof(Class00), "xyz"), out _);
+
+        [Benchmark]
+        public bool HashStructEquatableNull() =>
+                hashStructEquatable.TryGetValue(new StructEquatableKey(typeof(Class00), null), out _);
+
+        [Benchmark]
+        public bool HashStructEquatableProfile() =>
+                hashStructEquatable.TryGetValue(new StructEquatableKey(typeof(Class00), "xyz"), out _);
+
+        [Benchmark]
+        public bool HashStructComparerNull() =>
+                hashStructComparer.TryGetValue(new StructKey(typeof(Class00), null), out _);
+
+        [Benchmark]
+        public bool HashStructComparerProfile() =>
+                hashStructComparer.TryGetValue(new StructKey(typeof(Class00), "xyz"), out _);
     }
+
+    public class Class00 { }
+    public class Class01 { }
+    public class Class02 { }
+    public class Class03 { }
+    public class Class04 { }
+    public class Class05 { }
+    public class Class06 { }
+    public class Class07 { }
+    public class Class08 { }
+    public class Class09 { }
 }

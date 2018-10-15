@@ -10,35 +10,21 @@ Job=MediumRun  LaunchCount=2  TargetCount=15
 WarmupCount=10  
 
 ```
-|             Method |      Mean |     Error |    StdDev |  Gen 0 | Allocated |
-|------------------- |----------:|----------:|----------:|-------:|----------:|
-|   CachedDictionary |  34.64 ns | 0.6332 ns | 0.9282 ns |      - |       0 B |
-|  CachedDictionary2 |  39.59 ns | 0.6243 ns | 0.8953 ns |      - |       0 B |
-|  CachedDictionary3 |  37.42 ns | 0.3393 ns | 0.4973 ns |      - |       0 B |
-|  CachedDictionaryS |  56.24 ns | 1.6764 ns | 2.4572 ns | 0.0076 |      32 B |
-| CachedDictionary2S |  48.90 ns | 0.8578 ns | 1.2574 ns |      - |       0 B |
-| CachedDictionary3S |  60.46 ns | 0.7998 ns | 1.1971 ns | 0.0075 |      32 B |
-|     CachedArrayMap |  21.74 ns | 0.1888 ns | 0.2825 ns |      - |       0 B |
-|    CachedArrayMap2 |  27.16 ns | 0.2153 ns | 0.3156 ns |      - |       0 B |
-|    CachedArrayMap3 |  26.19 ns | 0.1219 ns | 0.1748 ns |      - |       0 B |
-|    CachedArrayMapS |  40.02 ns | 0.4367 ns | 0.6122 ns | 0.0076 |      32 B |
-|   CachedArrayMap2S |  33.81 ns | 0.3470 ns | 0.4977 ns |      - |       0 B |
-|   CachedArrayMap3S |  45.63 ns | 0.3456 ns | 0.5173 ns | 0.0076 |      32 B |
-|    CachedArrayMapO |  13.71 ns | 0.7557 ns | 1.1311 ns |      - |       0 B |
-|   CachedArrayMapO2 |  17.44 ns | 0.8978 ns | 1.2875 ns |      - |       0 B |
-|   CachedArrayMapO3 |  18.24 ns | 0.4727 ns | 0.6627 ns |      - |       0 B |
-|         Dictionary | 283.23 ns | 2.3372 ns | 3.4259 ns | 0.5951 |    2504 B |
-|        Dictionary2 | 294.12 ns | 3.9693 ns | 5.9411 ns | 0.5951 |    2504 B |
-|        Dictionary3 | 288.39 ns | 1.8712 ns | 2.7428 ns | 0.5951 |    2504 B |
-|        DictionaryS | 276.91 ns | 3.4681 ns | 4.8618 ns | 0.5951 |    2504 B |
-|       Dictionary2S | 271.26 ns | 2.7823 ns | 4.1645 ns | 0.5188 |    2184 B |
-|       Dictionary3S | 287.81 ns | 2.3321 ns | 3.4906 ns | 0.5951 |    2504 B |
-|           ArrayMap | 266.54 ns | 1.9757 ns | 2.9571 ns | 0.5951 |    2504 B |
-|          ArrayMap2 | 277.17 ns | 2.4418 ns | 3.6547 ns | 0.5951 |    2504 B |
-|          ArrayMap3 | 275.21 ns | 1.7637 ns | 2.6398 ns | 0.5951 |    2504 B |
-|          ArrayMapS | 272.34 ns | 3.4759 ns | 4.9850 ns | 0.6180 |    2600 B |
-|         ArrayMap2S | 265.26 ns | 1.3172 ns | 1.8891 ns | 0.5188 |    2184 B |
-|         ArrayMap3S | 290.35 ns | 1.9182 ns | 2.8711 ns | 0.6180 |    2600 B |
-|          ArrayMapO | 257.49 ns | 2.1821 ns | 3.1296 ns | 0.5951 |    2504 B |
-|         ArrayMapO2 | 258.95 ns | 1.4783 ns | 2.1669 ns | 0.5951 |    2504 B |
-|         ArrayMapO3 | 263.60 ns | 2.8528 ns | 4.1815 ns | 0.5951 |    2504 B |
+|                           Method |     Mean |      Error |     StdDev |   Median |  Gen 0 | Allocated |
+|--------------------------------- |---------:|-----------:|-----------:|---------:|-------:|----------:|
+|     DictionaryClassEquatableNull | 60.60 ns | 18.6570 ns | 27.9250 ns | 41.01 ns | 0.0076 |      32 B |
+|  DictionaryClassEquatableProfile | 47.81 ns |  0.3786 ns |  0.5307 ns | 47.76 ns | 0.0076 |      32 B |
+|      DictionaryClassComparerNull | 32.83 ns |  1.0913 ns |  1.6334 ns | 32.89 ns | 0.0076 |      32 B |
+|   DictionaryClassComparerProfile | 41.32 ns |  0.5171 ns |  0.7580 ns | 41.09 ns | 0.0076 |      32 B |
+|    DictionaryStructEquatableNull | 32.35 ns |  0.3166 ns |  0.4540 ns | 32.18 ns |      - |       0 B |
+| DictionaryStructEquatableProfile | 41.00 ns |  0.9654 ns |  1.4450 ns | 41.19 ns |      - |       0 B |
+|     DictionaryStructComparerNull | 40.15 ns |  0.4595 ns |  0.6878 ns | 40.27 ns |      - |       0 B |
+|  DictionaryStructComparerProfile | 47.51 ns |  0.7028 ns |  1.0079 ns | 47.79 ns |      - |       0 B |
+|           HashClassEquatableNull | 20.85 ns |  0.2954 ns |  0.4422 ns | 20.92 ns | 0.0076 |      32 B |
+|        HashClassEquatableProfile | 29.49 ns |  0.3616 ns |  0.5413 ns | 29.44 ns | 0.0076 |      32 B |
+|            HashClassComparerNull | 17.44 ns |  0.2037 ns |  0.2985 ns | 17.31 ns | 0.0076 |      32 B |
+|         HashClassComparerProfile | 26.17 ns |  0.3486 ns |  0.4999 ns | 25.98 ns | 0.0076 |      32 B |
+|          HashStructEquatableNull | 19.67 ns |  0.1677 ns |  0.2510 ns | 19.59 ns |      - |       0 B |
+|       HashStructEquatableProfile | 25.91 ns |  0.2046 ns |  0.3062 ns | 25.85 ns |      - |       0 B |
+|           HashStructComparerNull | 20.11 ns |  0.1316 ns |  0.1970 ns | 20.05 ns |      - |       0 B |
+|        HashStructComparerProfile | 26.74 ns |  0.1326 ns |  0.1985 ns | 26.78 ns |      - |       0 B |
