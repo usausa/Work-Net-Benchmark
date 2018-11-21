@@ -1,4 +1,4 @@
-﻿namespace CallBenchmark
+﻿namespace ResolveBenchmark
 {
     using System.Reflection;
 

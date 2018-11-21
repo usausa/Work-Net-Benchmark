@@ -1,4 +1,4 @@
-﻿namespace CallBenchmark
+﻿namespace ResolveBenchmark
 {
     using BenchmarkDotNet.Configs;
     using BenchmarkDotNet.Diagnosers;

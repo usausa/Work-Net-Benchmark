@@ -1,4 +1,4 @@
-﻿namespace CallBenchmark
+﻿namespace ResolveBenchmark
 {
     using System;
 
@@ -89,7 +89,7 @@
         }
 
         [Benchmark]
-        public object FuncDiredct()
+        public object FuncDirect()
         {
             return funcDirect();
         }
