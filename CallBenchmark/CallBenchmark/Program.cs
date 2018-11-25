@@ -24,7 +24,7 @@
         {
             Add(MarkdownExporter.Default, MarkdownExporter.GitHub);
             Add(MemoryDiagnoser.Default);
-            Add(Job.MediumRun);
+            Add(Job.LongRun);
         }
     }
 
@@ -47,9 +47,9 @@
         private IFunction1 ifSealed1;
         private IFunction2 ifSealed2;
 
-        private Func<int> funcDirect0 => () => 0;
-        private Func<int, int> funcDirect1 => (x) => x;
-        private Func<int, int, int> funcDirect2 => (x, y) => x + y;
+        private readonly Func<int> funcDirect0 = () => 0;
+        private readonly Func<int, int> funcDirect1 = (x) => x;
+        private readonly Func<int, int, int> funcDirect2 = (x, y) => x + y;
 
         private Func<int> funcStatic0;
         private Func<int, int> funcStatic1;
