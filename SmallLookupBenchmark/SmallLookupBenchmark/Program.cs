@@ -33,10 +33,14 @@
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
+        private static readonly Type TypeKey = typeof(object);
+
         private readonly LockArray<object> lockArray = new LockArray<object>();
         private readonly NumberLockArray<object> numberLockArray = new NumberLockArray<object>();
         private readonly Dictionary<Type, object> dictionary = new Dictionary<Type, object>();
         private readonly ThreadsafeTypeHashArrayMap<object> hashArrayMap = new ThreadsafeTypeHashArrayMap<object>();
+
+        private readonly MetadataHashArray metadataHashArray = new MetadataHashArray();
 
         private object Factory()
         {
@@ -64,8 +68,12 @@
                 dictionary[Extension3.TypeToken] = Factory();
             }
             hashArrayMap.AddIfNotExist(Extension1.TypeToken, Factory);
-            hashArrayMap.AddIfNotExist(Extension1.TypeToken, Factory);
-            hashArrayMap.AddIfNotExist(Extension1.TypeToken, Factory);
+            hashArrayMap.AddIfNotExist(Extension2.TypeToken, Factory);
+            hashArrayMap.AddIfNotExist(Extension3.TypeToken, Factory);
+
+            metadataHashArray.AddIfNotExist(0, TypeKey, Factory);
+            metadataHashArray.AddIfNotExist(1, TypeKey, Factory);
+            metadataHashArray.AddIfNotExist(2, TypeKey, Factory);
         }
 
         [Benchmark]
@@ -176,6 +184,26 @@
             hashArrayMap.AddIfNotExist(Extension1.TypeToken, Factory);
             hashArrayMap.AddIfNotExist(Extension2.TypeToken, Factory);
             hashArrayMap.AddIfNotExist(Extension3.TypeToken, Factory);
+        }
+
+        [Benchmark]
+        public void MetadataHashArray1()
+        {
+            metadataHashArray.AddIfNotExist(0, TypeKey, Factory);
+        }
+
+        [Benchmark]
+        public void MetadataHashArray2()
+        {
+            metadataHashArray.AddIfNotExist(1, TypeKey, Factory);
+        }
+
+        [Benchmark(OperationsPerInvoke = 3)]
+        public void MetadataHashArrayN()
+        {
+            metadataHashArray.AddIfNotExist(0, TypeKey, Factory);
+            metadataHashArray.AddIfNotExist(1, TypeKey, Factory);
+            metadataHashArray.AddIfNotExist(2, TypeKey, Factory);
         }
     }
 
