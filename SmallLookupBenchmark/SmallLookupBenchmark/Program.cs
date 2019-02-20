@@ -42,6 +42,15 @@
 
         private readonly MetadataHashArray metadataHashArray = new MetadataHashArray();
 
+        private readonly Func<object> factory;
+        private readonly Func<Type, object> factoryByType;
+
+        public Benchmark()
+        {
+            factory = Factory;
+            factoryByType = Factory;
+        }
+
         private object Factory()
         {
             return new object();
@@ -55,65 +64,65 @@
         [GlobalSetup]
         public void Setup()
         {
-            lockArray.GetOrCreate(Extension1.Token, Factory);
-            lockArray.GetOrCreate(Extension2.Token, Factory);
-            lockArray.GetOrCreate(Extension3.Token, Factory);
-            numberLockArray.GetOrCreate(0, Factory);
-            numberLockArray.GetOrCreate(1, Factory);
-            numberLockArray.GetOrCreate(2, Factory);
+            lockArray.GetOrCreate(Extension1.Token, factory);
+            lockArray.GetOrCreate(Extension2.Token, factory);
+            lockArray.GetOrCreate(Extension3.Token, factory);
+            numberLockArray.GetOrCreate(0, factory);
+            numberLockArray.GetOrCreate(1, factory);
+            numberLockArray.GetOrCreate(2, factory);
             lock (dictionary)
             {
-                dictionary[Extension1.TypeToken] = Factory();
-                dictionary[Extension2.TypeToken] = Factory();
-                dictionary[Extension3.TypeToken] = Factory();
+                dictionary[Extension1.TypeToken] = factory();
+                dictionary[Extension2.TypeToken] = factory();
+                dictionary[Extension3.TypeToken] = factory();
             }
-            hashArrayMap.AddIfNotExist(Extension1.TypeToken, Factory);
-            hashArrayMap.AddIfNotExist(Extension2.TypeToken, Factory);
-            hashArrayMap.AddIfNotExist(Extension3.TypeToken, Factory);
+            hashArrayMap.AddIfNotExist(Extension1.TypeToken, factory);
+            hashArrayMap.AddIfNotExist(Extension2.TypeToken, factory);
+            hashArrayMap.AddIfNotExist(Extension3.TypeToken, factory);
 
-            metadataHashArray.AddIfNotExist(0, TypeKey, Factory);
-            metadataHashArray.AddIfNotExist(1, TypeKey, Factory);
-            metadataHashArray.AddIfNotExist(2, TypeKey, Factory);
+            metadataHashArray.AddIfNotExist(0, TypeKey, factoryByType);
+            metadataHashArray.AddIfNotExist(1, TypeKey, factoryByType);
+            metadataHashArray.AddIfNotExist(2, TypeKey, factoryByType);
         }
 
         [Benchmark]
         public void LockArray1()
         {
-            lockArray.GetOrCreate(Extension1.Token, Factory);
+            lockArray.GetOrCreate(Extension1.Token, factory);
         }
 
         [Benchmark]
         public void LockArray2()
         {
-            lockArray.GetOrCreate(Extension2.Token, Factory);
+            lockArray.GetOrCreate(Extension2.Token, factory);
         }
 
         [Benchmark(OperationsPerInvoke = 3)]
         public void LockArrayN()
         {
-            lockArray.GetOrCreate(Extension1.Token, Factory);
-            lockArray.GetOrCreate(Extension2.Token, Factory);
-            lockArray.GetOrCreate(Extension3.Token, Factory);
+            lockArray.GetOrCreate(Extension1.Token, factory);
+            lockArray.GetOrCreate(Extension2.Token, factory);
+            lockArray.GetOrCreate(Extension3.Token, factory);
         }
 
         [Benchmark]
         public void NumberLockArray1()
         {
-            numberLockArray.GetOrCreate(0, Factory);
+            numberLockArray.GetOrCreate(0, factory);
         }
 
         [Benchmark]
         public void NumberLockArray2()
         {
-            numberLockArray.GetOrCreate(1, Factory);
+            numberLockArray.GetOrCreate(1, factory);
         }
 
         [Benchmark(OperationsPerInvoke = 3)]
         public void NumberLockArrayN()
         {
-            numberLockArray.GetOrCreate(0, Factory);
-            numberLockArray.GetOrCreate(1, Factory);
-            numberLockArray.GetOrCreate(2, Factory);
+            numberLockArray.GetOrCreate(0, factory);
+            numberLockArray.GetOrCreate(1, factory);
+            numberLockArray.GetOrCreate(2, factory);
         }
 
         [Benchmark]
@@ -123,7 +132,7 @@
             {
                 if (!dictionary.TryGetValue(Extension1.TypeToken, out _))
                 {
-                    dictionary[Extension1.TypeToken] = Factory();
+                    dictionary[Extension1.TypeToken] = factory();
                 }
             }
         }
@@ -135,7 +144,7 @@
             {
                 if (!dictionary.TryGetValue(Extension2.TypeToken, out _))
                 {
-                    dictionary[Extension2.TypeToken] = Factory();
+                    dictionary[Extension2.TypeToken] = factory();
                 }
             }
         }
@@ -147,21 +156,21 @@
             {
                 if (!dictionary.TryGetValue(Extension1.TypeToken, out _))
                 {
-                    dictionary[Extension1.TypeToken] = Factory();
+                    dictionary[Extension1.TypeToken] = factory();
                 }
             }
             lock (dictionary)
             {
                 if (!dictionary.TryGetValue(Extension2.TypeToken, out _))
                 {
-                    dictionary[Extension2.TypeToken] = Factory();
+                    dictionary[Extension2.TypeToken] = factory();
                 }
             }
             lock (dictionary)
             {
                 if (!dictionary.TryGetValue(Extension3.TypeToken, out _))
                 {
-                    dictionary[Extension3.TypeToken] = Factory();
+                    dictionary[Extension3.TypeToken] = factory();
                 }
             }
         }
@@ -169,41 +178,41 @@
         [Benchmark]
         public void ThreadsafeHashArray1()
         {
-            hashArrayMap.AddIfNotExist(Extension1.TypeToken, Factory);
+            hashArrayMap.AddIfNotExist(Extension1.TypeToken, factory);
         }
 
         [Benchmark]
         public void ThreadsafeHashArray2()
         {
-            hashArrayMap.AddIfNotExist(Extension2.TypeToken, Factory);
+            hashArrayMap.AddIfNotExist(Extension2.TypeToken, factory);
         }
 
         [Benchmark(OperationsPerInvoke = 3)]
         public void ThreadsafeHashArrayN()
         {
-            hashArrayMap.AddIfNotExist(Extension1.TypeToken, Factory);
-            hashArrayMap.AddIfNotExist(Extension2.TypeToken, Factory);
-            hashArrayMap.AddIfNotExist(Extension3.TypeToken, Factory);
+            hashArrayMap.AddIfNotExist(Extension1.TypeToken, factory);
+            hashArrayMap.AddIfNotExist(Extension2.TypeToken, factory);
+            hashArrayMap.AddIfNotExist(Extension3.TypeToken, factory);
         }
 
         [Benchmark]
         public void MetadataHashArray1()
         {
-            metadataHashArray.AddIfNotExist(0, TypeKey, Factory);
+            metadataHashArray.AddIfNotExist(0, TypeKey, factoryByType);
         }
 
         [Benchmark]
         public void MetadataHashArray2()
         {
-            metadataHashArray.AddIfNotExist(1, TypeKey, Factory);
+            metadataHashArray.AddIfNotExist(1, TypeKey, factoryByType);
         }
 
         [Benchmark(OperationsPerInvoke = 3)]
         public void MetadataHashArrayN()
         {
-            metadataHashArray.AddIfNotExist(0, TypeKey, Factory);
-            metadataHashArray.AddIfNotExist(1, TypeKey, Factory);
-            metadataHashArray.AddIfNotExist(2, TypeKey, Factory);
+            metadataHashArray.AddIfNotExist(0, TypeKey, factoryByType);
+            metadataHashArray.AddIfNotExist(1, TypeKey, factoryByType);
+            metadataHashArray.AddIfNotExist(2, TypeKey, factoryByType);
         }
     }
 
