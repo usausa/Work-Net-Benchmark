@@ -16,7 +16,7 @@
 
         private IAccessor generativeAccessor;
 
-        private IAccessor dynaicMethodAccessor;
+        private IAccessor dynamicMethodAccessor;
 
         private IAccessor expressionAccessor;
 
@@ -29,8 +29,8 @@
         {
             var pi = typeof(Data).GetProperty("Value");
 
-            generativeAccessor = new GenerativeDataValieAccessor();
-            dynaicMethodAccessor = CreateDynamicMethodAccessor(pi);
+            generativeAccessor = new GenerativeDataValueAccessor();
+            dynamicMethodAccessor = CreateDynamicMethodAccessor(pi);
             expressionAccessor = CreateExpressionAccessor<Data, string>(pi);
             delegateAccessor = CreateDelegateAccessor<Data, string>(pi);
             reflectionAccessor = new ReflectionAccessor(pi);
@@ -42,7 +42,7 @@
 
         // Raw
 
-        private sealed class GenerativeDataValieAccessor : IAccessor
+        private sealed class GenerativeDataValueAccessor : IAccessor
         {
             public object GetValue(object target)
             {
@@ -118,8 +118,8 @@
 
         private static void EmitCall(ILGenerator generator, MethodInfo method)
         {
-            var opcode = (method.IsStatic || method.DeclaringType.IsValueType) ? OpCodes.Call : OpCodes.Callvirt;
-            generator.EmitCall(opcode, method, null);
+            var opCode = (method.IsStatic || method.DeclaringType.IsValueType) ? OpCodes.Call : OpCodes.Callvirt;
+            generator.EmitCall(opCode, method, null);
         }
 
         // Expression
@@ -189,7 +189,7 @@
         [Benchmark]
         public object DynamicMethodGetter()
         {
-            return dynaicMethodAccessor.GetValue(target);
+            return dynamicMethodAccessor.GetValue(target);
         }
 
         [Benchmark]
@@ -223,7 +223,7 @@
         [Benchmark]
         public void DynamicMethodSetter()
         {
-            dynaicMethodAccessor.SetValue(target, value);
+            dynamicMethodAccessor.SetValue(target, value);
         }
 
         [Benchmark]

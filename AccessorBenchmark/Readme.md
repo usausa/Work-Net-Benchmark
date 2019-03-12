@@ -1,3 +1,18 @@
+# Core 2.2
+
+|              Method |       Mean |      Error |    StdDev |     Median | Gen 0/1k Op | Gen 1/1k Op | Gen 2/1k Op | Allocated Memory/Op |
+|-------------------- |-----------:|-----------:|----------:|-----------:|------------:|------------:|------------:|--------------------:|
+|    GenerativeGetter |   1.704 ns |  0.1783 ns | 0.0098 ns |   1.699 ns |           - |           - |           - |                   - |
+| DynamicMethodGetter |   3.846 ns |  1.7503 ns | 0.0959 ns |   3.892 ns |           - |           - |           - |                   - |
+|    ExpressionGetter |   4.347 ns |  0.6707 ns | 0.0368 ns |   4.355 ns |           - |           - |           - |                   - |
+|      DelegateGetter |   7.753 ns | 71.0039 ns | 3.8920 ns |   5.525 ns |           - |           - |           - |                   - |
+|    ReflectionGetter |  87.169 ns | 15.7476 ns | 0.8632 ns |  86.724 ns |           - |           - |           - |                   - |
+|    GenerativeSetter |   4.369 ns |  0.4919 ns | 0.0270 ns |   4.365 ns |           - |           - |           - |                   - |
+| DynamicMethodSetter |   6.424 ns | 30.3755 ns | 1.6650 ns |   5.472 ns |           - |           - |           - |                   - |
+|    ExpressionSetter |   8.045 ns |  1.3113 ns | 0.0719 ns |   8.027 ns |           - |           - |           - |                   - |
+|      DelegateSetter |   9.225 ns |  1.5450 ns | 0.0847 ns |   9.178 ns |           - |           - |           - |                   - |
+|    ReflectionSetter | 167.743 ns |  3.5123 ns | 0.1925 ns | 167.762 ns |      0.0150 |           - |           - |                64 B |
+
 # Core 2.0
 
  |              Method |       Mean |      Error |    StdDev |  Gen 0 | Allocated |
