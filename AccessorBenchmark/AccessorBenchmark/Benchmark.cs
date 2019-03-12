@@ -7,6 +7,8 @@
 
     using BenchmarkDotNet.Attributes;
 
+    using Smart.Reflection;
+
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
@@ -24,6 +26,10 @@
 
         private IAccessor reflectionAccessor;
 
+        private Func<object, object> smartGetter;
+
+        private Action<object, object> smartSetter;
+
         [GlobalSetup]
         public void Setup()
         {
@@ -34,6 +40,9 @@
             expressionAccessor = CreateExpressionAccessor<Data, string>(pi);
             delegateAccessor = CreateDelegateAccessor<Data, string>(pi);
             reflectionAccessor = new ReflectionAccessor(pi);
+
+            smartGetter = DynamicDelegateFactory.Default.CreateGetter(pi);
+            smartSetter = DynamicDelegateFactory.Default.CreateSetter(pi);
         }
 
         //--------------------------------------------------------------------------------
@@ -210,6 +219,12 @@
             return reflectionAccessor.GetValue(target);
         }
 
+        [Benchmark]
+        public object SmartGetter()
+        {
+            return smartGetter(target);
+        }
+
         //--------------------------------------------------------------------------------
         // Setter
         //--------------------------------------------------------------------------------
@@ -242,6 +257,12 @@
         public void ReflectionSetter()
         {
             reflectionAccessor.SetValue(target, value);
+        }
+
+        [Benchmark]
+        public void SmartSetter()
+        {
+            smartSetter(target, value);
         }
     }
 }
