@@ -159,7 +159,7 @@
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void AvlTreeAction(Type key)
         {
-            if (imMap.GetValueOrDefault(key) == null)
+            if (imMap.GetValueOrDefault(key) is null)
             {
                 imMap = imMap.AddOrUpdate(key, null);
             }

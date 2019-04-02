@@ -50,7 +50,7 @@
             if (ReferenceEquals(Key, key) || Key.Equals(key))
                 return new ImTreeMap<TKey, TValue>(Hash, key, value, Conflicts, Left, Right);
 
-            if (Conflicts == null) // add only if updateOnly is false.
+            if (Conflicts is null) // add only if updateOnly is false.
                 return new ImTreeMap<TKey, TValue>(Hash, Key, Value, new[] { new KeyValue<TKey, TValue>(key, value) }, Left, Right);
 
             var found = Conflicts.Length - 1;
@@ -128,7 +128,7 @@
             var hash = key.GetHashCode();
 
             var t = _trees[hash & HashBitsToTree];
-            if (t == null)
+            if (t is null)
                 return defaultValue;
 
             while (t.Height != 0 && t.Hash != hash)

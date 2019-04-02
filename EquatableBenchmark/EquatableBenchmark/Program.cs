@@ -57,7 +57,7 @@
         {
             unchecked
             {
-                return Profile == null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
+                return Profile is null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
             }
         }
     }
@@ -78,7 +78,7 @@
         {
             unchecked
             {
-                return Profile == null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
+                return Profile is null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
             }
         }
     }
@@ -122,7 +122,7 @@
         {
             unchecked
             {
-                return Profile == null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
+                return Profile is null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
             }
         }
     }
@@ -143,7 +143,7 @@
         {
             unchecked
             {
-                return Profile == null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
+                return Profile is null ? Type.GetHashCode() : Type.GetHashCode() ^ (Profile.GetHashCode() * 397);
             }
         }
     }
