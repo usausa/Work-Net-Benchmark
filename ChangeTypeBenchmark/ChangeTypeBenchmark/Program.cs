@@ -41,6 +41,22 @@ namespace ChangeTypeBenchmark
 
         private static readonly IObjectConverter Converter = ObjectConverter.Default;
 
+        private Func<object, object> converter1;
+        private Func<object, object> converter2;
+        private Func<object, object> converter3;
+        private Func<object, object> converter4;
+
+        [GlobalSetup]
+        public void Setup()
+        {
+            converter1 = Converter.CreateConverter(typeof(int), typeof(long));
+            converter2 = Converter.CreateConverter(typeof(long), typeof(int));
+            converter3 = Converter.CreateConverter(typeof(string), typeof(int));
+            converter4 = Converter.CreateConverter(typeof(int), typeof(string));
+        }
+
+        // Raw
+
         [Benchmark]
         public long RawIntToLong() => IntValue;
 
@@ -52,6 +68,8 @@ namespace ChangeTypeBenchmark
 
         [Benchmark]
         public string RawIntToString() => IntValue.ToString();
+
+        // Default
 
         [Benchmark]
         public long ConvertIntToLong() => (long)Convert.ChangeType(IntValue, typeof(long), CultureInfo.InvariantCulture);
@@ -65,6 +83,8 @@ namespace ChangeTypeBenchmark
         [Benchmark]
         public string ConvertIntToString() => (string)Convert.ChangeType(IntValue, typeof(string), CultureInfo.InvariantCulture);
 
+        // Smart
+
         [Benchmark]
         public long SmartIntToLong() => Converter.Convert<long>(IntValue);
 
@@ -76,5 +96,19 @@ namespace ChangeTypeBenchmark
 
         [Benchmark]
         public string SmartIntToString() => Converter.Convert<string>(IntValue);
+
+        // Smart prepared
+
+        [Benchmark]
+        public long PreparedSmartIntToLong() => (long)converter1(IntValue);
+
+        [Benchmark]
+        public int PreparedSmartLongToInt() => (int)converter2(LongValue);
+
+        [Benchmark]
+        public int PreparedSmartStringToInt() => (int)converter3(StringValue);
+
+        [Benchmark]
+        public string PreparedSmartIntToString() => (string)converter4(IntValue);
     }
 }
