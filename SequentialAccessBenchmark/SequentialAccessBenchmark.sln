@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequentialAccessBenchmark", "SequentialAccessBenchmark\SequentialAccessBenchmark.csproj", "{76282C0F-970E-4FCF-A3D5-E619637458E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76282C0F-970E-4FCF-A3D5-E619637458E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76282C0F-970E-4FCF-A3D5-E619637458E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76282C0F-970E-4FCF-A3D5-E619637458E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76282C0F-970E-4FCF-A3D5-E619637458E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5154A5BB-4A8A-4D64-AB5A-82DA505A51B6}
+	EndGlobalSection
+EndGlobal
