@@ -97,20 +97,25 @@ namespace SequentialAccessBenchmark
             entries = types.Select(x => new Entry { Key = x }).ToArray();
         }
 
-        public void Find(Type type)
+        public object Find(Type type)
         {
             for (var i = 0; i < entries.Length; i++)
             {
-                if (entries[i].Key == type)
+                var entry = entries[i];
+                if (entry.Key == type)
                 {
-                    break;
+                    return entry.Data;
                 }
             }
+
+            return null;
         }
 
         public class Entry
         {
             public Type Key;
+
+            public object Data;
         }
     }
 
@@ -137,32 +142,36 @@ namespace SequentialAccessBenchmark
             }
         }
 
-        public void Find(Type type)
+        public object Find(Type type)
         {
             var entry = first;
             do
             {
                 if (entry.Key == type)
                 {
-                    return;
+                    return entry.Data;
                 }
 
                 entry = entry.Next;
             } while (entry != null);
+
+            return null;
         }
 
-        public void Find2(Type type)
+        public object Find2(Type type)
         {
             var entry = first;
             while (entry != null)
             {
                 if (entry.Key == type)
                 {
-                    return;
+                    return entry.Data;
                 }
 
                 entry = entry.Next;
             }
+
+            return null;
         }
 
         public class Entry
@@ -170,6 +179,8 @@ namespace SequentialAccessBenchmark
             public Type Key;
 
             public Entry Next;
+
+            public object Data;
         }
     }
 
