@@ -24,7 +24,7 @@ namespace SequentialAccessBenchmark
         {
             Add(MarkdownExporter.Default, MarkdownExporter.GitHub);
             Add(MemoryDiagnoser.Default);
-            Add(Job.LongRun);
+            Add(Job.MediumRun);
         }
     }
 
@@ -43,34 +43,49 @@ namespace SequentialAccessBenchmark
             typeof(Class05), typeof(Class06),typeof(Class07),typeof(Class08),typeof(Class09)
         });
 
-        private readonly Type key = typeof(object);
+        private readonly Type key1 = typeof(Class00);
+
+        private readonly Type key2 = typeof(Class01);
+
+        private readonly Type key4 = typeof(Class03);
+
+        private readonly Type key8 = typeof(Class07);
 
         [Benchmark]
-        public void Array()
-        {
-            for (var i = 0; i < 100; i++)
-            {
-                arrayContainer.Find(key);
-            }
-        }
+        public void Array1() => arrayContainer.Find(key1);
 
         [Benchmark]
-        public void Link()
-        {
-            for (var i = 0; i < 100; i++)
-            {
-                linkContainer.Find(key);
-            }
-        }
+        public void Array2() => arrayContainer.Find(key2);
 
         [Benchmark]
-        public void Link2()
-        {
-            for (var i = 0; i < 100; i++)
-            {
-                linkContainer.Find2(key);
-            }
-        }
+        public void Array4() => arrayContainer.Find(key4);
+
+        [Benchmark]
+        public void Array8() => arrayContainer.Find(key8);
+
+        [Benchmark]
+        public void Link1() => linkContainer.Find(key1);
+
+        [Benchmark]
+        public void Link2() => linkContainer.Find(key2);
+
+        [Benchmark]
+        public void Link4() => linkContainer.Find(key4);
+
+        [Benchmark]
+        public void Link8() => linkContainer.Find(key8);
+
+        [Benchmark]
+        public void LinkB1() => linkContainer.Find2(key1);
+
+        [Benchmark]
+        public void LinkB2() => linkContainer.Find2(key2);
+
+        [Benchmark]
+        public void LinkB4() => linkContainer.Find2(key4);
+
+        [Benchmark]
+        public void LinkB8() => linkContainer.Find2(key8);
     }
 
     public class ArrayContainer
