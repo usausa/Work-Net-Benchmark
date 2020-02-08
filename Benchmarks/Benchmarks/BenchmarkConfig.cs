@@ -12,6 +12,7 @@
             Add(MarkdownExporter.Default, MarkdownExporter.GitHub);
             Add(MemoryDiagnoser.Default);
             Add(Job.MediumRun);
+            //Add(Job.ShortRun);
         }
     }
 }
