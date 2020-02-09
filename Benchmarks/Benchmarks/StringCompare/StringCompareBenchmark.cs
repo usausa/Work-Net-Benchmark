@@ -7,6 +7,8 @@
     [Config(typeof(BenchmarkConfig))]
     public class StringCompareBenchmark
     {
+        private const int N = 1000;
+
         private readonly string value = "01234567890ABCDEF";
 
         private readonly string valueSame = "01234567890ABCDEF";
@@ -19,49 +21,169 @@
 
         private readonly string valueNull = null;
 
-        [Benchmark]
-        public bool EqualsSame() => value == valueSame;
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool EqualsSame()
+        {
+            var ret = false;
+            for (var i = 0; i < N; i++)
+            {
+                ret = value == valueSame;
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsSame() => String.Equals(value, valueSame);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsSame()
+        {
+            var ret = false;
+            for (var i = 0; i < N; i++)
+            {
+                ret = String.Equals(value, valueSame);
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsSameOrdinal() => String.Equals(value, valueSame, StringComparison.Ordinal);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsSameOrdinal()
+        {
+            var ret = false;
+            for (var i = 0; i < N; i++)
+            {
+                ret = String.Equals(value, valueSame, StringComparison.Ordinal);
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool EqualsNotSameLast() => value == valueNotSameLast;
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool EqualsNotSameLast()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = value == valueNotSameLast;
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsNotSameLast() => String.Equals(value, valueNotSameLast);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsNotSameLast()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = String.Equals(value, valueNotSameLast);
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsNotSameLastOrdinal() => String.Equals(value, valueNotSameLast, StringComparison.Ordinal);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsNotSameLastOrdinal()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = String.Equals(value, valueNotSameLast, StringComparison.Ordinal);
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool EqualsShort() => value == valueShort;
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool EqualsShort()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = value == valueShort;
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsShort() => String.Equals(value, valueShort);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsShort()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = String.Equals(value, valueShort);
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsShortOrdinal() => String.Equals(value, valueShort, StringComparison.Ordinal);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsShortOrdinal()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = String.Equals(value, valueShort, StringComparison.Ordinal);
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool EqualsLong() => value == valueLong;
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool EqualsLong()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = value == valueLong;
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsLong() => String.Equals(value, valueLong);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsLong()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = String.Equals(value, valueLong);
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsLongOrdinal() => String.Equals(value, valueLong, StringComparison.Ordinal);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsLongOrdinal()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = String.Equals(value, valueLong, StringComparison.Ordinal);
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool EqualsNull() => value == valueNull;
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool EqualsNull()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = value == valueNull;
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsNull() => String.Equals(value, valueNull);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsNull()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = String.Equals(value, valueNull);
+            }
+            return ret;
+        }
 
-        [Benchmark]
-        public bool StringEqualsNullOrdinal() => String.Equals(value, valueNull, StringComparison.Ordinal);
+        [Benchmark(OperationsPerInvoke = N)]
+        public bool StringEqualsNullOrdinal()
+        {
+            var ret = false;
+            for (var i = 0; i<N; i++)
+            {
+                ret = String.Equals(value, valueNull, StringComparison.Ordinal);
+            }
+            return ret;
+        }
     }
 }

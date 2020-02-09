@@ -8,13 +8,13 @@
     [Config(typeof(BenchmarkConfig))]
     public class LoopBenchmark
     {
-        private readonly List<int> list = Enumerable.Range(1, 10).Select(x => x).ToList();
+        private readonly List<int> list = Enumerable.Range(1, 1000).Select(x => x).ToList();
 
-        private readonly IList<int> iList = Enumerable.Range(1, 10).Select(x => x).ToList();
+        private readonly IList<int> iList = Enumerable.Range(1, 1000).Select(x => x).ToList();
 
-        private readonly int[] array = Enumerable.Range(1, 10).Select(x => x).ToArray();
+        private readonly int[] array = Enumerable.Range(1, 1000).Select(x => x).ToArray();
 
-        private readonly IList<int> iArray = Enumerable.Range(1, 10).Select(x => x).ToArray();
+        private readonly IList<int> iArray = Enumerable.Range(1, 1000).Select(x => x).ToArray();
 
         [Benchmark]
         public int ForList()

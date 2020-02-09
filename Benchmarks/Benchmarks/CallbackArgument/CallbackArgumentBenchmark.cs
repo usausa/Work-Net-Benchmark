@@ -7,6 +7,8 @@
     [Config(typeof(BenchmarkConfig))]
     public class CallbackArgumentBenchmark
     {
+        private const int N = 1000;
+
         private static readonly Func<int> StaticCache;
 
         private static readonly Func<int, int> StaticCache1;
@@ -31,55 +33,235 @@
 
         // 0 static
 
-        [Benchmark] public int RunStaticUseStaticCache() => CallbackRunner.RunStatic(StaticCache);
+        [Benchmark]
+        public int RunStaticUseStaticCache()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(StaticCache);
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunStaticUseCache() => CallbackRunner.RunStatic(cache);
+        [Benchmark]
+        public int RunStaticUseCache()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(cache);
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunStaticUseMethod() => CallbackRunner.RunStatic(CallbackFunction.Function);
+        [Benchmark]
+        public int RunStaticUseMethod()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(CallbackFunction.Function);
+            }
+            return ret;
+        }
 
         // ReSharper disable once ConvertClosureToMethodGroup
-        [Benchmark] public int RunStaticUseCall() => CallbackRunner.RunStatic(() => CallbackFunction.Function());
+        [Benchmark]
+        public int RunStaticUseCall()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(() => CallbackFunction.Function());
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunStaticDirect() => CallbackRunner.RunStatic(() => 0);
+        [Benchmark]
+        public int RunStaticDirect()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(() => 0);
+            }
+            return ret;
+        }
 
         // 0
 
-        [Benchmark] public int RunUseStaticCache() => runner.Run(StaticCache);
+        [Benchmark]
+        public int RunUseStaticCache()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(StaticCache);
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunUseCache() => runner.Run(cache);
+        [Benchmark]
+        public int RunUseCache()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(cache);
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunUseMethod() => runner.Run(CallbackFunction.Function);
+        [Benchmark]
+        public int RunUseMethod()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(CallbackFunction.Function);
+            }
+            return ret;
+        }
 
         // ReSharper disable once ConvertClosureToMethodGroup
-        [Benchmark] public int RunUseCall() => runner.Run(() => CallbackFunction.Function());
+        [Benchmark]
+        public int RunUseCall()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(() => CallbackFunction.Function());
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunDirect() => runner.Run(() => 0);
+        [Benchmark]
+        public int RunDirect()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(() => 0);
+            }
+            return ret;
+        }
 
         // 1 static
 
-        [Benchmark] public int RunStaticUseStaticCache1() => CallbackRunner.RunStatic(1, StaticCache1);
+        [Benchmark]
+        public int RunStaticUseStaticCache1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(i, StaticCache1);
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunStaticUseCache1() => CallbackRunner.RunStatic(1, cache1);
+        [Benchmark]
+        public int RunStaticUseCache1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(i, cache1);
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunStaticUseMethod1() => CallbackRunner.RunStatic(1, CallbackFunction.Function1);
+        [Benchmark]
+        public int RunStaticUseMethod1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(i, CallbackFunction.Function1);
+            }
+            return ret;
+        }
 
         // ReSharper disable once ConvertClosureToMethodGroup
-        [Benchmark] public int RunStaticUseCall1() => CallbackRunner.RunStatic(1, x => CallbackFunction.Function1(x));
+        [Benchmark]
+        public int RunStaticUseCall1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(i, x => CallbackFunction.Function1(x));
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunStaticDirect1() => CallbackRunner.RunStatic(1, x => x);
+        [Benchmark]
+        public int RunStaticDirect1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = CallbackRunner.RunStatic(i, x => x);
+            }
+            return ret;
+        }
 
         // 1
 
-        [Benchmark] public int RunUseStaticCache1() => runner.Run(1, StaticCache1);
+        [Benchmark]
+        public int RunUseStaticCache1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(i, StaticCache1);
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunUseCache1() => runner.Run(1, cache1);
+        [Benchmark]
+        public int RunUseCache1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(i, cache1);
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunUseMethod1() => runner.Run(1, CallbackFunction.Function1);
+        [Benchmark]
+        public int RunUseMethod1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(i, CallbackFunction.Function1);
+            }
+            return ret;
+        }
 
         // ReSharper disable once ConvertClosureToMethodGroup
-        [Benchmark] public int RunUseCall1() => runner.Run(1, x => CallbackFunction.Function1(x));
+        [Benchmark]
+        public int RunUseCall1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(i, x => CallbackFunction.Function1(x));
+            }
+            return ret;
+        }
 
-        [Benchmark] public int RunDirect1() => runner.Run(1, x => x);
+        [Benchmark]
+        public int RunDirect1()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                ret = runner.Run(i, x => x);
+            }
+            return ret;
+        }
     }
 
     public static class CallbackFunction
