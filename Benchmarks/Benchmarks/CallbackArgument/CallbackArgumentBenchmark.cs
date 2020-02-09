@@ -33,7 +33,7 @@
 
         // 0 static
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticUseStaticCache()
         {
             var ret = 0;
@@ -44,7 +44,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticUseCache()
         {
             var ret = 0;
@@ -55,7 +55,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticUseMethod()
         {
             var ret = 0;
@@ -67,7 +67,7 @@
         }
 
         // ReSharper disable once ConvertClosureToMethodGroup
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticUseCall()
         {
             var ret = 0;
@@ -78,7 +78,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticDirect()
         {
             var ret = 0;
@@ -91,7 +91,7 @@
 
         // 0
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunUseStaticCache()
         {
             var ret = 0;
@@ -102,7 +102,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunUseCache()
         {
             var ret = 0;
@@ -113,7 +113,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunUseMethod()
         {
             var ret = 0;
@@ -125,7 +125,7 @@
         }
 
         // ReSharper disable once ConvertClosureToMethodGroup
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunUseCall()
         {
             var ret = 0;
@@ -136,7 +136,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunDirect()
         {
             var ret = 0;
@@ -149,7 +149,7 @@
 
         // 1 static
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticUseStaticCache1()
         {
             var ret = 0;
@@ -160,7 +160,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticUseCache1()
         {
             var ret = 0;
@@ -171,7 +171,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticUseMethod1()
         {
             var ret = 0;
@@ -183,7 +183,7 @@
         }
 
         // ReSharper disable once ConvertClosureToMethodGroup
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticUseCall1()
         {
             var ret = 0;
@@ -194,7 +194,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunStaticDirect1()
         {
             var ret = 0;
@@ -207,7 +207,7 @@
 
         // 1
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunUseStaticCache1()
         {
             var ret = 0;
@@ -218,7 +218,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunUseCache1()
         {
             var ret = 0;
@@ -229,7 +229,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunUseMethod1()
         {
             var ret = 0;
@@ -241,7 +241,7 @@
         }
 
         // ReSharper disable once ConvertClosureToMethodGroup
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunUseCall1()
         {
             var ret = 0;
@@ -252,7 +252,7 @@
             return ret;
         }
 
-        [Benchmark]
+        [Benchmark(OperationsPerInvoke = N)]
         public int RunDirect1()
         {
             var ret = 0;

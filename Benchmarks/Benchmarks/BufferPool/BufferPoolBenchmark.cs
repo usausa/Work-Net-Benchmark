@@ -1,52 +1,62 @@
-﻿//namespace Benchmarks.BufferPool
-//{
-//    using System;
+﻿namespace Benchmarks.BufferPool
+{
+    using System;
+    using System.Buffers;
 
-//    using BenchmarkDotNet.Attributes;
+    using BenchmarkDotNet.Attributes;
 
-//    [Config(typeof(BenchmarkConfig))]
-//    public class BufferPoolBenchmark
-//    {
-//        private static readonly Func<int> StaticCache;
+    [Config(typeof(BenchmarkConfig))]
+    public class BufferPoolBenchmark
+    {
+        private const int N = 1000;
 
-//        private static readonly Func<int, int> StaticCache1;
+        [ThreadStatic]
+        private static byte[] threadLocalPool;
 
-//        private readonly Func<int> cache;
+        [Benchmark(OperationsPerInvoke = N)]
+        public int AlwaysNew()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                var buffer = new byte[32];
+                ret = Function.UseSpan(buffer.AsSpan(0, 32));
+            }
+            return ret;
+        }
 
-//        private readonly Func<int, int> cache1;
+        [Benchmark(OperationsPerInvoke = N)]
+        public int UseArrayPool()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                var buffer = ArrayPool<byte>.Shared.Rent(32);
+                ret = Function.UseSpan(buffer.AsSpan(0, 32));
+                ArrayPool<byte>.Shared.Return(buffer);
+            }
+            return ret;
+        }
 
-//        private readonly CallbackRunner runner = new CallbackRunner();
+        [Benchmark(OperationsPerInvoke = N)]
+        public int UseThreadLocal()
+        {
+            var ret = 0;
+            for (var i = 0; i < N; i++)
+            {
+                if ((threadLocalPool == null) || (threadLocalPool.Length < 32))
+                {
+                    threadLocalPool = new byte[32];
+                }
 
-//        static CallbackArgumentBenchmark()
-//        {
-//            StaticCache = CallbackFunction.Function;
-//            StaticCache1 = CallbackFunction.Function1;
-//        }
+                ret = Function.UseSpan(threadLocalPool.AsSpan(0, 32));
+            }
+            return ret;
+        }
+    }
 
-//        public CallbackArgumentBenchmark()
-//        {
-//            cache = CallbackFunction.Function;
-//            cache1 = CallbackFunction.Function1;
-//        }
-
-//        [Benchmark] public int RunStaticUseStaticCache() => CallbackRunner.RunStatic(StaticCache);
-//    }
-
-//    public static class CallbackFunction
-//    {
-//        public static int Function() => 0;
-
-//        public static int Function1(int x) => x;
-//    }
-
-//    public class CallbackRunner
-//    {
-//        public static int RunStatic(Func<int> callback) => callback();
-
-//        public int Run(Func<int> callback) => callback();
-
-//        public static int RunStatic(int value, Func<int, int> callback) => callback(value);
-
-//        public int Run(int value, Func<int, int> callback) => callback(value);
-//    }
-//}
+    public static class Function
+    {
+        public static int UseSpan(Span<byte> buffer) => buffer.Length;
+    }
+}
