@@ -21,7 +21,7 @@
 
         private readonly string valueNull = null;
 
-        [Benchmark(OperationsPerInvoke = N)]
+        [Benchmark(OperationsPerInvoke = N, Baseline = true)]
         public bool EqualsSame()
         {
             var ret = false;
@@ -58,7 +58,7 @@
         public bool EqualsNotSameLast()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = value == valueNotSameLast;
             }
@@ -69,7 +69,7 @@
         public bool StringEqualsNotSameLast()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = String.Equals(value, valueNotSameLast);
             }
@@ -80,7 +80,7 @@
         public bool StringEqualsNotSameLastOrdinal()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = String.Equals(value, valueNotSameLast, StringComparison.Ordinal);
             }
@@ -91,7 +91,7 @@
         public bool EqualsShort()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = value == valueShort;
             }
@@ -102,7 +102,7 @@
         public bool StringEqualsShort()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = String.Equals(value, valueShort);
             }
@@ -113,7 +113,7 @@
         public bool StringEqualsShortOrdinal()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = String.Equals(value, valueShort, StringComparison.Ordinal);
             }
@@ -124,7 +124,7 @@
         public bool EqualsLong()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = value == valueLong;
             }
@@ -135,7 +135,7 @@
         public bool StringEqualsLong()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = String.Equals(value, valueLong);
             }
@@ -146,7 +146,7 @@
         public bool StringEqualsLongOrdinal()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = String.Equals(value, valueLong, StringComparison.Ordinal);
             }
@@ -157,7 +157,7 @@
         public bool EqualsNull()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = value == valueNull;
             }
@@ -168,7 +168,7 @@
         public bool StringEqualsNull()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = String.Equals(value, valueNull);
             }
@@ -179,7 +179,7 @@
         public bool StringEqualsNullOrdinal()
         {
             var ret = false;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = String.Equals(value, valueNull, StringComparison.Ordinal);
             }

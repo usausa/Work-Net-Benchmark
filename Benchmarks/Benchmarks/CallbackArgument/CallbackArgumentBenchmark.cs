@@ -136,7 +136,7 @@
             return ret;
         }
 
-        [Benchmark(OperationsPerInvoke = N)]
+        [Benchmark(OperationsPerInvoke = N, Baseline = true)]
         public int RunDirect()
         {
             var ret = 0;

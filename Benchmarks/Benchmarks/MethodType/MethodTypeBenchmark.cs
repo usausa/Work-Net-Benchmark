@@ -47,7 +47,7 @@
             iSealedInlineFunction = new SealedInlineFunctionsImpl();
         }
 
-        [Benchmark(OperationsPerInvoke = N)]
+        [Benchmark(OperationsPerInvoke = N, Baseline = true)]
         public int Direct()
         {
             var ret = 0;
@@ -73,7 +73,7 @@
         public int Static()
         {
             var ret = 0;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = StaticFunction.Op(ret, i);
             }
@@ -84,7 +84,7 @@
         public int StaticInline()
         {
             var ret = 0;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = StaticInlineFunction.Op(ret, i);
             }
@@ -95,7 +95,7 @@
         public int Instance()
         {
             var ret = 0;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = function.Op(ret, i);
             }
@@ -106,7 +106,7 @@
         public int InstanceInline()
         {
             var ret = 0;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = inlineFunction.Op(ret, i);
             }
@@ -117,7 +117,7 @@
         public int StaticFunc()
         {
             var ret = 0;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = staticFunc(ret, i);
             }
@@ -128,7 +128,7 @@
         public int StaticInlineFunc()
         {
             var ret = 0;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = staticInlineFunc(ret, i);
             }
@@ -150,7 +150,7 @@
         public int InstanceInlineFunc()
         {
             var ret = 0;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = instanceInlineFunc(ret, i);
             }
@@ -161,7 +161,7 @@
         public int Interface()
         {
             var ret = 0;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = iFunction.Op(ret, i);
             }
@@ -172,7 +172,7 @@
         public int InterfaceInline()
         {
             var ret = 0;
-            for (var i = 0; i<N; i++)
+            for (var i = 0; i < N; i++)
             {
                 ret = iInlineFunction.Op(ret, i);
             }

@@ -40,7 +40,7 @@
             return total;
         }
 
-        [Benchmark]
+        [Benchmark(Baseline = true)]
         public int ForArray()
         {
             var total = 0;

@@ -11,7 +11,7 @@
     {
         private const int N = 1000;
 
-        [Benchmark(OperationsPerInvoke = N)]
+        [Benchmark(OperationsPerInvoke = N, Baseline = true)]
         public int AlwaysNew()
         {
             var ret = 0;
