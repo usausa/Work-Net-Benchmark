@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Benchmarks.StandardLib\Benchmarks.StandardLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="KeyPairHash\" />
-  </ItemGroup>
-
 </Project>
