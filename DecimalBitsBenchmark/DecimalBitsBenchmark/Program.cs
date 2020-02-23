@@ -3,6 +3,7 @@
     using System;
     using System.Reflection;
     using System.Runtime.CompilerServices;
+    using System.Runtime.InteropServices;
 
     using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Configs;
@@ -96,6 +97,7 @@
         }
     }
 
+    [StructLayout(LayoutKind.Sequential)]
     public sealed class RawDecimalData
     {
         public int Flags;
