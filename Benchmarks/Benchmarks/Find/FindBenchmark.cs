@@ -9,17 +9,21 @@
 
         private EntryStruct[] structEntries;
 
-        private EntryClass firstClassEntry;
+        private EntryClass[] classEntries;
+
+        private EntryClassWithNext firstClassEntry;
 
         [GlobalSetup]
         public void Setup()
         {
-            var lastClassEntry = default(EntryClass);
             structEntries = new EntryStruct[8];
+            classEntries = new EntryClass[8];
+            var lastClassEntry = default(EntryClassWithNext);
             for (var i = 0; i < structEntries.Length; i++)
             {
                 structEntries[i] = new EntryStruct(i + 1, null);
-                var entry = new EntryClass(i + 1, null);
+                classEntries[i] = new EntryClass(i + 1, null);
+                var entry = new EntryClassWithNext(i + 1, null);
                 if (lastClassEntry is null)
                 {
                     firstClassEntry = entry;
@@ -33,56 +37,89 @@
         }
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object For1()
+        public object ForStruct1()
         {
             var ret = default(object);
             for (var i = 0; i < N; i++)
             {
-                ret = FindFor(1);
+                ret = FindForStruct(1);
             }
             return ret;
         }
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object For2()
+        public object ForStruct2()
         {
             var ret = default(object);
             for (var i = 0; i < N; i++)
             {
-                ret = FindFor(2);
+                ret = FindForStruct(2);
             }
             return ret;
         }
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object For3()
+        public object ForStruct3()
         {
             var ret = default(object);
             for (var i = 0; i < N; i++)
             {
-                ret = FindFor(3);
+                ret = FindForStruct(3);
             }
             return ret;
         }
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object For4()
+        public object ForStruct4()
         {
             var ret = default(object);
             for (var i = 0; i < N; i++)
             {
-                ret = FindFor(4);
+                ret = FindForStruct(4);
             }
             return ret;
         }
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object For5()
+        public object ForClass1()
         {
             var ret = default(object);
             for (var i = 0; i < N; i++)
             {
-                ret = FindFor(5);
+                ret = FindForClass(1);
+            }
+            return ret;
+        }
+
+        [Benchmark(OperationsPerInvoke = N)]
+        public object ForClass2()
+        {
+            var ret = default(object);
+            for (var i = 0; i < N; i++)
+            {
+                ret = FindForClass(2);
+            }
+            return ret;
+        }
+
+        [Benchmark(OperationsPerInvoke = N)]
+        public object ForClass3()
+        {
+            var ret = default(object);
+            for (var i = 0; i < N; i++)
+            {
+                ret = FindForClass(3);
+            }
+            return ret;
+        }
+
+        [Benchmark(OperationsPerInvoke = N)]
+        public object ForClass4()
+        {
+            var ret = default(object);
+            for (var i = 0; i < N; i++)
+            {
+                ret = FindForClass(4);
             }
             return ret;
         }
@@ -131,22 +168,25 @@
             return ret;
         }
 
-        [Benchmark(OperationsPerInvoke = N)]
-        public object Do5()
-        {
-            var ret = default(object);
-            for (var i = 0; i < N; i++)
-            {
-                ret = FindDo(5);
-            }
-            return ret;
-        }
-
-        private object FindFor(int key)
+        private object FindForStruct(int key)
         {
             for (var i = 0; i < structEntries.Length; i++)
             {
                 var entry = structEntries[i];
+                if (entry.Key == key)
+                {
+                    return entry.Value;
+                }
+            }
+
+            return null;
+        }
+
+        private object FindForClass(int key)
+        {
+            for (var i = 0; i < classEntries.Length; i++)
+            {
+                var entry = classEntries[i];
                 if (entry.Key == key)
                 {
                     return entry.Value;
@@ -193,9 +233,22 @@
 
         public readonly object Value;
 
-        public EntryClass Next;
-
         public EntryClass(int key, object value)
+        {
+            Key = key;
+            Value = value;
+        }
+    }
+
+    public sealed class EntryClassWithNext
+    {
+        public readonly int Key;
+
+        public readonly object Value;
+
+        public EntryClassWithNext Next;
+
+        public EntryClassWithNext(int key, object value)
         {
             Key = key;
             Value = value;
