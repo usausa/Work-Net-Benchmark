@@ -1,19 +1,19 @@
-﻿namespace Benchmarks.KeyPairTuple
+﻿namespace Benchmarks.TupleType
 {
     using System;
 
     using BenchmarkDotNet.Attributes;
 
     [Config(typeof(BenchmarkConfig))]
-    public class KeyPairTupleBenchmark
+    public class TupleTypeBenchmark
     {
         private const int N = 1000;
 
-        private readonly ClassFieldKey classFieldKey = new ClassFieldKey(typeof(KeyPairTupleBenchmark), "Test");
+        private readonly ClassFieldKey classFieldKey = new ClassFieldKey(typeof(TupleTypeBenchmark), "Test");
 
-        private readonly ClassPropertyKey classPropertyKey = new ClassPropertyKey(typeof(KeyPairTupleBenchmark), "Test");
+        private readonly ClassPropertyKey classPropertyKey = new ClassPropertyKey(typeof(TupleTypeBenchmark), "Test");
 
-        private readonly StructKey structKey = new StructKey(typeof(KeyPairTupleBenchmark), "Test");
+        private readonly StructKey structKey = new StructKey(typeof(TupleTypeBenchmark), "Test");
 
         [Benchmark(OperationsPerInvoke = N, Baseline = true)]
         public int UseClassField()
@@ -75,7 +75,7 @@
         }
     }
 
-    public struct StructKey
+    public readonly struct StructKey
     {
         public readonly Type Type;
 
