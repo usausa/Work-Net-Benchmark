@@ -7,7 +7,7 @@
     [Config(typeof(BenchmarkConfig))]
     public class TupleTypeBenchmark
     {
-        private const int N = 1000;
+        private const int N = 1000000;
 
         private readonly ClassFieldKey classFieldKey = new ClassFieldKey(typeof(TupleTypeBenchmark), "Test");
 
