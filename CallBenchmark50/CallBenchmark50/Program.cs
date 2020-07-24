@@ -25,6 +25,7 @@
             AddExporter(MarkdownExporter.Default, MarkdownExporter.GitHub);
             AddDiagnoser(MemoryDiagnoser.Default);
             AddJob(Job.MediumRun);
+            //AddJob(Job.LongRun);
         }
     }
 
@@ -32,7 +33,7 @@
     {
         public static object Create() => new object();
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object CreateInline() => new object();
     }
 
@@ -40,7 +41,7 @@
     {
         public object Create() => new object();
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object CreateInline() => new object();
     }
 
@@ -56,7 +57,7 @@
 
     public class InterfaceInlineFactory : IFactory
     {
-        [MethodImpl(MethodImplOptions.NoInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Create() => new object();
     }
 
@@ -67,7 +68,7 @@
 
     public sealed class InterfaceSealedInlineFactory : IFactory
     {
-        [MethodImpl(MethodImplOptions.NoInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Create() => new object();
     }
 
