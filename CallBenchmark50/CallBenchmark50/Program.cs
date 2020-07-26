@@ -1,6 +1,8 @@
 ﻿namespace CallBenchmark50
 {
     using System;
+    using System.Reflection;
+    using System.Reflection.Emit;
     using System.Runtime.CompilerServices;
 
     using BenchmarkDotNet.Attributes;
@@ -24,25 +26,26 @@
         {
             AddExporter(MarkdownExporter.Default, MarkdownExporter.GitHub);
             AddDiagnoser(MemoryDiagnoser.Default);
-            AddJob(Job.MediumRun);
-            //AddJob(Job.LongRun);
+            AddJob(Job.LongRun);
         }
     }
 
     public static class StaticFactory
     {
-        public static object Create() => new object();
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object CreateInline() => new object();
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static object CreateNoInline() => new object();
     }
 
     public class InstanceFactory
     {
-        public object Create() => new object();
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object CreateInline() => new object();
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public object CreateNoInline() => new object();
     }
 
     public interface IFactory
@@ -55,21 +58,34 @@
         public object Create() => new object();
     }
 
-    public class InterfaceInlineFactory : IFactory
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object Create() => new object();
-    }
-
     public sealed class InterfaceSealedFactory : IFactory
     {
         public object Create() => new object();
     }
 
-    public sealed class InterfaceSealedInlineFactory : IFactory
+    public static class DynamicFactoryGenerator
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object Create() => new object();
+        public static Func<object> CreateStaticActivator()
+        {
+            var dynamic = new DynamicMethod(string.Empty, typeof(object), Type.EmptyTypes, true);
+            var il = dynamic.GetILGenerator();
+
+            il.Emit(OpCodes.Newobj, typeof(object).GetConstructor(Type.EmptyTypes));
+            il.Emit(OpCodes.Ret);
+
+            return (Func<object>)dynamic.CreateDelegate(typeof(Func<object>));
+        }
+
+        public static Func<object> CreateInstanceActivator()
+        {
+            var dynamic = new DynamicMethod(string.Empty, typeof(object), new[] { typeof(object) }, true);
+            var il = dynamic.GetILGenerator();
+
+            il.Emit(OpCodes.Newobj, typeof(object).GetConstructor(Type.EmptyTypes));
+            il.Emit(OpCodes.Ret);
+
+            return (Func<object>)dynamic.CreateDelegate(typeof(Func<object>));
+        }
     }
 
     [Config(typeof(BenchmarkConfig))]
@@ -80,44 +96,34 @@
         private InstanceFactory instanceFactory;
 
         private IFactory interfaceFactory;
-        private IFactory interfaceInlineFactory;
         private IFactory interfaceSealedFactory;
-        private IFactory interfaceSealedInlineFactory;
 
         private Func<object> directDelegate;
         private Func<object> staticDelegate;
-        private Func<object> staticInlineDelegate;
         private Func<object> instanceDelegate;
-        private Func<object> instanceInlineDelegate;
         private Func<object> interfaceDelegate;
-        private Func<object> interfaceInlineDelegate;
-        private Func<object> interfaceSealedDelegate;
-        private Func<object> interfaceSealedInlineDelegate;
+
+        private Func<object> staticEmitDelegate;
+        private Func<object> instanceEmitDelegate;
 
         private delegate*<object> pointerStatic;
-        private delegate*<object> pointerStaticInline;
 
         [GlobalSetup]
         public void Setup()
         {
             instanceFactory = new InstanceFactory();
             interfaceFactory = new InterfaceFactory();
-            interfaceInlineFactory = new InterfaceInlineFactory();
             interfaceSealedFactory = new InterfaceSealedFactory();
-            interfaceSealedInlineFactory = new InterfaceSealedInlineFactory();
 
             directDelegate = () => new object();
-            staticDelegate = StaticFactory.Create;
-            staticInlineDelegate = StaticFactory.CreateInline;
-            instanceDelegate = instanceFactory.Create;
-            instanceInlineDelegate = instanceFactory.CreateInline;
+            staticDelegate = StaticFactory.CreateInline;
+            instanceDelegate = instanceFactory.CreateInline;
             interfaceDelegate = interfaceFactory.Create;
-            interfaceInlineDelegate = interfaceInlineFactory.Create;
-            interfaceSealedDelegate = interfaceSealedFactory.Create;
-            interfaceSealedInlineDelegate = interfaceSealedInlineFactory.Create;
 
-            pointerStatic = &StaticFactory.Create;
-            pointerStaticInline = &StaticFactory.CreateInline;
+            staticEmitDelegate = DynamicFactoryGenerator.CreateStaticActivator();
+            instanceEmitDelegate = DynamicFactoryGenerator.CreateInstanceActivator();
+
+            pointerStatic = &StaticFactory.CreateInline;
         }
 
         // Direct
@@ -136,17 +142,6 @@
         // Call
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object CallStatic()
-        {
-            object ret = null;
-            for (var i = 0; i < N; i++)
-            {
-                ret = StaticFactory.Create();
-            }
-            return ret;
-        }
-
-        [Benchmark(OperationsPerInvoke = N)]
         public object CallStaticInline()
         {
             object ret = null;
@@ -158,12 +153,12 @@
         }
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object CallInstance()
+        public object CallStaticNoInline()
         {
             object ret = null;
             for (var i = 0; i < N; i++)
             {
-                ret = instanceFactory.Create();
+                ret = StaticFactory.CreateNoInline();
             }
             return ret;
         }
@@ -175,6 +170,17 @@
             for (var i = 0; i < N; i++)
             {
                 ret = instanceFactory.CreateInline();
+            }
+            return ret;
+        }
+
+        [Benchmark(OperationsPerInvoke = N)]
+        public object CallInstanceNoInline()
+        {
+            object ret = null;
+            for (var i = 0; i < N; i++)
+            {
+                ret = instanceFactory.CreateNoInline();
             }
             return ret;
         }
@@ -193,34 +199,12 @@
         }
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object InterfaceInline()
-        {
-            object ret = null;
-            for (var i = 0; i < N; i++)
-            {
-                ret = interfaceInlineFactory.Create();
-            }
-            return ret;
-        }
-
-        [Benchmark(OperationsPerInvoke = N)]
         public object InterfaceSealed()
         {
             object ret = null;
             for (var i = 0; i < N; i++)
             {
                 ret = interfaceSealedFactory.Create();
-            }
-            return ret;
-        }
-
-        [Benchmark(OperationsPerInvoke = N)]
-        public object InterfaceSealedInline()
-        {
-            object ret = null;
-            for (var i = 0; i < N; i++)
-            {
-                ret = interfaceSealedInlineFactory.Create();
             }
             return ret;
         }
@@ -250,34 +234,12 @@
         }
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object DelegateStaticInline()
-        {
-            object ret = null;
-            for (var i = 0; i < N; i++)
-            {
-                ret = staticInlineDelegate();
-            }
-            return ret;
-        }
-
-        [Benchmark(OperationsPerInvoke = N)]
         public object DelegateInstance()
         {
             object ret = null;
             for (var i = 0; i < N; i++)
             {
                 ret = instanceDelegate();
-            }
-            return ret;
-        }
-
-        [Benchmark(OperationsPerInvoke = N)]
-        public object DelegateInstanceInline()
-        {
-            object ret = null;
-            for (var i = 0; i < N; i++)
-            {
-                ret = instanceInlineDelegate();
             }
             return ret;
         }
@@ -293,35 +255,26 @@
             return ret;
         }
 
+        // Emit
+
         [Benchmark(OperationsPerInvoke = N)]
-        public object DelegateInterfaceInline()
+        public object EmitStatic()
         {
             object ret = null;
             for (var i = 0; i < N; i++)
             {
-                ret = interfaceInlineDelegate();
+                ret = staticEmitDelegate();
             }
             return ret;
         }
 
         [Benchmark(OperationsPerInvoke = N)]
-        public object DelegateInterfaceSealed()
+        public object EmitInstance()
         {
             object ret = null;
             for (var i = 0; i < N; i++)
             {
-                ret = interfaceSealedDelegate();
-            }
-            return ret;
-        }
-
-        [Benchmark(OperationsPerInvoke = N)]
-        public object DelegateInterfaceSealedInline()
-        {
-            object ret = null;
-            for (var i = 0; i < N; i++)
-            {
-                ret = interfaceSealedInlineDelegate();
+                ret = instanceEmitDelegate();
             }
             return ret;
         }
@@ -335,17 +288,6 @@
             for (var i = 0; i < N; i++)
             {
                 ret = pointerStatic();
-            }
-            return ret;
-        }
-
-        [Benchmark(OperationsPerInvoke = N)]
-        public object PointerStaticInline()
-        {
-            object ret = null;
-            for (var i = 0; i < N; i++)
-            {
-                ret = pointerStaticInline();
             }
             return ret;
         }
