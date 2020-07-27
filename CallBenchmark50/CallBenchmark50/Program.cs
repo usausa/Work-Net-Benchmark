@@ -1,7 +1,7 @@
 ﻿namespace CallBenchmark50
 {
     using System;
-    using System.Reflection;
+    using System.Linq.Expressions;
     using System.Reflection.Emit;
     using System.Runtime.CompilerServices;
 
@@ -63,6 +63,14 @@
         public object Create() => new object();
     }
 
+    public static class ExpressionCompiler
+    {
+        public static Func<object> Compile(Expression<Func<object>> expression)
+        {
+            return expression.Compile();
+        }
+    }
+
     public static class DynamicFactoryGenerator
     {
         public static Func<object> CreateStaticActivator()
@@ -99,6 +107,7 @@
         private IFactory interfaceSealedFactory;
 
         private Func<object> directDelegate;
+        private Func<object> compiledDelegate;
         private Func<object> staticDelegate;
         private Func<object> instanceDelegate;
         private Func<object> interfaceDelegate;
@@ -116,6 +125,7 @@
             interfaceSealedFactory = new InterfaceSealedFactory();
 
             directDelegate = () => new object();
+            compiledDelegate = ExpressionCompiler.Compile(() => new object());
             staticDelegate = StaticFactory.CreateInline;
             instanceDelegate = instanceFactory.CreateInline;
             interfaceDelegate = interfaceFactory.Create;
@@ -218,6 +228,17 @@
             for (var i = 0; i < N; i++)
             {
                 ret = directDelegate();
+            }
+            return ret;
+        }
+
+        [Benchmark(OperationsPerInvoke = N)]
+        public object DelegateCompiled()
+        {
+            object ret = null;
+            for (var i = 0; i < N; i++)
+            {
+                ret = compiledDelegate();
             }
             return ret;
         }
