@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30317.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringAppendBenchmark50", "StringAppendBenchmark50\StringAppendBenchmark50.csproj", "{2036B2C5-F71B-427B-BEE1-4E045DE3D1BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2036B2C5-F71B-427B-BEE1-4E045DE3D1BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2036B2C5-F71B-427B-BEE1-4E045DE3D1BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2036B2C5-F71B-427B-BEE1-4E045DE3D1BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2036B2C5-F71B-427B-BEE1-4E045DE3D1BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7853743B-AC2B-480C-BC0C-67F7FB93C7ED}
+	EndGlobalSection
+EndGlobal
