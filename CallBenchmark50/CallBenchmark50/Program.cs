@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq.Expressions;
+    using System.Reflection;
     using System.Reflection.Emit;
     using System.Runtime.CompilerServices;
 
@@ -11,6 +12,9 @@
     using BenchmarkDotNet.Exporters;
     using BenchmarkDotNet.Jobs;
     using BenchmarkDotNet.Running;
+
+    using InlineIL;
+    using static InlineIL.IL.Emit;
 
     public static class Program
     {
@@ -96,6 +100,25 @@
         }
     }
 
+    public static class InstanceFactoryPointerHelper
+    {
+        public static IntPtr GetPointer()
+        {
+            Ldftn(new MethodRef(new TypeRef(typeof(InstanceFactory)), nameof(InstanceFactory.CreateInline)));
+            return IL.Return<IntPtr>();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static object CallCreate(InstanceFactory instance, IntPtr pointer)
+        {
+            IL.Push(instance);
+            IL.Push(pointer);
+            Calli(new StandAloneMethodSig(CallingConventions.Standard | CallingConventions.HasThis, typeof(object)));
+            return IL.Return<object>();
+        }
+    }
+
+
     [Config(typeof(BenchmarkConfig))]
     public unsafe class Benchmark
     {
@@ -117,6 +140,8 @@
 
         private delegate*<object> pointerStatic;
 
+        private IntPtr pointerInstance;
+
         [GlobalSetup]
         public void Setup()
         {
@@ -134,6 +159,7 @@
             instanceEmitDelegate = DynamicFactoryGenerator.CreateInstanceActivator();
 
             pointerStatic = &StaticFactory.CreateInline;
+            pointerInstance = InstanceFactoryPointerHelper.GetPointer();
         }
 
         // Direct
@@ -309,6 +335,17 @@
             for (var i = 0; i < N; i++)
             {
                 ret = pointerStatic();
+            }
+            return ret;
+        }
+
+        [Benchmark(OperationsPerInvoke = N)]
+        public object PointerInstance()
+        {
+            object ret = null;
+            for (var i = 0; i < N; i++)
+            {
+                ret = InstanceFactoryPointerHelper.CallCreate(instanceFactory, pointerInstance);
             }
             return ret;
         }
