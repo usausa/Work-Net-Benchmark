@@ -6,11 +6,12 @@
     using BenchmarkDotNet.Exporters;
     using BenchmarkDotNet.Jobs;
     using BenchmarkDotNet.Running;
+
     using System;
 
     public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             BenchmarkRunner.Run<Benchmark>();
         }
@@ -48,6 +49,7 @@
 
     public class NotificationObject
     {
+        // ReSharper disable once RedundantAssignment
         public void Set<T>(ref T storage, T value)
         {
             storage = value;
