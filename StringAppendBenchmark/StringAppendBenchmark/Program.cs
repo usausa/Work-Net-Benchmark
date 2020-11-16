@@ -1,4 +1,4 @@
-﻿namespace StringAppendBenchmark50
+﻿namespace StringAppendBenchmark
 {
     using System;
     using System.Buffers;
