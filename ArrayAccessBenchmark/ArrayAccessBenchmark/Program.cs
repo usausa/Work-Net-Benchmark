@@ -1,4 +1,4 @@
-﻿namespace ArrayAccessBenchmark50
+﻿namespace ArrayAccessBenchmark
 {
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
@@ -31,7 +31,7 @@
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
-        private int[] array = new int[16];
+        private readonly int[] array = new int[16];
 
         [Benchmark]
         public int Single() => array[0];
