@@ -1,6 +1,8 @@
 ﻿namespace EnumerableBenchmark
 {
+    using System;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using System.Linq;
 
     using BenchmarkDotNet.Attributes;
@@ -141,6 +143,32 @@
 
         [Benchmark]
         public int ForIListArrayL() => Loop.ForIList(arrayL);
+
+        // Span
+
+        [Benchmark]
+        public int ForeachSpanS() => Loop.ForeachSpan(arrayS);
+
+        [Benchmark]
+        public int ForeachReadOnlySpanS() => Loop.ForeachReadOnlySpan(arrayS);
+
+        [Benchmark]
+        public int ForeachSpanAsReadonlyS() => Loop.ForeachSpanAsReadonly(arrayS);
+
+        [Benchmark]
+        public int ForeachSpanEnumerableS() => Loop.ForeachEnumerable(arrayS);
+
+        [Benchmark]
+        public int EnumeratorEnumerableSpanS() => Loop.EnumeratorEnumerable(arrayS);
+
+        [Benchmark]
+        public int ForSpanS() => Loop.ForSpan(arrayS);
+
+        [Benchmark]
+        public int ForReadOnlySpanS() => Loop.ForReadOnlySpan(arrayS);
+
+        [Benchmark]
+        public int ForSpanAsReadOnlyS() => Loop.ForSpanAsReadOnly(arrayS);
     }
 
     public static class Loop
@@ -157,6 +185,31 @@
         }
 
         public static int ForeachArray(int[] source)
+        {
+            var total = 0;
+            foreach (var value in source)
+            {
+                total += value;
+            }
+
+            return total;
+        }
+
+        public static int ForeachSpan(Span<int> source)
+        {
+            var total = 0;
+            foreach (var value in source)
+            {
+                total += value;
+            }
+
+            return total;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int ForeachSpanAsReadonly(Span<int> source) => ForeachReadOnlySpan(source);
+
+        public static int ForeachReadOnlySpan(ReadOnlySpan<int> source)
         {
             var total = 0;
             foreach (var value in source)
@@ -225,6 +278,31 @@
         }
 
         public static int ForArray(int[] source)
+        {
+            var total = 0;
+            for (var i = 0; i < source.Length; i++)
+            {
+                total += source[i];
+            }
+
+            return total;
+        }
+
+        public static int ForSpan(Span<int> source)
+        {
+            var total = 0;
+            for (var i = 0; i < source.Length; i++)
+            {
+                total += source[i];
+            }
+
+            return total;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int ForSpanAsReadOnly(Span<int> source) => ForReadOnlySpan(source);
+
+        public static int ForReadOnlySpan(ReadOnlySpan<int> source)
         {
             var total = 0;
             for (var i = 0; i < source.Length; i++)
