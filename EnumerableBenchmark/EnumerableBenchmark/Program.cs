@@ -59,6 +59,9 @@
         public int ForListS() => Loop.ForList(listS);
 
         [Benchmark]
+        public int ForListGenericS() => Loop.ForListGeneric(listS);
+
+        [Benchmark]
         public int ForIListListS() => Loop.ForIList(listS);
 
         [Benchmark]
@@ -77,6 +80,9 @@
         public int ForListM() => Loop.ForList(listM);
 
         [Benchmark]
+        public int ForListGenericM() => Loop.ForListGeneric(listM);
+
+        [Benchmark]
         public int ForIListListM() => Loop.ForIList(listM);
 
         [Benchmark]
@@ -93,6 +99,9 @@
 
         [Benchmark]
         public int ForListL() => Loop.ForList(listL);
+
+        [Benchmark]
+        public int ForListGenericL() => Loop.ForListGeneric(listL);
 
         [Benchmark]
         public int ForIListListL() => Loop.ForIList(listL);
@@ -169,6 +178,54 @@
 
         [Benchmark]
         public int ForSpanAsReadOnlyS() => Loop.ForSpanAsReadOnly(arrayS);
+
+        [Benchmark]
+        public int ForeachSpanM() => Loop.ForeachSpan(arrayM);
+
+        [Benchmark]
+        public int ForeachReadOnlySpanM() => Loop.ForeachReadOnlySpan(arrayM);
+
+        [Benchmark]
+        public int ForeachSpanAsReadonlyM() => Loop.ForeachSpanAsReadonly(arrayM);
+
+        [Benchmark]
+        public int ForeachSpanEnumerableM() => Loop.ForeachEnumerable(arrayM);
+
+        [Benchmark]
+        public int EnumeratorEnumerableSpanM() => Loop.EnumeratorEnumerable(arrayM);
+
+        [Benchmark]
+        public int ForSpanM() => Loop.ForSpan(arrayM);
+
+        [Benchmark]
+        public int ForReadOnlySpanM() => Loop.ForReadOnlySpan(arrayM);
+
+        [Benchmark]
+        public int ForSpanAsReadOnlyM() => Loop.ForSpanAsReadOnly(arrayM);
+
+        [Benchmark]
+        public int ForeachSpanL() => Loop.ForeachSpan(arrayL);
+
+        [Benchmark]
+        public int ForeachReadOnlySpanL() => Loop.ForeachReadOnlySpan(arrayL);
+
+        [Benchmark]
+        public int ForeachSpanAsReadonlyL() => Loop.ForeachSpanAsReadonly(arrayL);
+
+        [Benchmark]
+        public int ForeachSpanEnumerableL() => Loop.ForeachEnumerable(arrayL);
+
+        [Benchmark]
+        public int EnumeratorEnumerableSpanL() => Loop.EnumeratorEnumerable(arrayL);
+
+        [Benchmark]
+        public int ForSpanL() => Loop.ForSpan(arrayL);
+
+        [Benchmark]
+        public int ForReadOnlySpanL() => Loop.ForReadOnlySpan(arrayL);
+
+        [Benchmark]
+        public int ForSpanAsReadOnlyL() => Loop.ForSpanAsReadOnly(arrayL);
     }
 
     public static class Loop
@@ -256,6 +313,18 @@
         }
 
         public static int ForList(List<int> source)
+        {
+            var total = 0;
+            for (var i = 0; i < source.Count; i++)
+            {
+                total += source[i];
+            }
+
+            return total;
+        }
+
+        public static int ForListGeneric<TList>(TList source)
+            where TList : IReadOnlyList<int>
         {
             var total = 0;
             for (var i = 0; i < source.Count; i++)
