@@ -33,199 +33,84 @@
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
-        private readonly List<int> listS = Enumerable.Range(1, 4).ToList();
-        private readonly List<int> listM = Enumerable.Range(1, 32).ToList();
-        private readonly List<int> listL = Enumerable.Range(1, 128).ToList();
+        [Params(4, 32, 128)]
+        public int Size { get; set; }
 
-        private readonly int[] arrayS = Enumerable.Range(1, 4).ToArray();
-        private readonly int[] arrayM = Enumerable.Range(1, 32).ToArray();
-        private readonly int[] arrayL = Enumerable.Range(1, 128).ToArray();
+        private List<int> list = Enumerable.Range(1, 4).ToList();
+        private int[] array = Enumerable.Range(1, 4).ToArray();
+
+        [GlobalSetup]
+        public void Setup()
+        {
+            list = Enumerable.Range(1, Size).ToList();
+            array = Enumerable.Range(1, Size).ToArray();
+        }
 
         // List
 
         [Benchmark]
-        public int ForeachListS() => Loop.ForeachList(listS);
+        public int ForeachList() => Loop.ForeachList(list);
 
         [Benchmark]
-        public int ForeachListEnumerableS() => Loop.ForeachEnumerable(listS);
+        public int ForeachListEnumerable() => Loop.ForeachEnumerable(list);
 
         [Benchmark]
-        public int EnumeratorListS() => Loop.EnumeratorList(listS);
+        public int EnumeratorList() => Loop.EnumeratorList(list);
 
         [Benchmark]
-        public int EnumeratorEnumerableListS() => Loop.EnumeratorEnumerable(listS);
+        public int EnumeratorEnumerableList() => Loop.EnumeratorEnumerable(list);
 
         [Benchmark]
-        public int ForListS() => Loop.ForList(listS);
+        public int ForList() => Loop.ForList(list);
 
         [Benchmark]
-        public int ForListGenericS() => Loop.ForListGeneric(listS);
+        public int ForListGeneric() => Loop.ForListGeneric(list);
 
         [Benchmark]
-        public int ForIListListS() => Loop.ForIList(listS);
-
-        [Benchmark]
-        public int ForeachListM() => Loop.ForeachList(listM);
-
-        [Benchmark]
-        public int ForeachListEnumerableM() => Loop.ForeachEnumerable(listM);
-
-        [Benchmark]
-        public int EnumeratorListM() => Loop.EnumeratorList(listM);
-
-        [Benchmark]
-        public int EnumeratorEnumerableListM() => Loop.EnumeratorEnumerable(listM);
-
-        [Benchmark]
-        public int ForListM() => Loop.ForList(listM);
-
-        [Benchmark]
-        public int ForListGenericM() => Loop.ForListGeneric(listM);
-
-        [Benchmark]
-        public int ForIListListM() => Loop.ForIList(listM);
-
-        [Benchmark]
-        public int ForeachListL() => Loop.ForeachList(listL);
-
-        [Benchmark]
-        public int ForeachListEnumerableL() => Loop.ForeachEnumerable(listL);
-
-        [Benchmark]
-        public int EnumeratorListL() => Loop.EnumeratorList(listL);
-
-        [Benchmark]
-        public int EnumeratorEnumerableListL() => Loop.EnumeratorEnumerable(listL);
-
-        [Benchmark]
-        public int ForListL() => Loop.ForList(listL);
-
-        [Benchmark]
-        public int ForListGenericL() => Loop.ForListGeneric(listL);
-
-        [Benchmark]
-        public int ForIListListL() => Loop.ForIList(listL);
+        public int ForIListList() => Loop.ForIList(list);
 
         // Array
 
         [Benchmark]
-        public int ForeachArrayS() => Loop.ForeachArray(arrayS);
+        public int ForeachArray() => Loop.ForeachArray(array);
 
         [Benchmark]
-        public int ForeachArrayEnumerableS() => Loop.ForeachEnumerable(arrayS);
+        public int ForeachArrayEnumerable() => Loop.ForeachEnumerable(array);
 
         [Benchmark]
-        public int EnumeratorEnumerableArrayS() => Loop.EnumeratorEnumerable(arrayS);
+        public int EnumeratorEnumerableArray() => Loop.EnumeratorEnumerable(array);
 
         [Benchmark]
-        public int ForArrayS() => Loop.ForArray(arrayS);
+        public int ForArray() => Loop.ForArray(array);
 
         [Benchmark]
-        public int ForIListArrayS() => Loop.ForIList(arrayS);
-
-        [Benchmark]
-        public int ForeachArrayM() => Loop.ForeachArray(arrayM);
-
-        [Benchmark]
-        public int ForeachArrayEnumerableM() => Loop.ForeachEnumerable(arrayM);
-
-        [Benchmark]
-        public int EnumeratorEnumerableArrayM() => Loop.EnumeratorEnumerable(arrayM);
-
-        [Benchmark]
-        public int ForArrayM() => Loop.ForArray(arrayM);
-
-        [Benchmark]
-        public int ForIListArrayM() => Loop.ForIList(arrayM);
-
-        [Benchmark]
-        public int ForeachArrayL() => Loop.ForeachArray(arrayL);
-
-        [Benchmark]
-        public int ForeachArrayEnumerableL() => Loop.ForeachEnumerable(arrayL);
-
-        [Benchmark]
-        public int EnumeratorEnumerableArrayL() => Loop.EnumeratorEnumerable(arrayL);
-
-        [Benchmark]
-        public int ForArrayL() => Loop.ForArray(arrayL);
-
-        [Benchmark]
-        public int ForIListArrayL() => Loop.ForIList(arrayL);
+        public int ForIListArray() => Loop.ForIList(array);
 
         // Span
 
         [Benchmark]
-        public int ForeachSpanS() => Loop.ForeachSpan(arrayS);
+        public int ForeachSpan() => Loop.ForeachSpan(array);
 
         [Benchmark]
-        public int ForeachReadOnlySpanS() => Loop.ForeachReadOnlySpan(arrayS);
+        public int ForeachReadOnlySpan() => Loop.ForeachReadOnlySpan(array);
 
         [Benchmark]
-        public int ForeachSpanAsReadonlyS() => Loop.ForeachSpanAsReadonly(arrayS);
+        public int ForeachSpanAsReadonly() => Loop.ForeachSpanAsReadonly(array);
 
         [Benchmark]
-        public int ForeachSpanEnumerableS() => Loop.ForeachEnumerable(arrayS);
+        public int ForeachSpanEnumerable() => Loop.ForeachEnumerable(array);
 
         [Benchmark]
-        public int EnumeratorEnumerableSpanS() => Loop.EnumeratorEnumerable(arrayS);
+        public int EnumeratorEnumerableSpan() => Loop.EnumeratorEnumerable(array);
 
         [Benchmark]
-        public int ForSpanS() => Loop.ForSpan(arrayS);
+        public int ForSpan() => Loop.ForSpan(array);
 
         [Benchmark]
-        public int ForReadOnlySpanS() => Loop.ForReadOnlySpan(arrayS);
+        public int ForReadOnlySpan() => Loop.ForReadOnlySpan(array);
 
         [Benchmark]
-        public int ForSpanAsReadOnlyS() => Loop.ForSpanAsReadOnly(arrayS);
-
-        [Benchmark]
-        public int ForeachSpanM() => Loop.ForeachSpan(arrayM);
-
-        [Benchmark]
-        public int ForeachReadOnlySpanM() => Loop.ForeachReadOnlySpan(arrayM);
-
-        [Benchmark]
-        public int ForeachSpanAsReadonlyM() => Loop.ForeachSpanAsReadonly(arrayM);
-
-        [Benchmark]
-        public int ForeachSpanEnumerableM() => Loop.ForeachEnumerable(arrayM);
-
-        [Benchmark]
-        public int EnumeratorEnumerableSpanM() => Loop.EnumeratorEnumerable(arrayM);
-
-        [Benchmark]
-        public int ForSpanM() => Loop.ForSpan(arrayM);
-
-        [Benchmark]
-        public int ForReadOnlySpanM() => Loop.ForReadOnlySpan(arrayM);
-
-        [Benchmark]
-        public int ForSpanAsReadOnlyM() => Loop.ForSpanAsReadOnly(arrayM);
-
-        [Benchmark]
-        public int ForeachSpanL() => Loop.ForeachSpan(arrayL);
-
-        [Benchmark]
-        public int ForeachReadOnlySpanL() => Loop.ForeachReadOnlySpan(arrayL);
-
-        [Benchmark]
-        public int ForeachSpanAsReadonlyL() => Loop.ForeachSpanAsReadonly(arrayL);
-
-        [Benchmark]
-        public int ForeachSpanEnumerableL() => Loop.ForeachEnumerable(arrayL);
-
-        [Benchmark]
-        public int EnumeratorEnumerableSpanL() => Loop.EnumeratorEnumerable(arrayL);
-
-        [Benchmark]
-        public int ForSpanL() => Loop.ForSpan(arrayL);
-
-        [Benchmark]
-        public int ForReadOnlySpanL() => Loop.ForReadOnlySpan(arrayL);
-
-        [Benchmark]
-        public int ForSpanAsReadOnlyL() => Loop.ForSpanAsReadOnly(arrayL);
+        public int ForSpanAsReadOnly() => Loop.ForSpanAsReadOnly(array);
     }
 
     public static class Loop
