@@ -1,5 +1,6 @@
 ﻿namespace SkipLocalsInitBenchmark
 {
+    using System.Collections.Generic;
     using System.Runtime.CompilerServices;
 
     using BenchmarkDotNet.Attributes;
@@ -38,12 +39,14 @@
     [Config(typeof(BenchmarkConfig))]
     public class Benchmark
     {
+        public static IEnumerable<int> Size() => new[] { 4, 16, 64, 256, 1024, 2048 };
+
         [Benchmark]
-        [Arguments(4, 16, 64, 256, 1024, 2048)]
+        [ArgumentsSource(nameof(Size))]
         public string InitCharSpan(int size) => Allocator.InitCharSpan(size);
 
         [Benchmark]
-        [Arguments(4, 16, 64, 256, 1024, 2048)]
+        [ArgumentsSource(nameof(Size))]
         public string SkipInitCharSpan(int size) => Allocator.SkipInitCharSpan(size);
 
         [Benchmark]
@@ -55,12 +58,14 @@
 
     public static unsafe class Allocator
     {
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static string InitCharSpan(int length)
         {
             var buffer = stackalloc char[length];
             return new string(buffer);
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         [SkipLocalsInit]
         public static string SkipInitCharSpan(int length)
         {
@@ -68,12 +73,14 @@
             return new string(buffer);
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static int InitInt()
         {
             Out(out var value);
             return value;
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         [SkipLocalsInit]
         public static int SkipInitInt()
         {
