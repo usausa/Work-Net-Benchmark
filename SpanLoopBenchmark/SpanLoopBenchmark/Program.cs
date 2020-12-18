@@ -58,7 +58,10 @@ namespace SpanLoopBenchmark
         public int FindByte() => Helper.Find(bytes, 0);
 
         [Benchmark]
-        public int UnsafeFindByte() => Helper.UnsafeFind(bytes, 0);
+        public int UnsafeForFindByte() => Helper.UnsafeForFind(bytes, 0);
+
+        [Benchmark]
+        public int UnsafeWhileFindByte() => Helper.UnsafeWhileFind(bytes, 0);
 
         [Benchmark]
         public int PointerForFindByte() => Helper.PointerForFind(bytes, 0);
@@ -70,7 +73,10 @@ namespace SpanLoopBenchmark
         public int FindInt() => Helper.Find(numbers, 0);
 
         [Benchmark]
-        public int UnsafeFindInt() => Helper.UnsafeFind(numbers, 0);
+        public int UnsafeForFindInt() => Helper.UnsafeForFind(numbers, 0);
+
+        [Benchmark]
+        public int UnsafeWhileFindInt() => Helper.UnsafeWhileFind(numbers, 0);
 
         [Benchmark]
         public int PointerForFindInt() => Helper.PointerForFind(numbers, 0);
@@ -107,7 +113,37 @@ namespace SpanLoopBenchmark
             return -1;
         }
 
-        public static int UnsafeFind(ReadOnlySpan<int> span, int value)
+        public static int UnsafeForFind(ReadOnlySpan<byte> span, byte value)
+        {
+            ref var reference = ref MemoryMarshal.GetReference(span);
+
+            for (var i = 0; i < span.Length; i++)
+            {
+                if (Unsafe.Add(ref reference, i) == value)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public static int UnsafeForFind(ReadOnlySpan<int> span, int value)
+        {
+            ref var reference = ref MemoryMarshal.GetReference(span);
+
+            for (var i = 0; i < span.Length; i++)
+            {
+                if (Unsafe.Add(ref reference, i) == value)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public static int UnsafeWhileFind(ReadOnlySpan<int> span, int value)
         {
             ref var start = ref MemoryMarshal.GetReference(span);
             ref var end = ref Unsafe.Add(ref start, span.Length);
@@ -127,7 +163,7 @@ namespace SpanLoopBenchmark
             return -1;
         }
 
-        public static int UnsafeFind(ReadOnlySpan<byte> span, byte value)
+        public static int UnsafeWhileFind(ReadOnlySpan<byte> span, byte value)
         {
             ref var start = ref MemoryMarshal.GetReference(span);
             ref var end = ref Unsafe.Add(ref start, span.Length);
