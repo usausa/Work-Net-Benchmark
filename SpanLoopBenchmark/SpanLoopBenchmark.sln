@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpanLoopBenchmark", "SpanLoopBenchmark\SpanLoopBenchmark.csproj", "{F8DD9092-783B-4D36-939D-FCC74F0DA6D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3BF7C9AC-2E7E-4FB2-82E8-8A5C3345E8A2}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		SpanLoopBenchmark.sln.DotSettings = SpanLoopBenchmark.sln.DotSettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8DD9092-783B-4D36-939D-FCC74F0DA6D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8DD9092-783B-4D36-939D-FCC74F0DA6D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8DD9092-783B-4D36-939D-FCC74F0DA6D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8DD9092-783B-4D36-939D-FCC74F0DA6D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C1D6B50-6828-4B3C-ACED-AE9B33F27163}
+	EndGlobalSection
+EndGlobal
