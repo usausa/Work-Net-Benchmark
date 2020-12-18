@@ -61,10 +61,22 @@ namespace SpanLoopBenchmark
         public int UnsafeFindByte() => Helper.UnsafeFind(bytes, 0);
 
         [Benchmark]
+        public int PointerForFindByte() => Helper.PointerForFind(bytes, 0);
+
+        [Benchmark]
+        public int PointerWhileFindByte() => Helper.PointerWhileFind(bytes, 0);
+
+        [Benchmark]
         public int FindInt() => Helper.Find(numbers, 0);
 
         [Benchmark]
         public int UnsafeFindInt() => Helper.UnsafeFind(numbers, 0);
+
+        [Benchmark]
+        public int PointerForFindInt() => Helper.PointerForFind(numbers, 0);
+
+        [Benchmark]
+        public int PointerWhileFindInt() => Helper.PointerWhileFind(numbers, 0);
     }
 
     public static class Helper
@@ -133,6 +145,84 @@ namespace SpanLoopBenchmark
             }
 
             return -1;
+        }
+
+        public static unsafe int PointerForFind(ReadOnlySpan<int> span, int value)
+        {
+            fixed (int* ptr = span)
+            {
+                var p = ptr;
+                for (var i = 0; i < span.Length; i++)
+                {
+                    if (*p == value)
+                    {
+                        return i;
+                    }
+                }
+
+                return -1;
+            }
+        }
+
+        public static unsafe int PointerForFind(ReadOnlySpan<byte> span, byte value)
+        {
+            fixed (byte* ptr = span)
+            {
+                var p = ptr;
+                for (var i = 0; i < span.Length; i++)
+                {
+                    if (*p == value)
+                    {
+                        return i;
+                    }
+                }
+
+                return -1;
+            }
+        }
+
+        public static unsafe int PointerWhileFind(ReadOnlySpan<int> span, int value)
+        {
+            fixed (int* ptr = span)
+            {
+                var p = ptr;
+                var pEnd = ptr + span.Length;
+                var i = 0;
+                while (p < pEnd)
+                {
+                    if (*p == value)
+                    {
+                        return i;
+                    }
+
+                    p++;
+                    i++;
+                }
+
+                return -1;
+            }
+        }
+
+        public static unsafe int PointerWhileFind(ReadOnlySpan<byte> span, byte value)
+        {
+            fixed (byte* ptr = span)
+            {
+                var p = ptr;
+                var pEnd = ptr + span.Length;
+                var i = 0;
+                while (p < pEnd)
+                {
+                    if (*p == value)
+                    {
+                        return i;
+                    }
+
+                    p++;
+                    i++;
+                }
+
+                return -1;
+            }
         }
     }
 }
