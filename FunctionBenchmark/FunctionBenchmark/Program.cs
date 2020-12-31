@@ -36,6 +36,7 @@
         }
     }
 
+    [Config(typeof(BenchmarkConfig))]
     public unsafe class Benchmark
     {
         private Func<int, int, bool> staticFunction;
