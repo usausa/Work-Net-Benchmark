@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxCacheBenchmark2", "BoxCacheBenchmark2\BoxCacheBenchmark2.csproj", "{FBC4EFE2-8A38-4BCA-9C94-7750B5FF396D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7A62F7C0-F09B-4377-B923-ACE86B1DD6B0}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBC4EFE2-8A38-4BCA-9C94-7750B5FF396D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC4EFE2-8A38-4BCA-9C94-7750B5FF396D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC4EFE2-8A38-4BCA-9C94-7750B5FF396D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC4EFE2-8A38-4BCA-9C94-7750B5FF396D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47372811-672B-4544-8F8D-BDCD080858DF}
+	EndGlobalSection
+EndGlobal
