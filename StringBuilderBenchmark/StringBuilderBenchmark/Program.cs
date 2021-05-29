@@ -99,6 +99,23 @@ namespace StringBuilderBenchmark
         }
 
         [Benchmark(OperationsPerInvoke = N)]
+        public string PooledStringBuilder3()
+        {
+            var ret = default(string);
+            for (var i = 0; i < N; i++)
+            {
+                var buffer = new PooledBufferStringBuilder3(256);
+                buffer.Append(Value1);
+                buffer.Append(Value2);
+                buffer.Append(Value3);
+                buffer.Append(Value4);
+                ret = buffer.ToString();
+            }
+
+            return ret;
+        }
+
+        [Benchmark(OperationsPerInvoke = N)]
         public string ValueStringBuilderSimple()
         {
             var ret = default(string);
@@ -204,6 +221,64 @@ namespace StringBuilderBenchmark
             var newSize = Math.Max(buffer.Length * 2, buffer.Length - Length + additional);
             var newBuffer = new char[newSize];
             buffer.AsSpan(0, Length).CopyTo(newBuffer.AsSpan());
+            buffer = newBuffer;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString()
+        {
+            return new(buffer!, 0, Length);
+        }
+    }
+
+    public struct PooledBufferStringBuilder3
+    {
+        [ThreadStatic]
+        private static char[] bufferCashe;
+
+        private char[] buffer;
+
+        public int Length;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public PooledBufferStringBuilder3(int length)
+        {
+            if ((bufferCashe is null) || (bufferCashe.Length < length))
+            {
+                bufferCashe = new char[length];
+            }
+
+            buffer = bufferCashe;
+            Length = 0;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Append<T>(T value)
+        {
+            Append(value!.ToString()!.AsSpan());
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Append(ReadOnlySpan<char> value)
+        {
+            var length = Length;
+            var buff = buffer;
+            if (length > buff!.Length - value.Length)
+            {
+                Grow(value.Length);
+            }
+
+            value.CopyTo(buff.AsSpan(length));
+            Length += value.Length;
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void Grow(int additional)
+        {
+            var buff = buffer;
+            var newSize = Math.Max(buff.Length * 2, buff.Length - Length + additional);
+            var newBuffer = new char[newSize];
+            buff.AsSpan(0, Length).CopyTo(newBuffer.AsSpan());
             buffer = newBuffer;
         }
 

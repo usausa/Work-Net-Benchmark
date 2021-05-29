@@ -12,7 +12,8 @@ WarmupCount=10
 ```
 |                   Method |     Mean |    Error |   StdDev |      Min |      Max |      P90 | Ratio |  Gen 0 |  Gen 1 | Gen 2 | Allocated |
 |------------------------- |---------:|---------:|---------:|---------:|---------:|---------:|------:|-------:|-------:|------:|----------:|
-|     DefaultStringBuilder | 55.56 ns | 0.322 ns | 0.471 ns | 54.78 ns | 56.26 ns | 56.01 ns |  1.00 | 0.0602 | 0.0002 |     - |   1,008 B |
-|      PooledStringBuilder | 34.81 ns | 0.250 ns | 0.358 ns | 34.15 ns | 35.32 ns | 35.22 ns |  0.63 | 0.0253 |      - |     - |     424 B |
-|     PooledStringBuilder2 | 34.39 ns | 0.207 ns | 0.310 ns | 34.02 ns | 35.24 ns | 34.87 ns |  0.62 | 0.0253 |      - |     - |     424 B |
-| ValueStringBuilderSimple | 34.76 ns | 0.204 ns | 0.305 ns | 34.31 ns | 35.33 ns | 35.23 ns |  0.63 | 0.0253 |      - |     - |     424 B |
+|     DefaultStringBuilder | 56.49 ns | 0.383 ns | 0.574 ns | 55.26 ns | 57.41 ns | 57.28 ns |  1.00 | 0.0602 | 0.0002 |     - |   1,008 B |
+|      PooledStringBuilder | 34.59 ns | 0.219 ns | 0.321 ns | 34.16 ns | 35.55 ns | 35.04 ns |  0.61 | 0.0253 |      - |     - |     424 B |
+|     PooledStringBuilder2 | 34.53 ns | 0.119 ns | 0.174 ns | 34.34 ns | 34.97 ns | 34.80 ns |  0.61 | 0.0253 |      - |     - |     424 B |
+|     PooledStringBuilder3 | 34.37 ns | 0.182 ns | 0.273 ns | 33.92 ns | 34.89 ns | 34.81 ns |  0.61 | 0.0253 |      - |     - |     424 B |
+| ValueStringBuilderSimple | 34.72 ns | 0.176 ns | 0.264 ns | 34.42 ns | 35.39 ns | 35.14 ns |  0.61 | 0.0253 |      - |     - |     424 B |
