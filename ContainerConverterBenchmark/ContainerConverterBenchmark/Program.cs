@@ -1,4 +1,6 @@
-﻿namespace ContainerConverterBenchmark
+﻿using System.Collections;
+
+namespace ContainerConverterBenchmark
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +22,6 @@
         }
     }
 
-    // IE fast LINQ
     // List/IList fast 2
     // IList / List 20%?
     // with source check equal ?
@@ -37,7 +38,7 @@
                 StatisticColumn.Error,
                 StatisticColumn.StdDev);
             AddDiagnoser(MemoryDiagnoser.Default);
-            AddJob(Job.MediumRun);
+            AddJob(Job.ShortRun);
         }
     }
 
@@ -132,22 +133,22 @@
         [Benchmark(OperationsPerInvoke = N)]
         public void IEnumerableToArray()
         {
-            var source = list;
+            var source = array;
             Func<long, int> f = Convert;
             for (var i = 0; i < N; i++)
             {
-                ContainerConverter.IEnumerableToArray(source, f);
+                ContainerConverter.IEnumerableToArray(new MyEnumerable<long>(source), f);
             }
         }
 
         [Benchmark(OperationsPerInvoke = N)]
         public void IEnumerableToArray2()
         {
-            var source = list;
+            var source = array;
             Func<long, int> f = Convert;
             for (var i = 0; i < N; i++)
             {
-                ContainerConverter.IEnumerableToArray2(source, f);
+                ContainerConverter.IEnumerableToArray2(new MyEnumerable<long>(source), f);
             }
         }
 
@@ -209,22 +210,22 @@
         [Benchmark(OperationsPerInvoke = N)]
         public void IEnumerableToList()
         {
-            var source = list;
+            var source = array;
             Func<long, int> f = Convert;
             for (var i = 0; i < N; i++)
             {
-                ContainerConverter.IEnumerableToList(source, f);
+                ContainerConverter.IEnumerableToList(new MyEnumerable<long>(source), f);
             }
         }
 
         [Benchmark(OperationsPerInvoke = N)]
         public void IEnumerableToList2()
         {
-            var source = list;
+            var source = array;
             Func<long, int> f = Convert;
             for (var i = 0; i < N; i++)
             {
-                ContainerConverter.IEnumerableToList2(source, f);
+                ContainerConverter.IEnumerableToList2(new MyEnumerable<long>(source), f);
             }
         }
     }
@@ -428,5 +429,44 @@
             }
             return list;
         }
+    }
+
+    public struct MyEnumerator<T> : IEnumerator<T>
+    {
+        private readonly T[] array;
+
+        private int index;
+
+        public MyEnumerator(T[] array)
+        {
+            this.array = array;
+            index = -1;
+        }
+
+        public bool MoveNext() => (uint)++index < array.Length;
+
+        public void Reset() => throw new NotImplementedException();
+
+        public T Current => array[index];
+
+        object IEnumerator.Current => Current;
+
+        public void Dispose()
+        {
+        }
+    }
+
+    public readonly struct MyEnumerable<T> : IEnumerable<T>
+    {
+        private readonly T[] array;
+
+        public MyEnumerable(T[] array)
+        {
+            this.array = array;
+        }
+
+        public IEnumerator<T> GetEnumerator() => new MyEnumerator<T>(array);
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
