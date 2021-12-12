@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿namespace ListEnumerationBenchmark;
+
+using System.Runtime.InteropServices;
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
@@ -7,8 +9,6 @@ using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
-
-namespace ListEnumerationBenchmark;
 
 public static class Program
 {
