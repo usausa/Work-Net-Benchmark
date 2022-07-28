@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CallbackBenchmark", "CallbackBenchmark\CallbackBenchmark.csproj", "{1290BEA2-7501-4E93-BC2B-65E332A322DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{9FDFD1B2-0903-4655-9690-10E768218109}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9FDFD1B2-0903-4655-9690-10E768218109}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
