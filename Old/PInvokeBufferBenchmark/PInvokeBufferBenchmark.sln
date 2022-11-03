@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvokeBufferBenchmark", "PInvokeBufferBenchmark\PInvokeBufferBenchmark.csproj", "{94802FC8-D9A7-4A4A-B62A-07CB00E2667C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{7832D513-FB00-4763-8BA9-0D76850DC699}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7832D513-FB00-4763-8BA9-0D76850DC699}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection

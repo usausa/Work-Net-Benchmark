@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisassemblyBenchmark", "DisassemblyBenchmark\DisassemblyBenchmark.csproj", "{CB6386F0-9E16-4D73-901B-9481CFBFB8D1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{BA9BD26A-CBF9-47DF-8413-A9CE8F979321}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA9BD26A-CBF9-47DF-8413-A9CE8F979321}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StructParameterBenchmark", "StructParameterBenchmark\StructParameterBenchmark.csproj", "{AB3A760C-B1D3-40C3-9911-6B5FC9EB4D86}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{0CDE349B-B8EF-4655-AD7A-1713B4BFD0C1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0CDE349B-B8EF-4655-AD7A-1713B4BFD0C1}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
