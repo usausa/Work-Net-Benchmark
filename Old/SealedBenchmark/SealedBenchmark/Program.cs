@@ -1,9 +1,10 @@
-﻿namespace SealedBenchmark;
+namespace SealedBenchmark;
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
+using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
@@ -12,7 +13,7 @@ public static class Program
 {
     public static void Main()
     {
-        BenchmarkRunner.Run<Benchmark>();
+        _ = BenchmarkRunner.Run<Benchmark>();
     }
 }
 
@@ -20,16 +21,16 @@ public class BenchmarkConfig : ManualConfig
 {
     public BenchmarkConfig()
     {
-        AddExporter(MarkdownExporter.Default, MarkdownExporter.GitHub);
-        AddColumn(
+        _ = AddExporter(MarkdownExporter.GitHub);
+        _ = AddColumn(
             StatisticColumn.Mean,
             StatisticColumn.Min,
             StatisticColumn.Max,
             StatisticColumn.P90,
             StatisticColumn.Error,
             StatisticColumn.StdDev);
-        AddDiagnoser(MemoryDiagnoser.Default);
-        AddJob(Job.MediumRun);
+        _ = AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
+        _ = AddJob(Job.MediumRun.WithJit(Jit.RyuJit).WithPlatform(Platform.X64).WithRuntime(CoreRuntime.Core60));
     }
 }
 
@@ -73,12 +74,17 @@ public class Benchmark
     private readonly NonSealedImplementClass nonSealedImplement = new();
     private readonly SealedImplementClass sealedImplement = new();
 
+    private readonly BaseClass nonSealedBase = new NonSealedDerivedClass();
+    private readonly BaseClass sealedBase = new SealedDerivedClass();
+    private readonly IBase nonSealedInterface = new NonSealedImplementClass();
+    private readonly IBase sealedInterface = new SealedImplementClass();
+
     //--------------------------------------------------------------------------------
     // Invoke
     //--------------------------------------------------------------------------------
 
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeNonSealedDerived()
+    public object? InvokeNonSealedDerived()
     {
         var target = nonSealedDerived;
         var ret = default(object);
@@ -90,7 +96,7 @@ public class Benchmark
     }
 
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeSealedDerived()
+    public object? InvokeSealedDerived()
     {
         var target = sealedDerived;
         var ret = default(object);
@@ -102,7 +108,7 @@ public class Benchmark
     }
 
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeNonSealedImplement()
+    public object? InvokeNonSealedImplement()
     {
         var target = nonSealedImplement;
         var ret = default(object);
@@ -113,9 +119,8 @@ public class Benchmark
         return ret;
     }
 
-
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeSealedImplement()
+    public object? InvokeSealedImplement()
     {
         var target = sealedImplement;
         var ret = default(object);
@@ -131,7 +136,7 @@ public class Benchmark
     //--------------------------------------------------------------------------------
 
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeNonSealedDerivedAsBase()
+    public object? InvokeNonSealedDerivedAsBase()
     {
         BaseClass target = nonSealedDerived;
         var ret = default(object);
@@ -143,7 +148,7 @@ public class Benchmark
     }
 
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeSealedDerivedAsBase()
+    public object? InvokeSealedDerivedAsBase()
     {
         BaseClass target = sealedDerived;
         var ret = default(object);
@@ -155,7 +160,31 @@ public class Benchmark
     }
 
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeNonSealedImplementAsBase()
+    public object? InvokeNonSealedBase()
+    {
+        var target = nonSealedBase;
+        var ret = default(object);
+        for (var i = 0; i < N; i++)
+        {
+            ret = target.Method();
+        }
+        return ret;
+    }
+
+    [Benchmark(OperationsPerInvoke = N)]
+    public object? InvokeSealedBase()
+    {
+        var target = sealedBase;
+        var ret = default(object);
+        for (var i = 0; i < N; i++)
+        {
+            ret = target.Method();
+        }
+        return ret;
+    }
+
+    [Benchmark(OperationsPerInvoke = N)]
+    public object? InvokeNonSealedImplementAsInterface()
     {
         IBase target = nonSealedImplement;
         var ret = default(object);
@@ -166,11 +195,34 @@ public class Benchmark
         return ret;
     }
 
-
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeSealedImplementAsBase()
+    public object? InvokeSealedImplementAsInterface()
     {
         IBase target = sealedImplement;
+        var ret = default(object);
+        for (var i = 0; i < N; i++)
+        {
+            ret = target.Method();
+        }
+        return ret;
+    }
+
+    [Benchmark(OperationsPerInvoke = N)]
+    public object? InvokeNonSealedInterface()
+    {
+        var target = nonSealedInterface;
+        var ret = default(object);
+        for (var i = 0; i < N; i++)
+        {
+            ret = target.Method();
+        }
+        return ret;
+    }
+
+    [Benchmark(OperationsPerInvoke = N)]
+    public object? InvokeSealedInterface()
+    {
+        var target = sealedInterface;
         var ret = default(object);
         for (var i = 0; i < N; i++)
         {
@@ -184,7 +236,7 @@ public class Benchmark
     //--------------------------------------------------------------------------------
 
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeNonSealedDerivedAsFunc()
+    public object? InvokeNonSealedDerivedAsFunc()
     {
         Func<object> target = nonSealedDerived.Method;
         var ret = default(object);
@@ -196,7 +248,7 @@ public class Benchmark
     }
 
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeSealedDerivedAsFunc()
+    public object? InvokeSealedDerivedAsFunc()
     {
         Func<object> target = sealedDerived.Method;
         var ret = default(object);
@@ -208,7 +260,7 @@ public class Benchmark
     }
 
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeNonSealedImplementAsFunc()
+    public object? InvokeNonSealedImplementAsFunc()
     {
         Func<object> target = nonSealedImplement.Method;
         var ret = default(object);
@@ -219,9 +271,8 @@ public class Benchmark
         return ret;
     }
 
-
     [Benchmark(OperationsPerInvoke = N)]
-    public object InvokeSealedImplementAsFunc()
+    public object? InvokeSealedImplementAsFunc()
     {
         Func<object> target = sealedImplement.Method;
         var ret = default(object);
