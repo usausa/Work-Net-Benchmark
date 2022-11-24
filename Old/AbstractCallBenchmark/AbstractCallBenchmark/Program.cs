@@ -1,4 +1,7 @@
-﻿namespace AbstractCallBenchmark;
+namespace AbstractCallBenchmark;
+
+using System.Reflection.Emit;
+using System.Reflection;
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
@@ -31,6 +34,7 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.StdDev);
         _ = AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
         _ = AddJob(Job.MediumRun.WithJit(Jit.RyuJit).WithPlatform(Platform.X64).WithRuntime(CoreRuntime.Core60));
+        _ = AddJob(Job.MediumRun.WithJit(Jit.RyuJit).WithPlatform(Platform.X64).WithRuntime(CoreRuntime.Core70));
     }
 }
 
@@ -41,6 +45,7 @@ public class Benchmark
 
     private readonly IFactory interfaceFactory = new InterfaceFactory();
     private readonly FactoryBase abstractFactory = new AbstractFactory();
+    private readonly FactoryBase abstractFactory2 = new Builder().CreateFactory();
     private readonly Func<object> funcFactory = new FuncFactory().Create;
 
     private readonly IFactory interfaceFactory4 = new InterfaceFactory4();
@@ -50,10 +55,10 @@ public class Benchmark
     [Benchmark(OperationsPerInvoke = N)]
     public object? Interface()
     {
-        var factory = interfaceFactory;
         var ret = default(object);
         for (var i = 0; i < N; i++)
         {
+            var factory = interfaceFactory;
             ret = factory.Create();
         }
         return ret;
@@ -62,10 +67,22 @@ public class Benchmark
     [Benchmark(OperationsPerInvoke = N)]
     public object? Abstract()
     {
-        var factory = abstractFactory;
         var ret = default(object);
         for (var i = 0; i < N; i++)
         {
+            var factory = abstractFactory;
+            ret = factory.Create();
+        }
+        return ret;
+    }
+
+    [Benchmark(OperationsPerInvoke = N)]
+    public object? Abstract2()
+    {
+        var ret = default(object);
+        for (var i = 0; i < N; i++)
+        {
+            var factory = abstractFactory2;
             ret = factory.Create();
         }
         return ret;
@@ -74,10 +91,10 @@ public class Benchmark
     [Benchmark(OperationsPerInvoke = N)]
     public object? Func()
     {
-        var factory = funcFactory;
         var ret = default(object);
         for (var i = 0; i < N; i++)
         {
+            var factory = funcFactory;
             ret = factory();
         }
         return ret;
@@ -180,4 +197,51 @@ public static class Functions
 #pragma warning disable IDE0060
     public static object Create4(object arg1, object arg2, object arg3, object arg4) => default!;
 #pragma warning restore IDE0060
+}
+
+public class Builder
+{
+    private AssemblyBuilder? assemblyBuilder;
+
+    private ModuleBuilder? moduleBuilder;
+
+    private ModuleBuilder ModuleBuilder
+    {
+        get
+        {
+            if (moduleBuilder is null)
+            {
+                assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(
+                    new AssemblyName("BuilderAssembly"),
+                    AssemblyBuilderAccess.Run);
+                moduleBuilder = assemblyBuilder.DefineDynamicModule(
+                    "BuilderModule");
+            }
+
+            return moduleBuilder;
+        }
+    }
+
+    public FactoryBase CreateFactory()
+    {
+        var typeBuilder = ModuleBuilder.DefineType(
+            "Factory",
+            TypeAttributes.Public | TypeAttributes.AutoLayout | TypeAttributes.AnsiClass | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit);
+        typeBuilder.SetParent(typeof(FactoryBase));
+
+        var methodBuilder = typeBuilder.DefineMethod("Create",
+            MethodAttributes.Public |
+            MethodAttributes.ReuseSlot |
+            MethodAttributes.Virtual |
+            MethodAttributes.HideBySig,
+            typeof(object),
+            Type.EmptyTypes);
+
+        var il = methodBuilder.GetILGenerator();
+        il.Emit(OpCodes.Ldnull);
+        il.Emit(OpCodes.Ret);
+
+        var factoryType = typeBuilder.CreateType()!;
+        return (FactoryBase)Activator.CreateInstance(factoryType)!;
+    }
 }
