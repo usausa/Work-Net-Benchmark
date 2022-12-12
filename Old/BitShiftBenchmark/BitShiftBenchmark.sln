@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitShiftBenchmark", "BitShiftBenchmark\BitShiftBenchmark.csproj", "{023F16C7-4F1D-465D-8955-ABCBD452F26D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{023F16C7-4F1D-465D-8955-ABCBD452F26D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{023F16C7-4F1D-465D-8955-ABCBD452F26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{023F16C7-4F1D-465D-8955-ABCBD452F26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{023F16C7-4F1D-465D-8955-ABCBD452F26D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE11D386-5567-4839-8961-1E0481235EB6}
+	EndGlobalSection
+EndGlobal
