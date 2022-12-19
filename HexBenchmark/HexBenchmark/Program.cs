@@ -33,8 +33,8 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.Error,
             StatisticColumn.StdDev);
         AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
-        //AddJob(Job.MediumRun);
-        AddJob(Job.ShortRun);
+        AddJob(Job.MediumRun);
+        //AddJob(Job.ShortRun);
     }
 }
 
@@ -124,7 +124,11 @@ public class Benchmark
     [Benchmark]
     public byte[] DecodeByReferenceToIndex1() => HexEncoder.DecodeByReferenceToIndex(Hex);
 
-    // TODO 5
+    [BenchmarkCategory("Decode1")]
+    [Benchmark]
+    public byte[] DecodeByReferenceToReference1() => HexEncoder.DecodeByReferenceToReference(Hex);
+
+    // TODO 4
 
     //--------------------------------------------------------------------------------
     // Decode
@@ -142,7 +146,11 @@ public class Benchmark
     [Benchmark]
     public void DecodeByReferenceToIndex2() => HexEncoder.DecodeByReferenceToIndex(Hex, stackalloc byte[256]);
 
-    // TODO 5
+    [BenchmarkCategory("Decode2")]
+    [Benchmark]
+    public void DecodeByReferenceToReference2() => HexEncoder.DecodeByReferenceToReference(Hex, stackalloc byte[256]);
+
+    // TODO 4
 }
 #pragma warning restore CA1822
 
@@ -564,7 +572,8 @@ public static class HexEncoder
             return Array.Empty<byte>();
         }
 
-        var buffer = new byte[source.Length >> 1];
+        var length = source.Length >> 1;
+        var buffer = new byte[length];
 
         fixed (char* pSource = source)
         fixed (byte* pBuffer = &buffer[0])
@@ -572,7 +581,7 @@ public static class HexEncoder
             var pb = pBuffer;
             var ps = pSource;
 
-            for (var i = 0; i < buffer.Length; i++)
+            for (var i = 0; i < length; i++)
             {
                 var b = CharToNumber(*ps) << 4;
                 ps++;
@@ -585,7 +594,7 @@ public static class HexEncoder
         return buffer;
     }
 
-    // TODO PR 2
+    // TODO PR
 
     [SkipLocalsInit]
     public static byte[] DecodeByReferenceToIndex(ReadOnlySpan<char> source)
@@ -610,14 +619,35 @@ public static class HexEncoder
     }
 
     // TODO RP
-    // TODO RR
+
+    [SkipLocalsInit]
+    public static byte[] DecodeByReferenceToReference(ReadOnlySpan<char> source)
+    {
+        if (source.IsEmpty)
+        {
+            return Array.Empty<byte>();
+        }
+
+        ref var sr = ref MemoryMarshal.GetReference(source);
+        var length = source.Length >> 1;
+        var buffer = new byte[length];
+        ref var dr = ref MemoryMarshal.GetReference<byte>(buffer);
+
+        for (var i = 0; i < length; i++)
+        {
+            var b = CharToNumber(sr) << 4;
+            sr = ref Unsafe.Add(ref sr, 1);
+            dr = (byte)(b + CharToNumber(sr));
+            sr = ref Unsafe.Add(ref sr, 1);
+            dr = ref Unsafe.Add(ref dr, 1);
+        }
+
+        return buffer;
+    }
 
     //--------------------------------------------------------------------------------
     // Decode
     //--------------------------------------------------------------------------------
-
-    // TODO stackalloc
-    // TODO -1
 
     // TODO IP
     // TODO IR
@@ -683,7 +713,7 @@ public static class HexEncoder
         return length;
     }
 
-    // TODO PR 2
+    // TODO PR
 
     public static int DecodeByReferenceToIndex(ReadOnlySpan<char> source, Span<byte> destination)
     {
@@ -712,7 +742,34 @@ public static class HexEncoder
     }
 
     // TODO RP
-    // TODO RR
+
+    public static int DecodeByReferenceToReference(ReadOnlySpan<char> source, Span<byte> destination)
+    {
+        if (source.IsEmpty)
+        {
+            return 0;
+        }
+
+        var length = source.Length >> 1;
+        if (length > destination.Length)
+        {
+            return -1;
+        }
+
+        ref var sr = ref MemoryMarshal.GetReference(source);
+        ref var dr = ref MemoryMarshal.GetReference(destination);
+
+        for (var i = 0; i < length; i++)
+        {
+            var b = CharToNumber(sr) << 4;
+            sr = ref Unsafe.Add(ref sr, 1);
+            dr = (byte)(b + CharToNumber(sr));
+            sr = ref Unsafe.Add(ref sr, 1);
+            dr = ref Unsafe.Add(ref dr, 1);
+        }
+
+        return length;
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int CharToNumber(char c)
