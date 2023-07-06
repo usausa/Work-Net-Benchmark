@@ -52,6 +52,10 @@ public class Benchmark
     // Encode
     //--------------------------------------------------------------------------------
 
+    [BenchmarkCategory("Default")]
+    [Benchmark]
+    public string EncodeDefault() => Convert.ToHexString(Bytes);
+
     [BenchmarkCategory("Encode1")]
     [Benchmark]
     public string EncodeByIndexToPointer1() => HexEncoder.EncodeByIndexToPointer(Bytes);
@@ -76,81 +80,81 @@ public class Benchmark
     [Benchmark]
     public string EncodeByReferenceToReference1() => HexEncoder.EncodeByReferenceToReference(Bytes);
 
-    // TODO 2
+    //// TODO 2
 
-    //--------------------------------------------------------------------------------
-    // Encode
-    //--------------------------------------------------------------------------------
+    ////--------------------------------------------------------------------------------
+    //// Encode
+    ////--------------------------------------------------------------------------------
 
-    [BenchmarkCategory("Encode2")]
-    [Benchmark]
-    public void EncodeByIndexToPointer2() => HexEncoder.EncodeByIndexToPointer(Bytes, stackalloc char[512]);
+    //[BenchmarkCategory("Encode2")]
+    //[Benchmark]
+    //public void EncodeByIndexToPointer2() => HexEncoder.EncodeByIndexToPointer(Bytes, stackalloc char[512]);
 
-    [BenchmarkCategory("Encode2")]
-    [Benchmark]
-    public void EncodeByIndexToReference2() => HexEncoder.EncodeByIndexToReference(Bytes, stackalloc char[512]);
+    //[BenchmarkCategory("Encode2")]
+    //[Benchmark]
+    //public void EncodeByIndexToReference2() => HexEncoder.EncodeByIndexToReference(Bytes, stackalloc char[512]);
 
-    [BenchmarkCategory("Encode2")]
-    [Benchmark]
-    public void EncodeByPointerToIndex2() => HexEncoder.EncodeByPointerToIndex(Bytes, stackalloc char[512]);
+    //[BenchmarkCategory("Encode2")]
+    //[Benchmark]
+    //public void EncodeByPointerToIndex2() => HexEncoder.EncodeByPointerToIndex(Bytes, stackalloc char[512]);
 
-    [BenchmarkCategory("Encode2")]
-    [Benchmark]
-    public void EncodeByPointerToPointer2() => HexEncoder.EncodeByPointerToPointer(Bytes, stackalloc char[512]);
+    //[BenchmarkCategory("Encode2")]
+    //[Benchmark]
+    //public void EncodeByPointerToPointer2() => HexEncoder.EncodeByPointerToPointer(Bytes, stackalloc char[512]);
 
-    [BenchmarkCategory("Encode2")]
-    [Benchmark]
-    public void EncodeByReferenceToIndex2() => HexEncoder.EncodeByReferenceToIndex(Bytes, stackalloc char[512]);
+    //[BenchmarkCategory("Encode2")]
+    //[Benchmark]
+    //public void EncodeByReferenceToIndex2() => HexEncoder.EncodeByReferenceToIndex(Bytes, stackalloc char[512]);
 
-    [BenchmarkCategory("Encode2")]
-    [Benchmark]
-    public void EncodeByReferenceToReference2() => HexEncoder.EncodeByReferenceToReference(Bytes, stackalloc char[512]);
+    //[BenchmarkCategory("Encode2")]
+    //[Benchmark]
+    //public void EncodeByReferenceToReference2() => HexEncoder.EncodeByReferenceToReference(Bytes, stackalloc char[512]);
 
-    // TODO 2
+    //// TODO 2
 
-    //--------------------------------------------------------------------------------
-    // Decode
-    //--------------------------------------------------------------------------------
+    ////--------------------------------------------------------------------------------
+    //// Decode
+    ////--------------------------------------------------------------------------------
 
-    [BenchmarkCategory("Decode1")]
-    [Benchmark]
-    public byte[] DecodeByPointerToIndex1() => HexEncoder.DecodeByPointerToIndex(Hex);
+    //[BenchmarkCategory("Decode1")]
+    //[Benchmark]
+    //public byte[] DecodeByPointerToIndex1() => HexEncoder.DecodeByPointerToIndex(Hex);
 
-    [BenchmarkCategory("Decode1")]
-    [Benchmark]
-    public byte[] DecodeByPointerToPointer1() => HexEncoder.DecodeByPointerToPointer(Hex);
+    //[BenchmarkCategory("Decode1")]
+    //[Benchmark]
+    //public byte[] DecodeByPointerToPointer1() => HexEncoder.DecodeByPointerToPointer(Hex);
 
-    [BenchmarkCategory("Decode1")]
-    [Benchmark]
-    public byte[] DecodeByReferenceToIndex1() => HexEncoder.DecodeByReferenceToIndex(Hex);
+    //[BenchmarkCategory("Decode1")]
+    //[Benchmark]
+    //public byte[] DecodeByReferenceToIndex1() => HexEncoder.DecodeByReferenceToIndex(Hex);
 
-    [BenchmarkCategory("Decode1")]
-    [Benchmark]
-    public byte[] DecodeByReferenceToReference1() => HexEncoder.DecodeByReferenceToReference(Hex);
+    //[BenchmarkCategory("Decode1")]
+    //[Benchmark]
+    //public byte[] DecodeByReferenceToReference1() => HexEncoder.DecodeByReferenceToReference(Hex);
 
-    // TODO 4
+    //// TODO 4
 
-    //--------------------------------------------------------------------------------
-    // Decode
-    //--------------------------------------------------------------------------------
+    ////--------------------------------------------------------------------------------
+    //// Decode
+    ////--------------------------------------------------------------------------------
 
-    [BenchmarkCategory("Decode2")]
-    [Benchmark]
-    public void DecodeByPointerToIndex2() => HexEncoder.DecodeByPointerToIndex(Hex, stackalloc byte[256]);
+    //[BenchmarkCategory("Decode2")]
+    //[Benchmark]
+    //public void DecodeByPointerToIndex2() => HexEncoder.DecodeByPointerToIndex(Hex, stackalloc byte[256]);
 
-    [BenchmarkCategory("Decode2")]
-    [Benchmark]
-    public void DecodeByPointerToPointer2() => HexEncoder.DecodeByPointerToPointer(Hex, stackalloc byte[256]);
+    //[BenchmarkCategory("Decode2")]
+    //[Benchmark]
+    //public void DecodeByPointerToPointer2() => HexEncoder.DecodeByPointerToPointer(Hex, stackalloc byte[256]);
 
-    [BenchmarkCategory("Decode2")]
-    [Benchmark]
-    public void DecodeByReferenceToIndex2() => HexEncoder.DecodeByReferenceToIndex(Hex, stackalloc byte[256]);
+    //[BenchmarkCategory("Decode2")]
+    //[Benchmark]
+    //public void DecodeByReferenceToIndex2() => HexEncoder.DecodeByReferenceToIndex(Hex, stackalloc byte[256]);
 
-    [BenchmarkCategory("Decode2")]
-    [Benchmark]
-    public void DecodeByReferenceToReference2() => HexEncoder.DecodeByReferenceToReference(Hex, stackalloc byte[256]);
+    //[BenchmarkCategory("Decode2")]
+    //[Benchmark]
+    //public void DecodeByReferenceToReference2() => HexEncoder.DecodeByReferenceToReference(Hex, stackalloc byte[256]);
 
-    // TODO 4
+    //// TODO 4
 }
 #pragma warning restore CA1822
 
