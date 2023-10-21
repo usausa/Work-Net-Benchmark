@@ -13,6 +13,8 @@ using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 
+using Smart.Collections.Concurrent;
+
 public static class Program
 {
     public static void Main()
@@ -49,6 +51,9 @@ public class Benchmark
     private ImmutableDictionary<string, int> immutableDictionary = default!;
     private FrozenDictionary<string, int> frozenDictionary = default!;
 
+    private FrozenDictionary<Type, object> frozenMapper = default!;
+    private ThreadsafeTypeHashArrayMap<object> hashArrayMapper = default!;
+
     [Params(32, 256, 1024)]
     public int Items { get; set; }
 
@@ -66,6 +71,13 @@ public class Benchmark
         readOnlyDictionary = new ReadOnlyDictionary<string, int>(items.ToDictionary(i => i.Key, i => i.Value));
         immutableDictionary = items.ToImmutableDictionary();
         frozenDictionary = items.ToFrozenDictionary();
+
+        frozenMapper = Classes.Types.ToFrozenDictionary(x => x, _ => new object());
+        hashArrayMapper = new ThreadsafeTypeHashArrayMap<object>();
+        foreach (var type in Classes.Types)
+        {
+            hashArrayMapper.AddIfNotExist(type, new object());
+        }
     }
 
     [BenchmarkCategory("Construct")]
@@ -131,6 +143,32 @@ public class Benchmark
         foreach (var key in keys)
         {
             allFound &= frozenDictionary.TryGetValue(key, out _);
+        }
+
+        return allFound;
+    }
+
+    [BenchmarkCategory("TryGetValueByType")]
+    [Benchmark]
+    public bool FrozenDictionaryTryGetValueByType()
+    {
+        var allFound = true;
+        foreach (var key in Classes.Types)
+        {
+            allFound &= frozenMapper.TryGetValue(key, out _);
+        }
+
+        return allFound;
+    }
+
+    [BenchmarkCategory("TryGetValueByType")]
+    [Benchmark]
+    public bool HashArrayTryGetValueByType()
+    {
+        var allFound = true;
+        foreach (var key in Classes.Types)
+        {
+            allFound &= hashArrayMapper.TryGetValue(key, out _);
         }
 
         return allFound;
