@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrozenBenchmark", "FrozenBe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormatBenchmark", "FormatBenchmark\FormatBenchmark.csproj", "{B7B73DE6-0B47-4CF6-916F-71171DB348FA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Abstraction", "Abstraction", "{39AB3C14-CE75-484A-BAB8-65C7E5B616B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CallAbstractionBenchmark", "CallAbstractionBenchmark\CallAbstractionBenchmark.csproj", "{4ED3AA28-2430-4B0C-9D3A-E6EDC20EEF99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{B7B73DE6-0B47-4CF6-916F-71171DB348FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7B73DE6-0B47-4CF6-916F-71171DB348FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7B73DE6-0B47-4CF6-916F-71171DB348FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ED3AA28-2430-4B0C-9D3A-E6EDC20EEF99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ED3AA28-2430-4B0C-9D3A-E6EDC20EEF99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ED3AA28-2430-4B0C-9D3A-E6EDC20EEF99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ED3AA28-2430-4B0C-9D3A-E6EDC20EEF99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +65,7 @@ Global
 		{2009C69B-C78A-46DD-8319-EE84EB88DC9F} = {101F8ACD-1275-4D1B-ACB5-EDA25723BD11}
 		{C33150DB-527B-47DC-9857-B156E27566C7} = {356CB1F4-1A22-4B9D-ABD4-7F1F14BA8A70}
 		{FA7765B2-0A73-40BB-ADD9-0E5C55B68358} = {101F8ACD-1275-4D1B-ACB5-EDA25723BD11}
+		{4ED3AA28-2430-4B0C-9D3A-E6EDC20EEF99} = {39AB3C14-CE75-484A-BAB8-65C7E5B616B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {85392808-9360-4706-B6CF-B3DBA15662EB}
