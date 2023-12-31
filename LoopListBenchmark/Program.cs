@@ -35,7 +35,7 @@ public class BenchmarkConfig : ManualConfig
 
 [Config(typeof(BenchmarkConfig))]
 [SimpleJob(RuntimeMoniker.Net60)]
-[SimpleJob(RuntimeMoniker.Net70)]
+[SimpleJob(RuntimeMoniker.Net80)]
 public class Benchmark
 {
     [Params(100, 1_0000, 10_0000, 100_0000)]
