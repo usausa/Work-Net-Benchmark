@@ -12,9 +12,10 @@ WarmupCount=10
 ```
 | Method             | Mean     | Error    | StdDev   | Min      | Max      | P90      |
 |------------------- |---------:|---------:|---------:|---------:|---------:|---------:|
-| Builder            | 84.54 ns | 4.329 ns | 6.479 ns | 75.06 ns | 98.47 ns | 92.88 ns |
-| BuilderPrepared    | 35.37 ns | 0.530 ns | 0.759 ns | 33.62 ns | 36.83 ns | 36.41 ns |
-| Handler            | 47.57 ns | 0.325 ns | 0.445 ns | 46.75 ns | 49.01 ns | 47.94 ns |
-| HandlerPrepared    | 26.35 ns | 1.017 ns | 1.459 ns | 24.41 ns | 28.81 ns | 28.15 ns |
-| ValueStringBuilder | 28.09 ns | 0.469 ns | 0.672 ns | 26.99 ns | 29.91 ns | 29.01 ns |
-| PooledBuilder      | 23.93 ns | 0.251 ns | 0.352 ns | 23.05 ns | 24.87 ns | 24.30 ns |
+| Builder            | 78.46 ns | 1.732 ns | 2.539 ns | 73.81 ns | 83.58 ns | 82.06 ns |
+| BuilderPrepared    | 36.10 ns | 0.512 ns | 0.750 ns | 34.30 ns | 37.48 ns | 36.89 ns |
+| Handler            | 49.19 ns | 1.389 ns | 1.992 ns | 46.48 ns | 52.36 ns | 51.30 ns |
+| HandlerPrepared    | 46.09 ns | 0.542 ns | 0.760 ns | 45.11 ns | 48.05 ns | 47.09 ns |
+| HandlerStack       | 27.21 ns | 0.972 ns | 1.455 ns | 25.22 ns | 30.26 ns | 29.03 ns |
+| ValueStringBuilder | 27.36 ns | 0.630 ns | 0.924 ns | 25.65 ns | 29.12 ns | 28.31 ns |
+| PooledBuilder      | 23.47 ns | 0.283 ns | 0.415 ns | 22.46 ns | 24.35 ns | 23.98 ns |

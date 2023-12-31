@@ -82,7 +82,18 @@ public class Benchmark
     [Benchmark]
     public string HandlerPrepared()
     {
-        var handler = new DefaultInterpolatedStringHandler(4, 0, default, stackalloc char[128]);
+        var handler = new DefaultInterpolatedStringHandler(128, 0);
+        handler.AppendLiteral(Data);
+        handler.AppendLiteral(Data);
+        handler.AppendLiteral(Data);
+        handler.AppendLiteral(Data);
+        return handler.ToStringAndClear();
+    }
+
+    [Benchmark]
+    public string HandlerStack()
+    {
+        var handler = new DefaultInterpolatedStringHandler(0, 0, default, stackalloc char[128]);
         handler.AppendLiteral(Data);
         handler.AppendLiteral(Data);
         handler.AppendLiteral(Data);
