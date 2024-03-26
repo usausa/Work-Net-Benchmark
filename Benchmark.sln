@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{08C7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CallNopBenchmark", "CallNopBenchmark\CallNopBenchmark.csproj", "{66F1789B-A139-42EF-B870-87761CE40224}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParameterBenchmark", "ParameterBenchmark\ParameterBenchmark.csproj", "{3E67C02A-35D4-445E-9528-1DAF5E611110}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{66F1789B-A139-42EF-B870-87761CE40224}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F1789B-A139-42EF-B870-87761CE40224}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66F1789B-A139-42EF-B870-87761CE40224}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E67C02A-35D4-445E-9528-1DAF5E611110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E67C02A-35D4-445E-9528-1DAF5E611110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E67C02A-35D4-445E-9528-1DAF5E611110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E67C02A-35D4-445E-9528-1DAF5E611110}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
