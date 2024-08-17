@@ -40,30 +40,65 @@ public class Benchmark
 {
     private const int N = 100_0000;
 
-    //private readonly Action lambdaAction = () => { };
+    private readonly Action lambdaAction = () => { };
 
-    //private readonly Action staticAction = StaticAction.Execute;
+    private readonly Action staticAction = StaticAction.Execute;
 
-    //private readonly Action curryAction = default(object)!.Execute;
+    private readonly Action curryAction = default(object)!.Execute;
 
     private readonly IAction interfaceAction = new InterfaceActionImplement();
 
     private readonly AbstractAction abstractAction = new AbstractActionImplement();
 
-    [Benchmark]
-    public void Lambda() => ActionExecutor.Execute(N, LambdaAction.Action);
+    private readonly Func<object?, object?> lambdaFunction = x => x;
 
-    [Benchmark]
-    public void Static() => ActionExecutor.Execute(N, StaticAction.Action);
+    private readonly Func<object?, object?> staticFunction = StaticFunction.Execute;
 
-    [Benchmark]
-    public void Curry() => ActionExecutor.Execute(N, CurryAction.Action);
+    private readonly Func<object?, object?> curryFunction = default(object)!.Execute;
 
-    [Benchmark]
-    public void Interface() => InterfaceExecutor.Execute(N, interfaceAction);
+    private readonly IFunction interfaceFunction = new InterfaceFunctionImplement();
 
+    private readonly AbstractFunction abstractFunction = new AbstractFunctionImplement();
+
+    [BenchmarkCategory("Action")]
     [Benchmark]
-    public void Abstract() => AbstractExecutor.Execute(N, abstractAction);
+    public void ActionLambda() => ActionExecutor.Execute(N, lambdaAction);
+
+    [BenchmarkCategory("Action")]
+    [Benchmark]
+    public void ActionStatic() => ActionExecutor.Execute(N, staticAction);
+
+    [BenchmarkCategory("Action")]
+    [Benchmark]
+    public void ActionCurry() => ActionExecutor.Execute(N, curryAction);
+
+    [BenchmarkCategory("Action")]
+    [Benchmark]
+    public void ActionInterface() => InterfaceExecutor.Execute(N, interfaceAction);
+
+    [BenchmarkCategory("Action")]
+    [Benchmark]
+    public void ActionAbstract() => AbstractExecutor.Execute(N, abstractAction);
+
+    [BenchmarkCategory("Function")]
+    [Benchmark]
+    public void FunctionLambda() => ActionExecutor.Execute(N, lambdaFunction);
+
+    [BenchmarkCategory("Function")]
+    [Benchmark]
+    public void FunctionStatic() => ActionExecutor.Execute(N, staticFunction);
+
+    [BenchmarkCategory("Function")]
+    [Benchmark]
+    public void FunctionCurry() => ActionExecutor.Execute(N, curryFunction);
+
+    [BenchmarkCategory("Function")]
+    [Benchmark]
+    public void FunctionInterface() => InterfaceExecutor.Execute(N, interfaceFunction);
+
+    [BenchmarkCategory("Function")]
+    [Benchmark]
+    public void FunctionAbstract() => AbstractExecutor.Execute(N, abstractFunction);
 }
 
 public static class ActionExecutor
@@ -73,6 +108,14 @@ public static class ActionExecutor
         for (var i = 0; i < loop; i++)
         {
             action();
+        }
+    }
+
+    public static void Execute(int loop, Func<object?, object?> func)
+    {
+        for (var i = 0; i < loop; i++)
+        {
+            func(null);
         }
     }
 }
@@ -86,6 +129,14 @@ public static class InterfaceExecutor
             action.Execute();
         }
     }
+
+    public static void Execute(int loop, IFunction func)
+    {
+        for (var i = 0; i < loop; i++)
+        {
+            func.Execute(null);
+        }
+    }
 }
 
 public static class AbstractExecutor
@@ -97,23 +148,15 @@ public static class AbstractExecutor
             action.Execute();
         }
     }
+
+    public static void Execute(int loop, AbstractFunction func)
+    {
+        for (var i = 0; i < loop; i++)
+        {
+            func.Execute(null);
+        }
+    }
 }
-
-//public static class StaticAction
-//{
-//    public static void Execute()
-//    {
-//    }
-//}
-
-//public static class CurriedAction
-//{
-//#pragma warning disable IDE0060
-//    public static void Execute(this object dummy)
-//    {
-//    }
-//#pragma warning restore IDE0060
-//}
 
 public static class LambdaAction
 {
@@ -122,20 +165,30 @@ public static class LambdaAction
 
 public static class StaticAction
 {
-    public static Action Action { get; } = Execute;
-
-    private static void Execute()
+    public static void Execute()
     {
     }
+}
+
+public static class StaticFunction
+{
+    public static object? Execute(object? parameter) => parameter;
 }
 
 public static class CurryAction
 {
     public static Action Action { get; } = default(object)!.Execute;
 
-    private static void Execute(this object dummy)
+    public static void Execute(this object dummy)
     {
     }
+}
+
+public static class CurryFunction
+{
+    public static Func<object?, object?> Function { get; } = default(object)!.Execute;
+
+    public static object? Execute(this object dummy, object? parameter) => parameter;
 }
 
 public interface IAction
@@ -150,6 +203,16 @@ public sealed class InterfaceActionImplement : IAction
     }
 }
 
+public interface IFunction
+{
+    object? Execute(object? parameter);
+}
+
+public sealed class InterfaceFunctionImplement : IFunction
+{
+    public object? Execute(object? parameter) => parameter;
+}
+
 public abstract class AbstractAction
 {
     public abstract void Execute();
@@ -160,4 +223,14 @@ public sealed class AbstractActionImplement : AbstractAction
     public override void Execute()
     {
     }
+}
+
+public abstract class AbstractFunction
+{
+    public abstract object? Execute(object? parameter);
+}
+
+public sealed class AbstractFunctionImplement : AbstractFunction
+{
+    public override object? Execute(object? parameter) => parameter;
 }
