@@ -38,14 +38,15 @@ public class BenchmarkConfig : ManualConfig
 [Config(typeof(BenchmarkConfig))]
 public unsafe class Benchmark
 {
-    [Params(1, 4, 64)]
+    private readonly byte[] memory = new byte[1024];
+
+    [Params(1, 4, 64, 256)]
     public int Loop { get; set; }
 
     [Benchmark]
     public void WriteBinaryPrimitive()
     {
-        var buffer = (Span<byte>)stackalloc byte[Loop * 4];
-
+        var buffer = memory.AsSpan();
         for (var i = 0; i < Loop; i++)
         {
             BinaryPrimitives.WriteInt32BigEndian(buffer[(i * 4)..], i);
@@ -55,8 +56,7 @@ public unsafe class Benchmark
     [Benchmark]
     public void WriteBinaryPrimitive2()
     {
-        var buffer = (Span<byte>)stackalloc byte[Loop * 4];
-
+        var buffer = memory.AsSpan();
         for (var i = 0; i < Loop; i++)
         {
             BinaryPrimitives.WriteInt32BigEndian(buffer.Slice(i * 4, 4), i);
@@ -66,8 +66,7 @@ public unsafe class Benchmark
     [Benchmark]
     public void WriteMemoryMarshal()
     {
-        var buffer = (Span<byte>)stackalloc byte[Loop * 4];
-
+        var buffer = memory.AsSpan();
         for (var i = 0; i < Loop; i++)
         {
             MemoryMarshal.Write(buffer[(i * 4)..], i);
@@ -77,8 +76,7 @@ public unsafe class Benchmark
     [Benchmark]
     public void WriteMemoryMarshal2()
     {
-        var buffer = (Span<byte>)stackalloc byte[Loop * 4];
-
+        var buffer = memory.AsSpan();
         for (var i = 0; i < Loop; i++)
         {
             MemoryMarshal.Write(buffer.Slice(i * 4, 4), i);
@@ -88,13 +86,40 @@ public unsafe class Benchmark
     [Benchmark]
     public void WriteUnsafe()
     {
-        var buffer = (Span<byte>)stackalloc byte[Loop * 4];
+        var buffer = memory.AsSpan();
         ref var offset = ref MemoryMarshal.GetReference(buffer);
-
         for (var i = 0; i < Loop; i++)
         {
             Unsafe.WriteUnaligned(ref offset, i);
             offset = ref Unsafe.Add(ref offset, 4);
+        }
+    }
+
+    [Benchmark]
+    public void WriteUnsafe2()
+    {
+        // [MEMO] Reverse
+        var buffer = memory.AsSpan();
+        ref var p = ref MemoryMarshal.GetReference(buffer);
+        ref var offset = ref Unsafe.As<byte, int>(ref p);
+        for (var i = 0; i < Loop; i++)
+        {
+            offset = i;
+            offset = ref Unsafe.Add(ref offset, 1);
+        }
+    }
+
+    [Benchmark]
+    public void WritePointer()
+    {
+        fixed (byte* p = memory.AsSpan())
+        {
+            var offset = (int*)p;
+            for (var i = 0; i < Loop; i++)
+            {
+                *offset = i;
+                offset += 1;
+            }
         }
     }
 }
