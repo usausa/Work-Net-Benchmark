@@ -1,11 +1,13 @@
 #pragma warning disable SA1312
 namespace LoopListBenchmark;
 
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
@@ -30,15 +32,15 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.P90,
             StatisticColumn.Error,
             StatisticColumn.StdDev);
+        AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
+        AddJob(Job.MediumRun);
     }
 }
 
 [Config(typeof(BenchmarkConfig))]
-[SimpleJob(RuntimeMoniker.Net60)]
-[SimpleJob(RuntimeMoniker.Net80)]
 public class Benchmark
 {
-    [Params(100, 1_0000, 10_0000, 100_0000)]
+    [Params(100, 1_000, 1_0000, 10_0000)]
     public int Size { get; set; }
 
     private List<int> items = new();
@@ -50,67 +52,102 @@ public class Benchmark
     }
 
     [Benchmark]
-    public void For()
+    public int For()
     {
+        var result = 0;
+
         for (var i = 0; i < items.Count; i++)
         {
-            _ = items[i];
+            result = items[i];
         }
+
+        return result;
     }
 
     [Benchmark]
-    public void While()
+    public int While()
     {
+        var result = 0;
+
         var i = 0;
         while (i < items.Count)
         {
-            _ = items[i];
+            result = items[i];
             i++;
         }
+
+        return result;
     }
 
     [Benchmark]
-    public void ForEach()
+    public int ForEach()
     {
-        foreach (var _ in items)
+        var result = 0;
+
+        foreach (var x in items)
         {
+            result = x;
         }
+
+        return result;
     }
 
     [Benchmark]
-    public void ForEachLinq()
+    public int ForSpan()
     {
-        items.ForEach(_ => { });
-    }
+        var result = 0;
 
-    [Benchmark]
-    public void ParallelForEach()
-    {
-        Parallel.ForEach(items, _ => { });
-    }
-
-    [Benchmark]
-    public void ParallelForAll()
-    {
-        items.AsParallel().ForAll(_ => { });
-    }
-
-    [Benchmark]
-    public void ForSpan()
-    {
         var asSpanList = CollectionsMarshal.AsSpan(items);
-
         for (var i = 0; i < asSpanList.Length; i++)
         {
-            _ = asSpanList[i];
+            result = asSpanList[i];
         }
+
+        return result;
     }
 
     [Benchmark]
-    public void ForeachSpan()
+    public int ForSpan2()
     {
-        foreach (var _ in CollectionsMarshal.AsSpan(items))
+        var result = 0;
+
+        var asSpanList = CollectionsMarshal.AsSpan(items);
+        var length = asSpanList.Length;
+        for (var i = 0; i < length; i++)
         {
+            result = asSpanList[i];
         }
+
+        return result;
+    }
+
+    [Benchmark]
+    public int ForeachSpan()
+    {
+        var result = 0;
+
+        foreach (var x in CollectionsMarshal.AsSpan(items))
+        {
+            result = x;
+        }
+
+        return result;
+    }
+
+    [Benchmark]
+    public int RefLoopSpan()
+    {
+        var result = 0;
+
+        var asSpanList = CollectionsMarshal.AsSpan(items);
+        ref var start = ref MemoryMarshal.GetReference(asSpanList);
+        ref var end = ref Unsafe.Add(ref start, asSpanList.Length);
+        while (Unsafe.IsAddressLessThan(ref start, ref end))
+        {
+            result = start;
+            start = ref Unsafe.Add(ref start, 1);
+        }
+
+        return result;
     }
 }
