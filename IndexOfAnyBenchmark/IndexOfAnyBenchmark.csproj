@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <TargetFramework>net9.0</TargetFramework>
     <CodeAnalysisRuleSet>..\Benchmark.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
