@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandlersBenchmark", "Handle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicBenchmark", "BasicBenchmark\BasicBenchmark.csproj", "{55E85D60-E46F-44DF-A309-4B611A8A32DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryEntryBenchmark", "FactoryEntryBenchmark\FactoryEntryBenchmark.csproj", "{7D6F7156-D777-488E-9671-F9CA96BDE33D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,10 @@ Global
 		{55E85D60-E46F-44DF-A309-4B611A8A32DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55E85D60-E46F-44DF-A309-4B611A8A32DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55E85D60-E46F-44DF-A309-4B611A8A32DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D6F7156-D777-488E-9671-F9CA96BDE33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D6F7156-D777-488E-9671-F9CA96BDE33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D6F7156-D777-488E-9671-F9CA96BDE33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D6F7156-D777-488E-9671-F9CA96BDE33D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
