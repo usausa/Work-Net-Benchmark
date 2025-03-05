@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicBenchmark", "BasicBenc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryEntryBenchmark", "FactoryEntryBenchmark\FactoryEntryBenchmark.csproj", "{7D6F7156-D777-488E-9671-F9CA96BDE33D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringHashBenchmark", "StringHashBenchmark\StringHashBenchmark.csproj", "{1A22EC10-1D11-475E-A831-F8EEB2EE34B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,10 @@ Global
 		{7D6F7156-D777-488E-9671-F9CA96BDE33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D6F7156-D777-488E-9671-F9CA96BDE33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D6F7156-D777-488E-9671-F9CA96BDE33D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A22EC10-1D11-475E-A831-F8EEB2EE34B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A22EC10-1D11-475E-A831-F8EEB2EE34B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A22EC10-1D11-475E-A831-F8EEB2EE34B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A22EC10-1D11-475E-A831-F8EEB2EE34B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
