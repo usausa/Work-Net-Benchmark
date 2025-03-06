@@ -15,7 +15,6 @@ public static class Program
 {
     public static void Main()
     {
-        DelegateConverter<int>.ConvertAs("0");
         BenchmarkRunner.Run<Benchmark>();
     }
 }
