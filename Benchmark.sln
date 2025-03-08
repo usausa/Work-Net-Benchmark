@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericConverterBenchmark",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcIndexBenchmark", "CalcIndexBenchmark\CalcIndexBenchmark.csproj", "{B7103A22-DA51-4398-A049-5F3F997EB683}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseBenchmark", "ParseBenchmark\ParseBenchmark.csproj", "{567CB5EF-472E-49A2-808F-C907134B1612}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -157,6 +159,10 @@ Global
 		{B7103A22-DA51-4398-A049-5F3F997EB683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7103A22-DA51-4398-A049-5F3F997EB683}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7103A22-DA51-4398-A049-5F3F997EB683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{567CB5EF-472E-49A2-808F-C907134B1612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{567CB5EF-472E-49A2-808F-C907134B1612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{567CB5EF-472E-49A2-808F-C907134B1612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{567CB5EF-472E-49A2-808F-C907134B1612}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
