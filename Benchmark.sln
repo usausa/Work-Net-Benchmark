@@ -71,6 +71,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseBenchmark", "ParseBenc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeConvertBenchmark", "TypeConvertBenchmark\TypeConvertBenchmark.csproj", "{21C52457-9A5D-403D-B4FE-113088818F98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindEntryBenchmark", "FindEntryBenchmark\FindEntryBenchmark.csproj", "{64DD4A48-9EAB-4C85-9B09-DF024FCDE2C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +171,10 @@ Global
 		{21C52457-9A5D-403D-B4FE-113088818F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21C52457-9A5D-403D-B4FE-113088818F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21C52457-9A5D-403D-B4FE-113088818F98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64DD4A48-9EAB-4C85-9B09-DF024FCDE2C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64DD4A48-9EAB-4C85-9B09-DF024FCDE2C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64DD4A48-9EAB-4C85-9B09-DF024FCDE2C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64DD4A48-9EAB-4C85-9B09-DF024FCDE2C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
