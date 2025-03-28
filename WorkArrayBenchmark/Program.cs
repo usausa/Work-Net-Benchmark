@@ -14,9 +14,6 @@ public static class Program
 {
     public static void Main()
     {
-        var b = new Benchmark();
-        b.ByClass();
-
         BenchmarkRunner.Run<Benchmark>();
     }
 }
