@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeConvertBenchmark", "Typ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindEntryBenchmark", "FindEntryBenchmark\FindEntryBenchmark.csproj", "{64DD4A48-9EAB-4C85-9B09-DF024FCDE2C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkArrayBenchmark", "WorkArrayBenchmark\WorkArrayBenchmark.csproj", "{68E91FBC-B193-42AC-96B9-D88FE5B84F99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +177,10 @@ Global
 		{64DD4A48-9EAB-4C85-9B09-DF024FCDE2C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64DD4A48-9EAB-4C85-9B09-DF024FCDE2C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64DD4A48-9EAB-4C85-9B09-DF024FCDE2C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68E91FBC-B193-42AC-96B9-D88FE5B84F99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E91FBC-B193-42AC-96B9-D88FE5B84F99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E91FBC-B193-42AC-96B9-D88FE5B84F99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E91FBC-B193-42AC-96B9-D88FE5B84F99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
