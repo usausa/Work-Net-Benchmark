@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkMatchBenchmark", "WorkM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharConvertBenchmark", "CharConvertBenchmark\CharConvertBenchmark.csproj", "{2D08E4F0-9C26-4CB9-AF6F-8CC1D2BEC028}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionPointerBenchmark", "FunctionPointerBenchmark\FunctionPointerBenchmark.csproj", "{5C5C2160-30D3-427F-AF8D-8F4FE199C691}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -193,6 +195,10 @@ Global
 		{2D08E4F0-9C26-4CB9-AF6F-8CC1D2BEC028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D08E4F0-9C26-4CB9-AF6F-8CC1D2BEC028}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D08E4F0-9C26-4CB9-AF6F-8CC1D2BEC028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C5C2160-30D3-427F-AF8D-8F4FE199C691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C5C2160-30D3-427F-AF8D-8F4FE199C691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C5C2160-30D3-427F-AF8D-8F4FE199C691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C5C2160-30D3-427F-AF8D-8F4FE199C691}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,6 +216,7 @@ Global
 		{E420B5BA-BB7A-4FB7-8AC7-61C4E584525A} = {356CB1F4-1A22-4B9D-ABD4-7F1F14BA8A70}
 		{C10580D4-8FA9-4271-BB24-AE38481B416C} = {08C7B474-EDBC-48BC-9C74-E818ED48399E}
 		{F7ADF4E9-A01E-4926-A357-3812D2631AC7} = {101F8ACD-1275-4D1B-ACB5-EDA25723BD11}
+		{5C5C2160-30D3-427F-AF8D-8F4FE199C691} = {39AB3C14-CE75-484A-BAB8-65C7E5B616B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {85392808-9360-4706-B6CF-B3DBA15662EB}
