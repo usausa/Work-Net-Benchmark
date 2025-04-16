@@ -81,6 +81,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharConvertBenchmark", "Cha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionPointerBenchmark", "FunctionPointerBenchmark\FunctionPointerBenchmark.csproj", "{5C5C2160-30D3-427F-AF8D-8F4FE199C691}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntryBenchmark", "EntryBenchmark\EntryBenchmark.csproj", "{99D859FD-0B44-4EEB-BD4B-15DCE02ADAC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +201,10 @@ Global
 		{5C5C2160-30D3-427F-AF8D-8F4FE199C691}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C5C2160-30D3-427F-AF8D-8F4FE199C691}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C5C2160-30D3-427F-AF8D-8F4FE199C691}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99D859FD-0B44-4EEB-BD4B-15DCE02ADAC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D859FD-0B44-4EEB-BD4B-15DCE02ADAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D859FD-0B44-4EEB-BD4B-15DCE02ADAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D859FD-0B44-4EEB-BD4B-15DCE02ADAC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
