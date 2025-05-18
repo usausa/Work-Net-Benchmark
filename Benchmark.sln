@@ -87,6 +87,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectionBenchmark", "Proj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoundaryAccessBenchmark", "BoundaryAccessBenchmark\BoundaryAccessBenchmark.csproj", "{546278DF-A453-4D8B-AC76-D3AC010D6A3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumerableImplementBenchmark", "EnumerableImplementBenchmark\EnumerableImplementBenchmark.csproj", "{16C37F6D-1925-4E16-924A-FA74FE99241F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -217,6 +219,10 @@ Global
 		{546278DF-A453-4D8B-AC76-D3AC010D6A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{546278DF-A453-4D8B-AC76-D3AC010D6A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{546278DF-A453-4D8B-AC76-D3AC010D6A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16C37F6D-1925-4E16-924A-FA74FE99241F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16C37F6D-1925-4E16-924A-FA74FE99241F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16C37F6D-1925-4E16-924A-FA74FE99241F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16C37F6D-1925-4E16-924A-FA74FE99241F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
