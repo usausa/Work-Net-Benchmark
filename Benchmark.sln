@@ -83,6 +83,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionPointerBenchmark", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntryBenchmark", "EntryBenchmark\EntryBenchmark.csproj", "{99D859FD-0B44-4EEB-BD4B-15DCE02ADAC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectionBenchmark", "ProjectionBenchmark\ProjectionBenchmark.csproj", "{14ACA28F-6CC5-4DE1-BC7F-6804D1285259}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoundaryAccessBenchmark", "BoundaryAccessBenchmark\BoundaryAccessBenchmark.csproj", "{546278DF-A453-4D8B-AC76-D3AC010D6A3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -205,6 +209,14 @@ Global
 		{99D859FD-0B44-4EEB-BD4B-15DCE02ADAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99D859FD-0B44-4EEB-BD4B-15DCE02ADAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99D859FD-0B44-4EEB-BD4B-15DCE02ADAC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14ACA28F-6CC5-4DE1-BC7F-6804D1285259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14ACA28F-6CC5-4DE1-BC7F-6804D1285259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14ACA28F-6CC5-4DE1-BC7F-6804D1285259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14ACA28F-6CC5-4DE1-BC7F-6804D1285259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{546278DF-A453-4D8B-AC76-D3AC010D6A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{546278DF-A453-4D8B-AC76-D3AC010D6A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{546278DF-A453-4D8B-AC76-D3AC010D6A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{546278DF-A453-4D8B-AC76-D3AC010D6A3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
