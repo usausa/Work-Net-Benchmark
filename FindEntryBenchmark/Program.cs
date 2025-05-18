@@ -44,7 +44,7 @@ public class Benchmark
 {
     private const int N = 1000;
 
-    private readonly ArrayContainer arrayContainer = new(
+    private readonly ArrayContainer arrayContainer1 = new(
     [
         typeof(Class00), typeof(Class01), typeof(Class02), typeof(Class03), typeof(Class04),
         typeof(Class05), typeof(Class06), typeof(Class07), typeof(Class08), typeof(Class09)
@@ -70,183 +70,121 @@ public class Benchmark
 
     private readonly Type key8 = typeof(Class07);
 
-    [Benchmark]
-    public void Array1()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = arrayContainer.Find(key1);
-        }
-    }
+    private Type key = default!;
 
-    [Benchmark]
-    public void Array2()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = arrayContainer.Find(key2);
-        }
-    }
+    [Params(1, 2, 4, 8)]
+    public int Parameter { get; set; }
 
-    [Benchmark]
-    public void Array4()
+    [GlobalSetup]
+    public void Setup()
     {
-        for (var i = 0; i < N; i++)
+        key = Parameter switch
         {
-            _ = arrayContainer.Find(key4);
-        }
-    }
-
-    [Benchmark]
-    public void Array8()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = arrayContainer.Find(key8);
-        }
-    }
-
-    [Benchmark]
-    public void ArrayB1()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = arrayContainer2.Find(key1);
-        }
-    }
-
-    [Benchmark]
-    public void ArrayB2()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = arrayContainer2.Find(key2);
-        }
-    }
-
-    [Benchmark]
-    public void ArrayB4()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = arrayContainer2.Find(key4);
-        }
-    }
-
-    [Benchmark]
-    public void ArrayB8()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = arrayContainer2.Find(key8);
-        }
+            1 => key1,
+            2 => key2,
+            4 => key4,
+            8 => key8,
+            _ => default!
+        };
     }
 
     [Benchmark]
     public void ArrayC1()
     {
+        var k = key;
         for (var i = 0; i < N; i++)
         {
-            _ = arrayContainer2.Find2(key1);
+            _ = arrayContainer1.Find(k);
         }
     }
 
     [Benchmark]
     public void ArrayC2()
     {
+        var k = key;
         for (var i = 0; i < N; i++)
         {
-            _ = arrayContainer2.Find2(key2);
+            _ = arrayContainer1.Find2(k);
         }
     }
 
     [Benchmark]
-    public void ArrayC4()
+    public void ArrayC3()
     {
+        var k = key;
         for (var i = 0; i < N; i++)
         {
-            _ = arrayContainer2.Find2(key4);
+            _ = arrayContainer1.Find3(k);
         }
     }
 
     [Benchmark]
-    public void ArrayC8()
+    public void ArrayS1()
     {
+        var k = key;
         for (var i = 0; i < N; i++)
         {
-            _ = arrayContainer2.Find2(key8);
+            _ = arrayContainer2.Find(k);
+        }
+    }
+
+    [Benchmark]
+    public void ArrayS2()
+    {
+        var k = key;
+        for (var i = 0; i < N; i++)
+        {
+            _ = arrayContainer2.Find2(k);
+        }
+    }
+
+    [Benchmark]
+    public void ArrayS3()
+    {
+        var k = key;
+        for (var i = 0; i < N; i++)
+        {
+            _ = arrayContainer2.Find3(k);
+        }
+    }
+
+    [Benchmark]
+    public void ArrayS4()
+    {
+        var k = key;
+        for (var i = 0; i < N; i++)
+        {
+            _ = arrayContainer2.Find4(k);
+        }
+    }
+
+    [Benchmark]
+    public void ArrayS5()
+    {
+        var k = key;
+        for (var i = 0; i < N; i++)
+        {
+            _ = arrayContainer2.Find5(k);
         }
     }
 
     [Benchmark]
     public void Link1()
     {
+        var k = key;
         for (var i = 0; i < N; i++)
         {
-            _ = linkContainer.Find(key1);
+            _ = linkContainer.Find(k);
         }
     }
 
     [Benchmark]
     public void Link2()
     {
+        var k = key;
         for (var i = 0; i < N; i++)
         {
-            _ = linkContainer.Find(key2);
-        }
-    }
-
-    [Benchmark]
-    public void Link4()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = linkContainer.Find(key4);
-        }
-    }
-
-    [Benchmark]
-    public void Link8()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = linkContainer.Find(key8);
-        }
-    }
-
-    [Benchmark]
-    public void LinkB1()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = linkContainer.Find2(key1);
-        }
-    }
-
-    [Benchmark]
-    public void LinkB2()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = linkContainer.Find2(key2);
-        }
-    }
-
-    [Benchmark]
-    public void LinkB4()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = linkContainer.Find2(key4);
-        }
-    }
-
-    [Benchmark]
-    public void LinkB8()
-    {
-        for (var i = 0; i < N; i++)
-        {
-            _ = linkContainer.Find2(key8);
+            _ = linkContainer.Find2(k);
         }
     }
 }
@@ -278,6 +216,35 @@ public sealed class ArrayContainer
         return null;
     }
 
+    public object? Find2(Type type)
+    {
+        var span = new Span<Entry>(entries);
+        for (var i = 0; i < span.Length; i++)
+        {
+            if (span[i].Key == type)
+            {
+                return span[i].Data;
+            }
+        }
+
+        return null;
+    }
+
+    public object? Find3(Type type)
+    {
+        var span = new Span<Entry>(entries);
+        for (var i = 0; i < span.Length; i++)
+        {
+            var entry = span[i];
+            if (entry.Key == type)
+            {
+                return entry.Data;
+            }
+        }
+
+        return null;
+    }
+
     public class Entry
     {
         public Type Key = default!;
@@ -297,6 +264,49 @@ public sealed class StructArrayContainer
 
     public object? Find(Type type)
     {
+        for (var i = 0; i < entries.Length; i++)
+        {
+            var entry = entries[i];
+            if (entry.Key == type)
+            {
+                return entry.Data;
+            }
+        }
+
+        return null;
+    }
+
+    public object? Find2(Type type)
+    {
+        var span = new Span<Entry>(entries);
+        for (var i = 0; i < span.Length; i++)
+        {
+            if (span[i].Key == type)
+            {
+                return span[i].Data;
+            }
+        }
+
+        return null;
+    }
+
+    public object? Find3(Type type)
+    {
+        var span = new Span<Entry>(entries);
+        for (var i = 0; i < span.Length; i++)
+        {
+            var entry = span[i];
+            if (entry.Key == type)
+            {
+                return entry.Data;
+            }
+        }
+
+        return null;
+    }
+
+    public object? Find4(Type type)
+    {
         var i = 0;
         do
         {
@@ -313,7 +323,7 @@ public sealed class StructArrayContainer
         return null;
     }
 
-    public object? Find2(Type type)
+    public object? Find5(Type type)
     {
         ref var entry = ref MemoryMarshal.GetArrayDataReference(entries);
         do
