@@ -1,7 +1,7 @@
 namespace EnumerableImplementBenchmark;
 
 using System.Collections;
-
+using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
@@ -74,6 +74,27 @@ public class Benchmark
             foreach (var n in range)
             {
             }
+        }
+    }
+
+    [Benchmark(OperationsPerInvoke = N)]
+    public void Yield()
+    {
+        for (var i = 0; i < N; i++)
+        {
+            foreach (var n in Range(1, 10))
+            {
+            }
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    private static IEnumerable<int> Range(int start, int count)
+    {
+        var end = start + count;
+        for (var i = start; i < end; i++)
+        {
+            yield return i;
         }
     }
 }
