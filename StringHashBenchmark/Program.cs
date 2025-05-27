@@ -1,8 +1,9 @@
 namespace StringHashBenchmark;
 
 using System;
+using System.IO.Hashing;
 using System.Runtime.CompilerServices;
-
+using System.Runtime.InteropServices;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
@@ -42,8 +43,18 @@ public class Benchmark
 {
     private const int N = 1_000;
 
-    [Params("Id", "Name", "XxxxXxxx", "XxxxXxxxXxxxXxxx")]
+    [Params("Id", "Name", "12345678", "Hello world!", "XxxxXxxxXxxxXxxx")]
     public string Value { get; set; } = default!;
+
+    [Benchmark(OperationsPerInvoke = N)]
+    public void XxHash3()
+    {
+        var value = Value;
+        for (var i = 0; i < N; i++)
+        {
+            _ = Hasher.CalcXxHash3(value);
+        }
+    }
 
     [Benchmark(OperationsPerInvoke = N)]
     public void DefaultOrdinal()
@@ -108,5 +119,12 @@ public static class Hasher
             hash = (Char.ToLowerInvariant(c) ^ hash) * 16777619;
         }
         return hash;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int CalcXxHash3(ReadOnlySpan<char> value)
+    {
+        var bytes = MemoryMarshal.Cast<char, byte>(value);
+        return unchecked((int)XxHash3.HashToUInt64(bytes));
     }
 }
