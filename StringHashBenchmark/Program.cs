@@ -9,6 +9,7 @@ using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Exporters;
+using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 
 public static class Program
@@ -32,6 +33,7 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.Error,
             StatisticColumn.StdDev);
         AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
+        AddJob(Job.MediumRun);
     }
 }
 
@@ -57,44 +59,54 @@ public class Benchmark
     }
 
     [Benchmark(OperationsPerInvoke = N)]
-    public void DefaultOrdinal()
+    public void XxHash3b()
     {
         var value = Value;
         for (var i = 0; i < N; i++)
         {
-            _ = value.GetHashCode(StringComparison.Ordinal);
+            _ = Hasher.CalcXxHash3b(value);
         }
     }
 
-    [Benchmark(OperationsPerInvoke = N)]
-    public void DefaultOrdinalIgnoreCase()
-    {
-        var value = Value;
-        for (var i = 0; i < N; i++)
-        {
-            _ = value.GetHashCode(StringComparison.OrdinalIgnoreCase);
-        }
-    }
+    //[Benchmark(OperationsPerInvoke = N)]
+    //public void DefaultOrdinal()
+    //{
+    //    var value = Value;
+    //    for (var i = 0; i < N; i++)
+    //    {
+    //        _ = value.GetHashCode(StringComparison.Ordinal);
+    //    }
+    //}
 
-    [Benchmark(OperationsPerInvoke = N)]
-    public void CustomOrdinal()
-    {
-        var value = Value;
-        for (var i = 0; i < N; i++)
-        {
-            _ = Hasher.CalcHash(value);
-        }
-    }
+    //[Benchmark(OperationsPerInvoke = N)]
+    //public void DefaultOrdinalIgnoreCase()
+    //{
+    //    var value = Value;
+    //    for (var i = 0; i < N; i++)
+    //    {
+    //        _ = value.GetHashCode(StringComparison.OrdinalIgnoreCase);
+    //    }
+    //}
 
-    [Benchmark(OperationsPerInvoke = N)]
-    public void CustomOrdinalIgnoreCase()
-    {
-        var value = Value;
-        for (var i = 0; i < N; i++)
-        {
-            _ = Hasher.CalcHashIgnoreCase(value);
-        }
-    }
+    //[Benchmark(OperationsPerInvoke = N)]
+    //public void CustomOrdinal()
+    //{
+    //    var value = Value;
+    //    for (var i = 0; i < N; i++)
+    //    {
+    //        _ = Hasher.CalcHash(value);
+    //    }
+    //}
+
+    //[Benchmark(OperationsPerInvoke = N)]
+    //public void CustomOrdinalIgnoreCase()
+    //{
+    //    var value = Value;
+    //    for (var i = 0; i < N; i++)
+    //    {
+    //        _ = Hasher.CalcHashIgnoreCase(value);
+    //    }
+    //}
 }
 
 public static class Hasher
@@ -126,5 +138,14 @@ public static class Hasher
     {
         var bytes = MemoryMarshal.Cast<char, byte>(value);
         return unchecked((int)XxHash3.HashToUInt64(bytes));
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe int CalcXxHash3b(string value)
+    {
+        fixed (char* pChar = value)
+        {
+            return unchecked((int)XxHash3.HashToUInt64(new ReadOnlySpan<byte>(pChar, value.Length * sizeof(char))));
+        }
     }
 }
