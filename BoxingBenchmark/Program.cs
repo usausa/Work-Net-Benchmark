@@ -1,17 +1,12 @@
 #pragma warning disable SA1312
 namespace BoxingBenchmark;
 
-using System.Buffers;
-using System.Buffers.Text;
-using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Exporters;
-using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 
 public static class Program
