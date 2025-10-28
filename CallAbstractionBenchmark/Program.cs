@@ -5,6 +5,7 @@ using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Exporters;
+using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 
 public static class Program
@@ -33,6 +34,9 @@ public class BenchmarkConfig : ManualConfig
 
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
+[MediumRunJob(RuntimeMoniker.Net80)]
+[MediumRunJob(RuntimeMoniker.Net90)]
+[MediumRunJob(RuntimeMoniker.Net10_0)]
 public unsafe class Benchmark
 {
     private const int N = 1000000;
