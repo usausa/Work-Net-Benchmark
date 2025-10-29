@@ -2,6 +2,7 @@ namespace EnumerableImplementBenchmark;
 
 using System.Collections;
 using System.Runtime.CompilerServices;
+
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
@@ -31,12 +32,13 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.Error,
             StatisticColumn.StdDev);
         AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
-        AddJob(Job.MediumRun);
     }
 }
 
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
+[MediumRunJob(RuntimeMoniker.Net80)]
+[MediumRunJob(RuntimeMoniker.Net10_0)]
 public class Benchmark
 {
     private const int N = 1000;
