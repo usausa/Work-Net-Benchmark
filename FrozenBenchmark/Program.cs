@@ -36,11 +36,13 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.Error,
             StatisticColumn.StdDev);
         AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
-        AddJob(Job.MediumRun);
     }
 }
 
 [Config(typeof(BenchmarkConfig))]
+[MediumRunJob(RuntimeMoniker.Net80)]
+[MediumRunJob(RuntimeMoniker.Net90)]
+[MediumRunJob(RuntimeMoniker.Net10_0)]
 public class Benchmark
 {
     private KeyValuePair<string, int>[] items = default!;
