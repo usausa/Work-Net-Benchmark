@@ -4,6 +4,7 @@ using System;
 using System.IO.Hashing;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
@@ -33,7 +34,6 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.Error,
             StatisticColumn.StdDev);
         AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
-        AddJob(Job.MediumRun);
     }
 }
 
@@ -41,6 +41,9 @@ public class BenchmarkConfig : ManualConfig
 #pragma warning disable CA1822
 #pragma warning disable CA1307
 [Config(typeof(BenchmarkConfig))]
+[MediumRunJob(RuntimeMoniker.Net80)]
+[MediumRunJob(RuntimeMoniker.Net90)]
+[MediumRunJob(RuntimeMoniker.Net10_0)]
 public class Benchmark
 {
     private const int N = 1_000;

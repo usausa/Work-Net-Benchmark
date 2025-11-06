@@ -1,4 +1,48 @@
 ```
+BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.7019)
+AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores
+.NET SDK 10.0.100-rc.2.25502.107
+  [Host]              : .NET 10.0.0 (10.0.0-rc.2.25502.107, 10.0.25.50307), X64 RyuJIT x86-64-v4
+  MediumRun-.NET 10.0 : .NET 10.0.0 (10.0.0-rc.2.25502.107, 10.0.25.50307), X64 RyuJIT x86-64-v4
+  MediumRun-.NET 8.0  : .NET 8.0.21 (8.0.21, 8.0.2125.47513), X64 RyuJIT x86-64-v4
+  MediumRun-.NET 9.0  : .NET 9.0.10 (9.0.10, 9.0.1025.47515), X64 RyuJIT x86-64-v4
+
+IterationCount=15  LaunchCount=2  WarmupCount=10  
+```
+| Method   | Job                 | Runtime   | Value            | Mean      | Error     | StdDev    | Median    | Min       | Max       | P90       | Code Size | Allocated |
+|--------- |-------------------- |---------- |----------------- |----------:|----------:|----------:|----------:|----------:|----------:|----------:|----------:|----------:|
+| **XxHash3**  | **MediumRun-.NET 10.0** | **.NET 10.0** | **12345678**         | **0.7760 ns** | **0.0040 ns** | **0.0055 ns** | **0.7771 ns** | **0.7654 ns** | **0.7881 ns** | **0.7812 ns** |     **244 B** |         **-** |
+| XxHash3b | MediumRun-.NET 10.0 | .NET 10.0 | 12345678         | 0.7768 ns | 0.0064 ns | 0.0094 ns | 0.7740 ns | 0.7644 ns | 0.7970 ns | 0.7879 ns |     252 B |         - |
+| XxHash3  | MediumRun-.NET 8.0  | .NET 8.0  | 12345678         | 0.7569 ns | 0.0045 ns | 0.0067 ns | 0.7558 ns | 0.7475 ns | 0.7733 ns | 0.7640 ns |     236 B |         - |
+| XxHash3b | MediumRun-.NET 8.0  | .NET 8.0  | 12345678         | 0.8472 ns | 0.0034 ns | 0.0051 ns | 0.8471 ns | 0.8371 ns | 0.8569 ns | 0.8537 ns |     255 B |         - |
+| XxHash3  | MediumRun-.NET 9.0  | .NET 9.0  | 12345678         | 0.8264 ns | 0.0096 ns | 0.0137 ns | 0.8231 ns | 0.8109 ns | 0.8581 ns | 0.8495 ns |     238 B |         - |
+| XxHash3b | MediumRun-.NET 9.0  | .NET 9.0  | 12345678         | 0.7771 ns | 0.0048 ns | 0.0071 ns | 0.7758 ns | 0.7659 ns | 0.7914 ns | 0.7846 ns |     252 B |         - |
+| **XxHash3**  | **MediumRun-.NET 10.0** | **.NET 10.0** | **Hello world!**     | **2.5623 ns** | **0.0133 ns** | **0.0186 ns** | **2.5570 ns** | **2.5274 ns** | **2.6083 ns** | **2.5866 ns** |     **809 B** |         **-** |
+| XxHash3b | MediumRun-.NET 10.0 | .NET 10.0 | Hello world!     | 2.5742 ns | 0.0154 ns | 0.0231 ns | 2.5761 ns | 2.5405 ns | 2.6236 ns | 2.5986 ns |     823 B |         - |
+| XxHash3  | MediumRun-.NET 8.0  | .NET 8.0  | Hello world!     | 2.5843 ns | 0.0159 ns | 0.0238 ns | 2.5826 ns | 2.5525 ns | 2.6423 ns | 2.6132 ns |     810 B |         - |
+| XxHash3b | MediumRun-.NET 8.0  | .NET 8.0  | Hello world!     | 2.6710 ns | 0.0128 ns | 0.0191 ns | 2.6645 ns | 2.6443 ns | 2.7151 ns | 2.7004 ns |     827 B |         - |
+| XxHash3  | MediumRun-.NET 9.0  | .NET 9.0  | Hello world!     | 2.6762 ns | 0.0183 ns | 0.0274 ns | 2.6672 ns | 2.6404 ns | 2.7374 ns | 2.7111 ns |     808 B |         - |
+| XxHash3b | MediumRun-.NET 9.0  | .NET 9.0  | Hello world!     | 2.6585 ns | 0.0128 ns | 0.0187 ns | 2.6536 ns | 2.6325 ns | 2.7028 ns | 2.6811 ns |     824 B |         - |
+| **XxHash3**  | **MediumRun-.NET 10.0** | **.NET 10.0** | **Id**               | **0.7961 ns** | **0.0021 ns** | **0.0031 ns** | **0.7964 ns** | **0.7910 ns** | **0.8012 ns** | **0.7998 ns** |     **250 B** |         **-** |
+| XxHash3b | MediumRun-.NET 10.0 | .NET 10.0 | Id               | 0.7128 ns | 0.0640 ns | 0.0938 ns | 0.7958 ns | 0.6093 ns | 0.8080 ns | 0.8050 ns |     258 B |         - |
+| XxHash3  | MediumRun-.NET 8.0  | .NET 8.0  | Id               | 0.4872 ns | 0.0049 ns | 0.0068 ns | 0.4854 ns | 0.4804 ns | 0.5036 ns | 0.4996 ns |     242 B |         - |
+| XxHash3b | MediumRun-.NET 8.0  | .NET 8.0  | Id               | 0.6058 ns | 0.0103 ns | 0.0154 ns | 0.6063 ns | 0.5833 ns | 0.6328 ns | 0.6267 ns |     262 B |         - |
+| XxHash3  | MediumRun-.NET 9.0  | .NET 9.0  | Id               | 0.8035 ns | 0.0039 ns | 0.0057 ns | 0.8024 ns | 0.7961 ns | 0.8195 ns | 0.8108 ns |     244 B |         - |
+| XxHash3b | MediumRun-.NET 9.0  | .NET 9.0  | Id               | 0.8017 ns | 0.0023 ns | 0.0032 ns | 0.8013 ns | 0.7965 ns | 0.8088 ns | 0.8073 ns |     258 B |         - |
+| **XxHash3**  | **MediumRun-.NET 10.0** | **.NET 10.0** | **Name**             | **0.7959 ns** | **0.0017 ns** | **0.0024 ns** | **0.7962 ns** | **0.7910 ns** | **0.8017 ns** | **0.7988 ns** |     **250 B** |         **-** |
+| XxHash3b | MediumRun-.NET 10.0 | .NET 10.0 | Name             | 0.6877 ns | 0.0864 ns | 0.1239 ns | 0.7963 ns | 0.5502 ns | 0.8117 ns | 0.8039 ns |     258 B |         - |
+| XxHash3  | MediumRun-.NET 8.0  | .NET 8.0  | Name             | 0.4889 ns | 0.0046 ns | 0.0066 ns | 0.4866 ns | 0.4803 ns | 0.5047 ns | 0.4988 ns |     242 B |         - |
+| XxHash3b | MediumRun-.NET 8.0  | .NET 8.0  | Name             | 0.5932 ns | 0.0062 ns | 0.0091 ns | 0.5891 ns | 0.5829 ns | 0.6198 ns | 0.6032 ns |     262 B |         - |
+| XxHash3  | MediumRun-.NET 9.0  | .NET 9.0  | Name             | 0.8036 ns | 0.0033 ns | 0.0049 ns | 0.8037 ns | 0.7970 ns | 0.8132 ns | 0.8109 ns |     244 B |         - |
+| XxHash3b | MediumRun-.NET 9.0  | .NET 9.0  | Name             | 0.8026 ns | 0.0025 ns | 0.0037 ns | 0.8022 ns | 0.7968 ns | 0.8113 ns | 0.8071 ns |     258 B |         - |
+| **XxHash3**  | **MediumRun-.NET 10.0** | **.NET 10.0** | **XxxxXxxxXxxxXxxx** | **2.5647 ns** | **0.0145 ns** | **0.0212 ns** | **2.5691 ns** | **2.5354 ns** | **2.6025 ns** | **2.5905 ns** |     **809 B** |         **-** |
+| XxHash3b | MediumRun-.NET 10.0 | .NET 10.0 | XxxxXxxxXxxxXxxx | 2.5726 ns | 0.0160 ns | 0.0240 ns | 2.5644 ns | 2.5400 ns | 2.6241 ns | 2.6080 ns |     823 B |         - |
+| XxHash3  | MediumRun-.NET 8.0  | .NET 8.0  | XxxxXxxxXxxxXxxx | 2.5805 ns | 0.0143 ns | 0.0209 ns | 2.5740 ns | 2.5509 ns | 2.6309 ns | 2.6113 ns |     810 B |         - |
+| XxHash3b | MediumRun-.NET 8.0  | .NET 8.0  | XxxxXxxxXxxxXxxx | 2.6732 ns | 0.0169 ns | 0.0252 ns | 2.6786 ns | 2.6367 ns | 2.7396 ns | 2.7062 ns |     827 B |         - |
+| XxHash3  | MediumRun-.NET 9.0  | .NET 9.0  | XxxxXxxxXxxxXxxx | 2.6719 ns | 0.0200 ns | 0.0299 ns | 2.6677 ns | 2.6341 ns | 2.7439 ns | 2.7076 ns |     808 B |         - |
+| XxHash3b | MediumRun-.NET 9.0  | .NET 9.0  | XxxxXxxxXxxxXxxx | 2.6834 ns | 0.0195 ns | 0.0292 ns | 2.6785 ns | 2.6363 ns | 2.7398 ns | 2.7289 ns |     824 B |         - |
+
+```
 BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.3194)
 AMD Ryzen 9 5900X, 1 CPU, 24 logical and 12 physical cores
 .NET SDK 9.0.200
