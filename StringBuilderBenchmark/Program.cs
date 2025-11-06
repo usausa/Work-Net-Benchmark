@@ -33,7 +33,6 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.P90,
             StatisticColumn.Error,
             StatisticColumn.StdDev);
-        AddJob(Job.MediumRun);
     }
 }
 
@@ -41,6 +40,9 @@ public class BenchmarkConfig : ManualConfig
 // TODO int mix
 
 [Config(typeof(BenchmarkConfig))]
+[MediumRunJob(RuntimeMoniker.Net80)]
+[MediumRunJob(RuntimeMoniker.Net90)]
+[MediumRunJob(RuntimeMoniker.Net10_0)]
 #pragma warning disable CA1822
 public class Benchmark
 {
