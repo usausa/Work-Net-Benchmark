@@ -36,8 +36,9 @@ public class BenchmarkConfig : ManualConfig
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net60)]
 [MediumRunJob(RuntimeMoniker.Net80)]
+[MediumRunJob(RuntimeMoniker.Net90)]
+[MediumRunJob(RuntimeMoniker.Net10_0)]
 public class Benchmark
 {
     private readonly Type type = typeof(object);
