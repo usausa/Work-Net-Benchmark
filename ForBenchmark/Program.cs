@@ -1,5 +1,5 @@
 #pragma warning disable SA1312
-namespace BoxingBenchmark;
+namespace ForBenchmark;
 
 using System.Runtime.CompilerServices;
 
