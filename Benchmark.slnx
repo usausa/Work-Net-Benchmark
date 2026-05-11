@@ -53,6 +53,7 @@
   <Project Path="ReadOnlyFieldBenchmark/ReadOnlyFieldBenchmark.csproj" />
   <Project Path="SortBenchmark/SortBenchmark.csproj" />
   <Project Path="StringHashBenchmark/StringHashBenchmark.csproj" />
+  <Project Path="StructSlotMapBenchmark/StructSlotMapBenchmark.csproj" Id="42298c0a-bb25-4556-8334-c70f0db46fe6" />
   <Project Path="TypeConvertBenchmark/TypeConvertBenchmark.csproj" />
   <Project Path="UnsafeReferenceBenchmark/UnsafeReferenceBenchmark.csproj" Id="4bb3d205-8ab6-4321-b4cd-c55d05f14982" />
   <Project Path="WorkArrayBenchmark/WorkArrayBenchmark.csproj" />
