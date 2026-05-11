@@ -80,6 +80,9 @@ public class IsMatchColumnBenchmark
     public bool Sliced() => IsMatchColumnSliced(columns1, columns2);
 
     [Benchmark]
+    public bool Hybrid() => IsMatchColumnHybrid(columns1, columns2);
+
+    [Benchmark]
     public bool GetRef() => IsMatchColumnGetRef(columns1, columns2);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
@@ -112,12 +115,35 @@ public class IsMatchColumnBenchmark
             return false;
         }
 
-        // Remove BCE
+        // ! BCE not optimized
         current = current[..cached.Length];
         for (var i = 0; i < cached.Length; i++)
         {
             ref readonly var column1 = ref cached[i];
             ref readonly var column2 = ref current[i];
+
+            if ((column1.Type != column2.Type) || !String.Equals(column1.Name, column2.Name, StringComparison.Ordinal))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    private static bool IsMatchColumnHybrid(ReadOnlySpan<ColumnInfo> cached, ReadOnlySpan<ColumnInfo> current)
+    {
+        if (cached.Length != current.Length)
+        {
+            return false;
+        }
+
+        ref var head2 = ref MemoryMarshal.GetReference(current);
+        for (var i = 0; i < cached.Length; i++)
+        {
+            ref readonly var column1 = ref cached[i];
+            ref readonly var column2 = ref Unsafe.Add(ref head2, i);
 
             if ((column1.Type != column2.Type) || !String.Equals(column1.Name, column2.Name, StringComparison.Ordinal))
             {
