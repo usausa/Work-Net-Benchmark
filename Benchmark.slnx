@@ -39,6 +39,7 @@
   <Project Path="BoxingBenchmark/BoxingBenchmark.csproj" />
   <Project Path="CalcIndexBenchmark/CalcIndexBenchmark.csproj" />
   <Project Path="CharConvertBenchmark/CharConvertBenchmark.csproj" />
+  <Project Path="DataSpanBenchmark/DataSpanBenchmark.csproj" Id="777f4282-58df-4ee9-8cb6-dea1a26f210c" />
   <Project Path="EntryBenchmark/EntryBenchmark.csproj" />
   <Project Path="EnumerableImplementBenchmark/EnumerableImplementBenchmark.csproj" />
   <Project Path="FactoryEntryBenchmark/FactoryEntryBenchmark.csproj" />
