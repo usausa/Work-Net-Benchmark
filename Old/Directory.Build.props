@@ -1,0 +1,10 @@
+<Project>
+  <!-- Old/ プロジェクトは旧バージョンのコードのため、厳格な解析設定を無効化する -->
+  <PropertyGroup>
+    <WarningsAsErrors />
+    <AnalysisMode>None</AnalysisMode>
+    <Nullable>disable</Nullable>
+    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+  </PropertyGroup>
+</Project>

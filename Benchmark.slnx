@@ -1,21 +1,64 @@
 <Solution>
   <Folder Name="/Abstraction/">
-    <Project Path="CallAbstractionBenchmark/CallAbstractionBenchmark.csproj" />
-    <Project Path="CallNopBenchmark/CallNopBenchmark.csproj" />
-    <Project Path="FunctionPointerBenchmark/FunctionPointerBenchmark.csproj" />
+    <Project Path="Abstraction/CallAbstractionBenchmark/CallAbstractionBenchmark.csproj" />
+    <Project Path="Abstraction/CallNopBenchmark/CallNopBenchmark.csproj" />
+    <Project Path="Abstraction/FactoryEntryBenchmark/FactoryEntryBenchmark.csproj" />
+    <Project Path="Abstraction/FunctionPointerBenchmark/FunctionPointerBenchmark.csproj" />
+    <Project Path="Abstraction/LambdaLocalBenchmark/LambdaLocalBenchmark.csproj" />
+    <Project Path="Abstraction/SealedDispatchBenchmark/SealedDispatchBenchmark.csproj" />
+    <Project Path="Abstraction/SwitchBenchmark/SwitchBenchmark.csproj" />
+    <Project Path="Abstraction/DelegateBenchmark/DelegateBenchmark.csproj" />
+  </Folder>
+  <Folder Name="/Async/">
+    <Project Path="Async/BasicBenchmark/BasicBenchmark.csproj" />
+    <Project Path="Async/ValueTaskBenchmark/ValueTaskBenchmark.csproj" />
   </Folder>
   <Folder Name="/Collections/">
-    <Project Path="DictionaryMarshalBenchmark/DictionaryMarshalBenchmark.csproj" />
-    <Project Path="FrozenBenchmark/FrozenBenchmark.csproj" />
-    <Project Path="HandlersBenchmark/HandlersBenchmark.csproj" />
-    <Project Path="LoopListBenchmark/LoopListBenchmark.csproj" />
+    <Project Path="Collections/DictionaryMarshalBenchmark/DictionaryMarshalBenchmark.csproj" />
+    <Project Path="Collections/EntryBenchmark/EntryBenchmark.csproj" />
+    <Project Path="Collections/EnumerableImplementBenchmark/EnumerableImplementBenchmark.csproj" />
+    <Project Path="Collections/FindEntryBenchmark/FindEntryBenchmark.csproj" />
+    <Project Path="Collections/FrozenBenchmark/FrozenBenchmark.csproj" />
+    <Project Path="Collections/HandlersBenchmark/HandlersBenchmark.csproj" />
+    <Project Path="Collections/LoopListBenchmark/LoopListBenchmark.csproj" />
+    <Project Path="Collections/StructSlotMapBenchmark/StructSlotMapBenchmark.csproj" Id="42298c0a-bb25-4556-8334-c70f0db46fe6" />
+    <Project Path="Collections/ListBenchmark/ListBenchmark.csproj" />
+  </Folder>
+  <Folder Name="/Loop/">
+    <Project Path="Loop/ForBenchmark/ForBenchmark.csproj" />
+    <Project Path="Loop/WorkArrayBenchmark/WorkArrayBenchmark.csproj" />
+    <Project Path="Loop/WorkMatchBenchmark/WorkMatchBenchmark.csproj" />
   </Folder>
   <Folder Name="/Memory/">
-    <Project Path="BufferWriteBenchmark/BufferWriteBenchmark.csproj" />
+    <Project Path="Memory/BoundaryAccessBenchmark/BoundaryAccessBenchmark.csproj" />
+    <Project Path="Memory/BoxingBenchmark/BoxingBenchmark.csproj" />
+    <Project Path="Memory/BufferWriteBenchmark/BufferWriteBenchmark.csproj" />
+    <Project Path="Memory/DataSpanBenchmark/DataSpanBenchmark.csproj" Id="777f4282-58df-4ee9-8cb6-dea1a26f210c" />
+    <Project Path="Memory/UnsafeReferenceBenchmark/UnsafeReferenceBenchmark.csproj" Id="4bb3d205-8ab6-4321-b4cd-c55d05f14982" />
+    <Project Path="Memory/CopyBenchmark/CopyBenchmark.csproj" />
+    <Project Path="Memory/SpanAccessBenchmark/SpanAccessBenchmark.csproj" />
+    <Project Path="Memory/BufferAllocBenchmark/BufferAllocBenchmark.csproj" />
+  </Folder>
+  <Folder Name="/Misc/">
+    <Project Path="Misc/DisposableBenchmark/DisposableBenchmark.csproj" />
+  </Folder>
+  <Folder Name="/Numeric/">
+    <Project Path="Numeric/CalcIndexBenchmark/CalcIndexBenchmark.csproj" />
+    <Project Path="Numeric/NumericBenchmark/NumericBenchmark.csproj" />
+    <Project Path="Numeric/SortBenchmark/SortBenchmark.csproj" />
   </Folder>
   <Folder Name="/Runtime/">
-    <Project Path="CastBenchmark/CastBenchmark.csproj" />
-    <Project Path="TypeOfBenchmark/TypeOfBenchmark.csproj" />
+    <Project Path="Runtime/CastBenchmark/CastBenchmark.csproj" />
+    <Project Path="Runtime/GenericConverterBenchmark/GenericConverterBenchmark.csproj" />
+    <Project Path="Runtime/ParameterBenchmark/ParameterBenchmark.csproj" />
+    <Project Path="Runtime/ProjectionBenchmark/ProjectionBenchmark.csproj" />
+    <Project Path="Runtime/ReadOnlyFieldBenchmark/ReadOnlyFieldBenchmark.csproj" />
+    <Project Path="Runtime/TypeConvertBenchmark/TypeConvertBenchmark.csproj" />
+    <Project Path="Runtime/TypeOfBenchmark/TypeOfBenchmark.csproj" />
+    <Project Path="Runtime/InlineBenchmark/InlineBenchmark.csproj" />
+    <Project Path="Runtime/MemberAccessBenchmark/MemberAccessBenchmark.csproj" />
+    <Project Path="Runtime/ConverterBenchmark/ConverterBenchmark.csproj" />
+    <Project Path="Runtime/ContainerConverterBenchmark/ContainerConverterBenchmark.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
@@ -27,35 +70,90 @@
     <File Path="CLAUDE.md" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
+    <File Path="README.ja.md" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/Text/">
-    <Project Path="FormatBenchmark/FormatBenchmark.csproj" />
-    <Project Path="IndexOfAnyBenchmark/IndexOfAnyBenchmark.csproj" />
-    <Project Path="StringBuilderBenchmark/StringBuilderBenchmark.csproj" />
+    <Project Path="Text/CharConvertBenchmark/CharConvertBenchmark.csproj" />
+    <Project Path="Text/FormatBenchmark/FormatBenchmark.csproj" />
+    <Project Path="Text/IndexOfAnyBenchmark/IndexOfAnyBenchmark.csproj" />
+    <Project Path="Text/ParseBenchmark/ParseBenchmark.csproj" />
+    <Project Path="Text/StringBuilderBenchmark/StringBuilderBenchmark.csproj" />
+    <Project Path="Text/StringHashBenchmark/StringHashBenchmark.csproj" />
+    <Project Path="Text/HexBenchmark/HexBenchmark.csproj" />
+    <Project Path="Text/StringAppendBenchmark/StringAppendBenchmark.csproj" />
+    <Project Path="Text/TextConvertBenchmark/TextConvertBenchmark.csproj" />
   </Folder>
-  <Project Path="BasicBenchmark/BasicBenchmark.csproj" />
-  <Project Path="BoundaryAccessBenchmark/BoundaryAccessBenchmark.csproj" />
-  <Project Path="BoxingBenchmark/BoxingBenchmark.csproj" />
-  <Project Path="CalcIndexBenchmark/CalcIndexBenchmark.csproj" />
-  <Project Path="CharConvertBenchmark/CharConvertBenchmark.csproj" />
-  <Project Path="DataSpanBenchmark/DataSpanBenchmark.csproj" Id="777f4282-58df-4ee9-8cb6-dea1a26f210c" />
-  <Project Path="EntryBenchmark/EntryBenchmark.csproj" />
-  <Project Path="EnumerableImplementBenchmark/EnumerableImplementBenchmark.csproj" />
-  <Project Path="FactoryEntryBenchmark/FactoryEntryBenchmark.csproj" />
-  <Project Path="FindEntryBenchmark/FindEntryBenchmark.csproj" />
-  <Project Path="ForBenchmark/ForBenchmark.csproj" />
-  <Project Path="GenericConverterBenchmark/GenericConverterBenchmark.csproj" />
-  <Project Path="LambdaLocalBenchmark/LambdaLocalBenchmark.csproj" />
-  <Project Path="ParameterBenchmark/ParameterBenchmark.csproj" />
-  <Project Path="ParseBenchmark/ParseBenchmark.csproj" />
-  <Project Path="ProjectionBenchmark/ProjectionBenchmark.csproj" />
-  <Project Path="ReadOnlyFieldBenchmark/ReadOnlyFieldBenchmark.csproj" />
-  <Project Path="SortBenchmark/SortBenchmark.csproj" />
-  <Project Path="StringHashBenchmark/StringHashBenchmark.csproj" />
-  <Project Path="StructSlotMapBenchmark/StructSlotMapBenchmark.csproj" Id="42298c0a-bb25-4556-8334-c70f0db46fe6" />
-  <Project Path="TypeConvertBenchmark/TypeConvertBenchmark.csproj" />
-  <Project Path="UnsafeReferenceBenchmark/UnsafeReferenceBenchmark.csproj" Id="4bb3d205-8ab6-4321-b4cd-c55d05f14982" />
-  <Project Path="WorkArrayBenchmark/WorkArrayBenchmark.csproj" />
-  <Project Path="WorkMatchBenchmark/WorkMatchBenchmark.csproj" />
+<!--
+  <Folder Name="/Old/">
+    <Project Path="Old/AbstractCallBenchmark/AbstractCallBenchmark/AbstractCallBenchmark.csproj" />
+    <Project Path="Old/AccessorBenchmark/AccessorBenchmark/AccessorBenchmark.csproj" />
+    <Project Path="Old/ActivatorBenchmark/ActivatorBenchmark/ActivatorBenchmark.csproj" />
+    <Project Path="Old/AllocBenchmark/AllocBenchmark/AllocBenchmark.csproj" />
+    <Project Path="Old/ArrayAccessBenchmark/ArrayAccessBenchmark/ArrayAccessBenchmark.csproj" />
+    <Project Path="Old/BinarySearchBenchmark/BinarySearchBenchmark/BinarySearchBenchmark.csproj" />
+    <Project Path="Old/BoxCacheBenchmark2/BoxCacheBenchmark2/BoxCacheBenchmark2.csproj" />
+    <Project Path="Old/BufferBenchmark/BufferBenchmark/BufferBenchmark.csproj" />
+    <Project Path="Old/BuildServiceProviderBenchmark/BuildServiceProviderBenchmark/BuildServiceProviderBenchmark.csproj" />
+    <Project Path="Old/CallbackBenchmark/CallbackBenchmark/CallbackBenchmark.csproj" />
+    <Project Path="Old/CallBenchmark/CallBenchmark/CallBenchmark.csproj" />
+    <Project Path="Old/CallBenchmark50/CallBenchmark50/CallBenchmark50.csproj" />
+    <Project Path="Old/CallBridgeBenchmark/CallBridgeBenchmark/CallBridgeBenchmark.csproj" />
+    <Project Path="Old/CallTypeBenchmark/CallTypeBenchmark/CallTypeBenchmark.csproj" />
+    <Project Path="Old/CallVirtBenchmark/CallVirtBenchmark/CallVirtBenchmark.csproj" />
+    <Project Path="Old/ChangeTypeBenchmark/ChangeTypeBenchmark/ChangeTypeBenchmark.csproj" />
+    <Project Path="Old/CompareBenchmark/CompareBenchmark/CompareBenchmark.csproj" />
+    <Project Path="Old/ContainerConverterBenchmark/ContainerConverterBenchmark/ContainerConverterBenchmark.csproj" />
+    <Project Path="Old/ConvertBenchmark/ConvertBenchmark/ConvertBenchmark.csproj" />
+    <Project Path="Old/ConverterBenchmark/ConverterBenchmark/ConverterBenchmark.csproj" />
+    <Project Path="Old/ConvertMethodBenchmark/ConvertMethodBenchmark/ConvertMethodBenchmark.csproj" />
+    <Project Path="Old/CopyBenchmark/CopyBenchmark/CopyBenchmark.csproj" />
+    <Project Path="Old/CreateBenchmark/CreateBenchmark/CreateBenchmark.csproj" />
+    <Project Path="Old/DecimalBitsBenchmark/DecimalBitsBenchmark/DecimalBitsBenchmark.csproj" />
+    <Project Path="Old/DefaultLookupBenchmark/DefaultLookupBenchmark/DefaultLookupBenchmark.csproj" />
+    <Project Path="Old/DelegateBenchmark/DelegateBenchmark/DelegateBenchmark.csproj" />
+    <Project Path="Old/DelegateCompareBenchmark/DelegateCompareBenchmark/DelegateCompareBenchmark.csproj" />
+    <Project Path="Old/DictionaryKeyBenchmark/DictionaryKeyBenchmark/DictionaryKeyBenchmark.csproj" />
+    <Project Path="Old/DisassemblyBenchmark/DisassemblyBenchmark/DisassemblyBenchmark.csproj" />
+    <Project Path="Old/DispatchBenchmark/DispatchBenchmark/DispatchBenchmark.csproj" />
+    <Project Path="Old/DisposableBenchmark/DisposableBenchmark/DisposableBenchmark.csproj" />
+    <Project Path="Old/DynamicMethodBenchmark/DynamicMethodBenchmark/DynamicMethodBenchmark.csproj" />
+    <Project Path="Old/EnumerableBenchmark/EnumerableBenchmark/EnumerableBenchmark.csproj" />
+    <Project Path="Old/EnumeratorBenchmark/EnumeratorBenchmark/EnumeratorBenchmark.csproj" />
+    <Project Path="Old/EquatableBenchmark/EquatableBenchmark/EquatableBenchmark.csproj" />
+    <Project Path="Old/FieldArrayAccessBenchmark/FieldArrayAccessBenchmark/FieldArrayAccessBenchmark.csproj" />
+    <Project Path="Old/FuncArrayBenchmark/FuncArrayBenchmark/FuncArrayBenchmark.csproj" />
+    <Project Path="Old/FunctionBenchmark/FunctionBenchmark/FunctionBenchmark.csproj" />
+    <Project Path="Old/GenericStructFactoryBenchmark/GenericStructFactoryBenchmark/GenericStructFactoryBenchmark.csproj" />
+    <Project Path="Old/HexBenchmark/HexBenchmark/HexBenchmark.csproj" />
+    <Project Path="Old/IndexLoopBenchmark/IndexLoopBenchmark/IndexLoopBenchmark.csproj" />
+    <Project Path="Old/KeyBenchmark/KeyBenchmark/KeyBenchmark.csproj" />
+    <Project Path="Old/LengthCheckBenchmark/LengthCheckBenchmark/LengthCheckBenchmark.csproj" />
+    <Project Path="Old/ListCapacityBenchmark/ListCapacityBenchmark/ListCapacityBenchmark.csproj" />
+    <Project Path="Old/ListEnumerationBenchmark/ListEnumerationBenchmark/ListEnumerationBenchmark.csproj" />
+    <Project Path="Old/LookupBenchmark/LookupBenchmark/LookupBenchmark.csproj" />
+    <Project Path="Old/LookupKeyBenchmark/LookupKeyBenchmark/LookupKeyBenchmark.csproj" />
+    <Project Path="Old/LookupNodeBenchmark/LookupNodeBenchmark/LookupNodeBenchmark.csproj" />
+    <Project Path="Old/LoopStructBenchmark/LoopStructBenchmark/LoopStructBenchmark.csproj" />
+    <Project Path="Old/MemberAccessBenchmark/MemberAccessBenchmark/MemberAccessBenchmark.csproj" />
+    <Project Path="Old/NumericBenchmark/NumericBenchmark/NumericBenchmark.csproj" />
+    <Project Path="Old/OldStringBuilderBenchmark/OldStringBuilderBenchmark/OldStringBuilderBenchmark.csproj" />
+    <Project Path="Old/PInvokeBufferBenchmark/PInvokeBufferBenchmark/PInvokeBufferBenchmark.csproj" />
+    <Project Path="Old/RefLoopBenchmark/RefLoopBenchmark/RefLoopBenchmark.csproj" />
+    <Project Path="Old/ResolveBenchmark/ResolveBenchmark/ResolveBenchmark.csproj" />
+    <Project Path="Old/ResultMapperCacheBenchmark/ResultMapperCacheBenchmark/ResultMapperCacheBenchmark.csproj" />
+    <Project Path="Old/ReverseBenchmark/ReverseBenchmark/ReverseBenchmark.csproj" />
+    <Project Path="Old/RoslynScriptBenchmark/RoslynScriptBenchmark/RoslynScriptBenchmark.csproj" />
+    <Project Path="Old/SetStorageBenchmark/SetStorageBenchmark/SetStorageBenchmark.csproj" />
+    <Project Path="Old/SkipLocalsInitBenchmark/SkipLocalsInitBenchmark/SkipLocalsInitBenchmark.csproj" />
+    <Project Path="Old/SmallKeyBenchmark/SmallKeyBenchmark/SmallKeyBenchmark.csproj" />
+    <Project Path="Old/SmallLookupBenchmark/SmallLookupBenchmark/SmallLookupBenchmark.csproj" />
+    <Project Path="Old/StaticInstanceBenchmark/StaticInstanceBenchmark/StaticInstanceBenchmark.csproj" />
+    <Project Path="Old/StringAppendBenchmark/StringAppendBenchmark/StringAppendBenchmark.csproj" />
+    <Project Path="Old/SwitchBenchmark/SwitchBenchmark/SwitchBenchmark.csproj" />
+    <Project Path="Old/TemporaryBenchmark/TemporaryBenchmark/TemporaryBenchmark.csproj" />
+    <Project Path="Old/TryBenchmark/TryBenchmark/TryBenchmark.csproj" />
+    <Project Path="Old/TypedInterfaceBenchmark/TypedInterfaceBenchmark/TypedInterfaceBenchmark.csproj" />
+  </Folder>
+-->
 </Solution>
