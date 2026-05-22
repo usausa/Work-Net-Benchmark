@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net10.0;net9.0</TargetFrameworks>
-    <CodeAnalysisRuleSet>..\Benchmark.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\Benchmark.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>

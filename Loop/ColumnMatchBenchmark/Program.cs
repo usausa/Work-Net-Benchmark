@@ -1,4 +1,4 @@
-namespace WorkMatchBenchmark;
+namespace ColumnMatchBenchmark;
 
 using System;
 using System.Runtime.CompilerServices;

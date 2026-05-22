@@ -2,12 +2,12 @@
   <Folder Name="/Abstraction/">
     <Project Path="Abstraction/CallAbstractionBenchmark/CallAbstractionBenchmark.csproj" />
     <Project Path="Abstraction/CallNopBenchmark/CallNopBenchmark.csproj" />
+    <Project Path="Abstraction/DelegateBenchmark/_DelegateBenchmark.csproj" />
     <Project Path="Abstraction/FactoryEntryBenchmark/FactoryEntryBenchmark.csproj" />
     <Project Path="Abstraction/FunctionPointerBenchmark/FunctionPointerBenchmark.csproj" />
     <Project Path="Abstraction/LambdaLocalBenchmark/LambdaLocalBenchmark.csproj" />
     <Project Path="Abstraction/SealedDispatchBenchmark/SealedDispatchBenchmark.csproj" />
     <Project Path="Abstraction/SwitchBenchmark/SwitchBenchmark.csproj" />
-    <Project Path="Abstraction/DelegateBenchmark/DelegateBenchmark.csproj" />
   </Folder>
   <Folder Name="/Async/">
     <Project Path="Async/BasicBenchmark/BasicBenchmark.csproj" />
@@ -26,8 +26,8 @@
   </Folder>
   <Folder Name="/Loop/">
     <Project Path="Loop/ForBenchmark/ForBenchmark.csproj" />
-    <Project Path="Loop/WorkArrayBenchmark/WorkArrayBenchmark.csproj" />
-    <Project Path="Loop/WorkMatchBenchmark/WorkMatchBenchmark.csproj" />
+    <Project Path="Loop/StructArrayBenchmark/StructArrayBenchmark.csproj" />
+    <Project Path="Loop/ColumnMatchBenchmark/ColumnMatchBenchmark.csproj" />
   </Folder>
   <Folder Name="/Memory/">
     <Project Path="Memory/BoundaryAccessBenchmark/BoundaryAccessBenchmark.csproj" />

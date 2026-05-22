@@ -213,12 +213,12 @@ public readonly ref struct ReadonlyRefStructParameter
 [MediumRunJob(RuntimeMoniker.Net10_0)]
 public class StructSizeBenchmark
 {
-    private readonly SizedStruct8 field8 = new SizedStruct8 { Value = 1 };
-    private readonly SizedStruct16 field16 = new SizedStruct16 { Value = 1 };
-    private readonly SizedStruct24 field24 = new SizedStruct24 { Value = 1 };
-    private readonly ReadOnlySizedStruct8 readonlyField8 = new ReadOnlySizedStruct8(1);
-    private readonly ReadOnlySizedStruct16 readonlyField16 = new ReadOnlySizedStruct16(1, 0);
-    private readonly ReadOnlySizedStruct24 readonlyField24 = new ReadOnlySizedStruct24(1, 0, 0);
+    private readonly SizedStruct8 field8 = new() { Value = 1 };
+    private readonly SizedStruct16 field16 = new() { Value = 1 };
+    private readonly SizedStruct24 field24 = new() { Value = 1 };
+    private readonly ReadOnlySizedStruct8 readonlyField8 = new(1);
+    private readonly ReadOnlySizedStruct16 readonlyField16 = new(1, 0);
+    private readonly ReadOnlySizedStruct24 readonlyField24 = new(1, 0, 0);
 
     [Benchmark]
     public int ByValue8() => SizedFunctions.Call(field8);

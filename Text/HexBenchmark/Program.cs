@@ -507,7 +507,7 @@ public static class HexEncoder
     {
         if (source.IsEmpty)
         {
-            return Array.Empty<byte>();
+            return [];
         }
 
         var buffer = new byte[source.Length >> 1];
@@ -533,7 +533,7 @@ public static class HexEncoder
     {
         if (source.IsEmpty)
         {
-            return Array.Empty<byte>();
+            return [];
         }
 
         var length = source.Length >> 1;
@@ -563,7 +563,7 @@ public static class HexEncoder
     {
         if (source.IsEmpty)
         {
-            return Array.Empty<byte>();
+            return [];
         }
 
         var buffer = new byte[source.Length >> 1];
@@ -585,7 +585,7 @@ public static class HexEncoder
     {
         if (source.IsEmpty)
         {
-            return Array.Empty<byte>();
+            return [];
         }
 
         ref var sr = ref MemoryMarshal.GetReference(source);

@@ -1,4 +1,4 @@
-namespace WorkArrayBenchmark;
+namespace StructArrayBenchmark;
 
 using System;
 

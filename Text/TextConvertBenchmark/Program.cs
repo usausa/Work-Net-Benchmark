@@ -41,7 +41,7 @@ public class BenchmarkConfig : ManualConfig
 [MediumRunJob(RuntimeMoniker.Net10_0)]
 public class EncodingBenchmark
 {
-    private static readonly byte[] Bytes = [0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39];
+    private static readonly byte[] Bytes = "0123456789"u8.ToArray();
 
     private Encoding ascii = default!;
     private Encoding utf8 = default!;
@@ -74,7 +74,9 @@ public class EncodingBenchmark
 #pragma warning disable CA1822
 public class ParseNumberBenchmark
 {
+#pragma warning disable CA1802
     private static readonly string Text = "12345678";
+#pragma warning restore CA1802
 
     // Any
 

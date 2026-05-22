@@ -1,3 +1,5 @@
+// ReSharper disable ParameterTypeCanBeEnumerable.Global
+#pragma warning disable IDE0032
 namespace ListBenchmark;
 
 using System.Collections;
@@ -198,9 +200,11 @@ public class IndexLoopBenchmark
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
+    // ReSharper disable UnusedParameter.Local
     private static void Dummy(string value, int index)
     {
     }
+    // ReSharper restore UnusedParameter.Local
 
     [Benchmark]
     public void ArrayFor()

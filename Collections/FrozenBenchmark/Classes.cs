@@ -110,8 +110,8 @@ public class Class99 {}
 #pragma warning disable CA1819
 public static class Classes
 {
-    public static Type[] Types => new[]
-    {
+    public static Type[] Types =>
+    [
         typeof(Class00),
         typeof(Class01),
         typeof(Class02),
@@ -212,6 +212,6 @@ public static class Classes
         typeof(Class97),
         typeof(Class98),
         typeof(Class99)
-    };
+    ];
 }
 #pragma warning restore CA1819

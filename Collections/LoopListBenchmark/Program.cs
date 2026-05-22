@@ -45,7 +45,7 @@ public class Benchmark
     [Params(100, 1_000, 1_0000, 10_0000)]
     public int Size { get; set; }
 
-    private List<int> items = new();
+    private List<int> items = [];
 
     [GlobalSetup]
     public void InitList()

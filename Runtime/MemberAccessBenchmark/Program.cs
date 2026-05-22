@@ -39,17 +39,15 @@ public class BenchmarkConfig : ManualConfig
 [MediumRunJob(RuntimeMoniker.Net10_0)]
 public class FieldPropertyBenchmark
 {
-    private readonly FieldContainer fieldContainer = new FieldContainer(new[]
-    {
+    private readonly FieldContainer fieldContainer = new([
         typeof(Class00), typeof(Class01), typeof(Class02), typeof(Class03), typeof(Class04),
         typeof(Class05), typeof(Class06), typeof(Class07), typeof(Class08), typeof(Class09)
-    });
+    ]);
 
-    private readonly PropertyContainer propertyContainer = new PropertyContainer(new[]
-    {
+    private readonly PropertyContainer propertyContainer = new([
         typeof(Class00), typeof(Class01), typeof(Class02), typeof(Class03), typeof(Class04),
         typeof(Class05), typeof(Class06), typeof(Class07), typeof(Class08), typeof(Class09)
-    });
+    ]);
 
     private readonly Type key = typeof(object);
 

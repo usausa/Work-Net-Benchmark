@@ -2,6 +2,7 @@
 <RuleSet Name="Benchmark Rules" Description="Benchmark Rules" ToolsVersion="16.0">
   <IncludeAll Action="Warning" />
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA1010" Action="Hidden" />
     <Rule Id="SA1005" Action="Hidden" />
     <Rule Id="SA1025" Action="Hidden" />
     <Rule Id="SA1101" Action="Hidden" />
@@ -9,8 +10,11 @@
     <Rule Id="SA1201" Action="Hidden" />
     <Rule Id="SA1202" Action="Hidden" />
     <Rule Id="SA1204" Action="Hidden" />
+    <Rule Id="SA1312" Action="Hidden" />
     <Rule Id="SA1402" Action="Hidden" />
     <Rule Id="SA1413" Action="Hidden" />
+    <Rule Id="SA1501" Action="Hidden" />
+    <Rule Id="SA1502" Action="Hidden" />
     <Rule Id="SA1512" Action="Hidden" />
     <Rule Id="SA1513" Action="Hidden" />
     <Rule Id="SA1515" Action="Hidden" />
@@ -26,8 +30,12 @@
     <Rule Id="CA1000" Action="Hidden" />
     <Rule Id="CA1034" Action="Hidden" />
     <Rule Id="CA1062" Action="Hidden" />
+    <Rule Id="CA1305" Action="Hidden" />
     <Rule Id="CA1515" Action="Hidden" />
+    <Rule Id="CA1707" Action="Hidden" />
     <Rule Id="CA1720" Action="Hidden" />
     <Rule Id="CA1810" Action="Hidden" />
+    <Rule Id="CA1815" Action="Hidden" />
+    <Rule Id="CA1822" Action="Hidden" />
   </Rules>
 </RuleSet>

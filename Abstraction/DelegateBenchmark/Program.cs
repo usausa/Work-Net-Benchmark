@@ -54,7 +54,7 @@ public unsafe class DelegateInvokeBenchmark
     [GlobalSetup]
     public void GlobalSetup()
     {
-        var method1 = new DynamicMethod("StaticDelegate", typeof(int), new[] { typeof(int) }, true);
+        var method1 = new DynamicMethod("StaticDelegate", typeof(int), [typeof(int)], true);
         var il = method1.GetILGenerator();
         il.Emit(OpCodes.Ldarg_0);
         il.Emit(OpCodes.Ldc_I4_1);
@@ -62,7 +62,7 @@ public unsafe class DelegateInvokeBenchmark
         il.Emit(OpCodes.Ret);
         sd = method1.CreateDelegate<Func<int, int>>();
 
-        var method2 = new DynamicMethod("InstanceDelegate", typeof(int), new[] { typeof(object), typeof(int) }, true);
+        var method2 = new DynamicMethod("InstanceDelegate", typeof(int), [typeof(object), typeof(int)], true);
         il = method2.GetILGenerator();
         il.Emit(OpCodes.Ldarg_1);
         il.Emit(OpCodes.Ldc_I4_1);
@@ -261,7 +261,7 @@ public static class DelegateMethodGenerator
 {
     public static Func<object?> Create()
     {
-        var dynamic = new DynamicMethod(string.Empty, typeof(object), new[] { typeof(object) }, true);
+        var dynamic = new DynamicMethod(string.Empty, typeof(object), [typeof(object)], true);
         var il = dynamic.GetILGenerator();
         il.Emit(OpCodes.Ldnull);
         il.Emit(OpCodes.Ret);

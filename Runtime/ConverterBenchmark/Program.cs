@@ -153,7 +153,7 @@ public static class Factory
 {
     public static Func<long, int> ByDirect()
     {
-        var dynamicMethod = new DynamicMethod(string.Empty, typeof(int), new[] { typeof(object), typeof(long) }, true);
+        var dynamicMethod = new DynamicMethod(string.Empty, typeof(int), [typeof(object), typeof(long)], true);
         var ilGenerator = dynamicMethod.GetILGenerator();
 
         ilGenerator.Emit(OpCodes.Ldarg_1);
@@ -165,7 +165,7 @@ public static class Factory
 
     public static Func<long, int> ByMethod()
     {
-        var dynamicMethod = new DynamicMethod(string.Empty, typeof(int), new[] { typeof(object), typeof(long) }, true);
+        var dynamicMethod = new DynamicMethod(string.Empty, typeof(int), [typeof(object), typeof(long)], true);
         var ilGenerator = dynamicMethod.GetILGenerator();
 
         var mi = typeof(ConvertMethods).GetMethod("Int64ToInt32")!;
