@@ -28,16 +28,16 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.P90,
             StatisticColumn.Error,
             StatisticColumn.StdDev);
-        AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
+        AddDiagnoser(
+            MemoryDiagnoser.Default,
+            new DisassemblyDiagnoser(
+                new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
     }
 }
 
-// sealed / non-sealed の JIT によるデスバーチャライズ効果を検証する。
-// 変数の静的型 (具体型 / 基底型 / インターフェース) によって最適化が変わる点も含む。
 
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
 [MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
 public class Benchmark
@@ -54,7 +54,9 @@ public class Benchmark
     private readonly ITarget nonSealedInterface = new NonSealedImplement();
     private readonly ITarget sealedInterface = new SealedImplement();
 
-    // Concrete type ---------------------------------------------------------------
+    //--------------------------------------------------------------------------------
+    // Concrete type
+    //--------------------------------------------------------------------------------
 
     [Benchmark(OperationsPerInvoke = N)]
     public object? InvokeNonSealedDerived()
@@ -108,7 +110,9 @@ public class Benchmark
         return ret;
     }
 
-    // TargetBase class variable ---------------------------------------------------------
+    //--------------------------------------------------------------------------------
+    // Base class
+    //--------------------------------------------------------------------------------
 
     [Benchmark(OperationsPerInvoke = N)]
     public object? InvokeNonSealedAsTargetBase()
@@ -136,7 +140,9 @@ public class Benchmark
         return ret;
     }
 
-    // Interface variable ----------------------------------------------------------
+    //--------------------------------------------------------------------------------
+    // Interface
+    //--------------------------------------------------------------------------------
 
     [Benchmark(OperationsPerInvoke = N)]
     public object? InvokeNonSealedAsInterface()
@@ -164,12 +170,14 @@ public class Benchmark
         return ret;
     }
 
-    // Func variable ---------------------------------------------------------------
+    //--------------------------------------------------------------------------------
+    // Func
+    //--------------------------------------------------------------------------------
 
     [Benchmark(OperationsPerInvoke = N)]
     public object? InvokeNonSealedAsFunc()
     {
-        Func<object> target = nonSealedDerived.Method;
+        var target = (Func<object>)nonSealedDerived.Method;
         var ret = default(object);
         for (var i = 0; i < N; i++)
         {
@@ -182,7 +190,7 @@ public class Benchmark
     [Benchmark(OperationsPerInvoke = N)]
     public object? InvokeSealedAsFunc()
     {
-        Func<object> target = sealedDerived.Method;
+        var target = (Func<object>)sealedDerived.Method;
         var ret = default(object);
         for (var i = 0; i < N; i++)
         {

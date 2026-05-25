@@ -70,38 +70,36 @@ Delegate / Function Pointer / Lambda / 動的メソッド生成 (DynamicMethod, 
 
 ---
 
-#### ⭕LambdaLocalBenchmark
+#### ✅LambdaLocalBenchmark
 
 Lambda 定義 vs Local 関数定義の呼び出しコストを比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net9.0` `net10.0` |
 | Job | Medium |
 
 ---
 
-#### ⭕SealedDispatchBenchmark
+#### ✅SealedDispatchBenchmark
 
 sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtualization) 効果を計測する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net9.0` `net10.0` |
 | Job | Medium |
-| | 再構成前からの変更: Old/ の `SealedBenchmark`, `CallTypeBenchmark`, `CallVirtBenchmark`, `ResolveBenchmark`, `StaticInstanceBenchmark` を吸収統合 |
 
 ---
 
-#### ⭕SwitchBenchmark
+#### ⚠️SwitchBenchmark
 
 制御フロー分岐方式 (if-else / switch / Action delegate / interface dispatch) の性能を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net9.0` `net10.0` |
 | Job | Medium |
-| | 再構成前からの変更: Old/ の `SwitchBenchmark` をルート直下から `Abstraction/` へ移動 |
 
 ---
 

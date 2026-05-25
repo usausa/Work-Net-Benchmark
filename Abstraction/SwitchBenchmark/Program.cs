@@ -35,7 +35,6 @@ public class BenchmarkConfig : ManualConfig
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
 [MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
 public class Benchmark
@@ -59,17 +58,17 @@ public class Benchmark
         if (Parameter == 1)
         {
             instanceAction = Action1.Default.Work;
-            instanceAction2 = x => Action1.Default.Work(1);
+            instanceAction2 = _ => Action1.Default.Work(1);
             staticAction = Action1.Default.Work;
-            staticAction2 = x => Action1.Default.Work(1);
+            staticAction2 = _ => Action1.Default.Work(1);
             interfaceAction = Action1.Default;
         }
         else if (Parameter == 2)
         {
             instanceAction = Action2.Default.Work;
-            instanceAction2 = x => Action2.Default.Work(2);
+            instanceAction2 = _ => Action2.Default.Work(2);
             staticAction = Action2.Default.Work;
-            staticAction2 = x => Action2.Default.Work(2);
+            staticAction2 = _ => Action2.Default.Work(2);
             interfaceAction = Action2.Default;
         }
         else if (Parameter == 3)

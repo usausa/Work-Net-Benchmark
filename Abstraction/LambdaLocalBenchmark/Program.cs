@@ -28,7 +28,10 @@ public class BenchmarkConfig : ManualConfig
             StatisticColumn.P90,
             StatisticColumn.Error,
             StatisticColumn.StdDev);
-        AddDiagnoser(MemoryDiagnoser.Default, new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
+        AddDiagnoser(
+            MemoryDiagnoser.Default,
+            new DisassemblyDiagnoser(
+                new DisassemblyDiagnoserConfig(maxDepth: 3, printSource: true, printInstructionAddresses: true, exportDiff: true)));
     }
 }
 
@@ -36,7 +39,6 @@ public class BenchmarkConfig : ManualConfig
 #pragma warning disable CA1822
 #pragma warning disable IDE0039
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
 [MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
 public class Benchmark
