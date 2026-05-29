@@ -1,4 +1,4 @@
-namespace BasicBenchmark;
+namespace CallBenchmark;
 
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;

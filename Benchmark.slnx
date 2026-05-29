@@ -10,12 +10,12 @@
     <Project Path="Abstraction/SwitchBenchmark/SwitchBenchmark.csproj" />
   </Folder>
   <Folder Name="/Async/">
-    <Project Path="Async/BasicBenchmark/BasicBenchmark.csproj" />
+    <Project Path="Async/CallBenchmark/CallBenchmark.csproj" />
     <Project Path="Async/ValueTaskBenchmark/ValueTaskBenchmark.csproj" />
   </Folder>
   <Folder Name="/Collections/">
     <Project Path="Collections/DictionaryMarshalBenchmark/DictionaryMarshalBenchmark.csproj" />
-    <Project Path="Collections/EntryBenchmark/EntryBenchmark.csproj" />
+    <Project Path="Collections/EntryHolderBenchmark/EntryHolderBenchmark.csproj" />
     <Project Path="Collections/EnumerableImplementBenchmark/EnumerableImplementBenchmark.csproj" />
     <Project Path="Collections/FindEntryBenchmark/FindEntryBenchmark.csproj" />
     <Project Path="Collections/FrozenBenchmark/FrozenBenchmark.csproj" />
@@ -33,7 +33,7 @@
     <Project Path="Memory/BoundaryAccessBenchmark/BoundaryAccessBenchmark.csproj" />
     <Project Path="Memory/BoxingBenchmark/BoxingBenchmark.csproj" />
     <Project Path="Memory/BufferWriteBenchmark/BufferWriteBenchmark.csproj" />
-    <Project Path="Memory/DataSpanBenchmark/DataSpanBenchmark.csproj" Id="777f4282-58df-4ee9-8cb6-dea1a26f210c" />
+    <Project Path="Memory/SlotMapLookupBenchmark/SlotMapLookupBenchmark.csproj" Id="777f4282-58df-4ee9-8cb6-dea1a26f210c" />
     <Project Path="Memory/UnsafeReferenceBenchmark/UnsafeReferenceBenchmark.csproj" Id="4bb3d205-8ab6-4321-b4cd-c55d05f14982" />
     <Project Path="Memory/CopyBenchmark/CopyBenchmark.csproj" />
     <Project Path="Memory/SpanAccessBenchmark/SpanAccessBenchmark.csproj" />
@@ -58,7 +58,7 @@
     <Project Path="Runtime/InlineBenchmark/InlineBenchmark.csproj" />
     <Project Path="Runtime/MemberAccessBenchmark/MemberAccessBenchmark.csproj" />
     <Project Path="Runtime/ConverterBenchmark/ConverterBenchmark.csproj" />
-    <Project Path="Runtime/ContainerConverterBenchmark/ContainerConverterBenchmark.csproj" />
+    <Project Path="Runtime/CollectionConvertBenchmark/CollectionConvertBenchmark.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />

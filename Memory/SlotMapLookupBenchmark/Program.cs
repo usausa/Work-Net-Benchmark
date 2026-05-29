@@ -1,4 +1,4 @@
-namespace DataSpanBenchmark;
+namespace SlotMapLookupBenchmark;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;

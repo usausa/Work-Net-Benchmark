@@ -1,4 +1,4 @@
-namespace EntryBenchmark;
+namespace EntryHolderBenchmark;
 
 using System;
 using System.Buffers;

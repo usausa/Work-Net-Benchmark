@@ -109,7 +109,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 ---
 
-#### ⭕BasicBenchmark
+#### ⭕CallBenchmark
 
 イベントハンドラー呼び出しおよびスレッド同期方式 (EventHandler / Delegate / Action / `System.Threading.Lock`) の性能を比較する。
 
@@ -152,7 +152,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 ---
 
-#### ⭕EntryBenchmark
+#### ⭕EntryHolderBenchmark
 
 エントリ配列の割り当て方式 (通常割り当て / ArrayPool / Struct Entry) の性能を比較する。
 
@@ -360,7 +360,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 ---
 
-#### ⭕DataSpanBenchmark
+#### ⭕SlotMapLookupBenchmark
 
 Span 操作の複合計測 (Indexer / Sliced / Hybrid / GetRef によるアクセス、ハッシュ計算) 。
 
@@ -487,7 +487,7 @@ IDisposable 利用方式 (using 文 / try-finally / クラスベース / 構造�
 
 ---
 
-#### ⭕ContainerConverterBenchmark
+#### ⭕CollectionConvertBenchmark
 
 コンテナ型 (Array / List) 間の変換方式を比較する。
 

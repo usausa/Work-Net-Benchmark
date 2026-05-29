@@ -1,4 +1,4 @@
-namespace ContainerConverterBenchmark;
+namespace CollectionConvertBenchmark;
 
 using System.Collections;
 
