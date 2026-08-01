@@ -14,6 +14,7 @@
     <Project Path="Async/ValueTaskBenchmark/ValueTaskBenchmark.csproj" />
   </Folder>
   <Folder Name="/Collections/">
+    <Project Path="Collections/ColumnMetadataLookupBenchmark/ColumnMetadataLookupBenchmark.csproj" />
     <Project Path="Collections/DictionaryMarshalBenchmark/DictionaryMarshalBenchmark.csproj" />
     <Project Path="Collections/EntryHolderBenchmark/EntryHolderBenchmark.csproj" />
     <Project Path="Collections/EnumerableImplementBenchmark/EnumerableImplementBenchmark.csproj" />
@@ -21,6 +22,7 @@
     <Project Path="Collections/FrozenBenchmark/FrozenBenchmark.csproj" />
     <Project Path="Collections/HandlersBenchmark/HandlersBenchmark.csproj" />
     <Project Path="Collections/LoopListBenchmark/LoopListBenchmark.csproj" />
+    <Project Path="Collections/PropertyNameSwitchBenchmark/PropertyNameSwitchBenchmark.csproj" />
     <Project Path="Collections/StructSlotMapBenchmark/StructSlotMapBenchmark.csproj" Id="42298c0a-bb25-4556-8334-c70f0db46fe6" />
     <Project Path="Collections/ListBenchmark/ListBenchmark.csproj" />
   </Folder>
@@ -40,6 +42,8 @@
     <Project Path="Memory/BufferAllocBenchmark/BufferAllocBenchmark.csproj" />
   </Folder>
   <Folder Name="/Misc/">
+    <Project Path="Misc/EnumNameParseBenchmark/EnumNameParseBenchmark.csproj" />
+    <Project Path="Misc/SkiaResourceBenchmark/SkiaResourceBenchmark.csproj" />
     <Project Path="Misc/DisposableBenchmark/DisposableBenchmark.csproj" />
   </Folder>
   <Folder Name="/Numeric/">
