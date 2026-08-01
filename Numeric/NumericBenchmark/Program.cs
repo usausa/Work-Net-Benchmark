@@ -240,7 +240,7 @@ public class DecimalBitsBenchmark
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static unsafe void CopyBits(decimal val, int[] buf)
     {
-        Unsafe.CopyBlockUnaligned(Unsafe.AsPointer(ref val), Unsafe.AsPointer(ref buf[0]), 16);
+        Unsafe.CopyBlockUnaligned(Unsafe.AsPointer(ref buf[0]), Unsafe.AsPointer(ref val), 16);
     }
 }
 

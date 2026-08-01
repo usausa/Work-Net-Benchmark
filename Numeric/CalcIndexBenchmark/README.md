@@ -1,3 +1,14 @@
+> [!WARNING]
+> **⚠️ OBSOLETE — 本プロジェクトの検証内容は dotnet-performance リポジトリへ移行済みです。**
+>
+> 境界外し目的の uint 化は最新ランタイムで差が消えることを確認済みで、有効な形(範囲チェック・マスク)はパターン化されています。
+>
+> - パターン: **BIT-01 符号なしオーバーフローによる範囲チェック** / **BIT-03 2 の累乗サイズ + マスク**(除算・剰余まわりの世代依存の注記あり、[README](../../../dotnet-performance/README.md))
+>
+> 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
+
+## 過去の測定結果(参考)
+
 ```
 BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.6901)
 AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores

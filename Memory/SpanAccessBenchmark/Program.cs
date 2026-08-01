@@ -1259,7 +1259,7 @@ public static class CountOperator
                 count++;
             }
 
-            sr2 = ref Unsafe.Add(ref sr1, 1);
+            sr2 = ref Unsafe.Add(ref sr2, 1);
             sr1 = ref Unsafe.Add(ref sr1, 1);
         }
 
@@ -1286,7 +1286,7 @@ public static class CountOperator
                 count++;
             }
 
-            sr2 = ref Unsafe.Add(ref sr1, 1);
+            sr2 = ref Unsafe.Add(ref sr2, 1);
             sr1 = ref Unsafe.Add(ref sr1, 1);
         }
 
@@ -1313,7 +1313,7 @@ public static class CountOperator
                 count++;
             }
 
-            sr2 = ref Unsafe.Add(ref sr1, 1);
+            sr2 = ref Unsafe.Add(ref sr2, 1);
             sr1 = ref Unsafe.Add(ref sr1, 1);
         }
 
@@ -1340,7 +1340,7 @@ public static class CountOperator
                 count++;
             }
 
-            sr2 = ref Unsafe.Add(ref sr1, 1);
+            sr2 = ref Unsafe.Add(ref sr2, 1);
             sr1 = ref Unsafe.Add(ref sr1, 1);
         }
 
@@ -1451,7 +1451,7 @@ public static class CountOperator
                 count++;
             }
 
-            sr2 = ref Unsafe.Add(ref sr1, 1);
+            sr2 = ref Unsafe.Add(ref sr2, 1);
             sr1 = ref Unsafe.Add(ref sr1, 1);
             length--;
         }
@@ -1479,7 +1479,7 @@ public static class CountOperator
                 count++;
             }
 
-            sr2 = ref Unsafe.Add(ref sr1, 1);
+            sr2 = ref Unsafe.Add(ref sr2, 1);
             sr1 = ref Unsafe.Add(ref sr1, 1);
             length--;
         }
@@ -1507,7 +1507,7 @@ public static class CountOperator
                 count++;
             }
 
-            sr2 = ref Unsafe.Add(ref sr1, 1);
+            sr2 = ref Unsafe.Add(ref sr2, 1);
             sr1 = ref Unsafe.Add(ref sr1, 1);
             length--;
         }
@@ -1535,7 +1535,7 @@ public static class CountOperator
                 count++;
             }
 
-            sr2 = ref Unsafe.Add(ref sr1, 1);
+            sr2 = ref Unsafe.Add(ref sr2, 1);
             sr1 = ref Unsafe.Add(ref sr1, 1);
             length--;
         }

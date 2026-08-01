@@ -1,3 +1,14 @@
+> [!WARNING]
+> **⚠️ OBSOLETE — 本プロジェクトの検証内容は dotnet-performance リポジトリへ移行済みです。**
+>
+> ループ構文の選択に測定可能な差はないと判定され、不採用手法として記録済みです。
+>
+> - 判定: [rejected-patterns.md](../../../dotnet-performance/docs/rejected-patterns.md) の **R-04: ループ構文の選択(for / while / do-while / 昇順・降順)**
+>
+> 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
+
+## 過去の測定結果(参考)
+
 ```
 BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.7019)
 AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores

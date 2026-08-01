@@ -1,3 +1,15 @@
+> [!WARNING]
+> **⚠️ OBSOLETE — 本プロジェクトの検証内容は dotnet-performance リポジトリへ移行済みです。**
+>
+> 単一 Span に対する手動 ref 走査は素直な index ループに劣ると判定され、不採用手法として記録済みです。
+>
+> - 判定: [rejected-patterns.md](../../../dotnet-performance/docs/rejected-patterns.md) の **R-02: 単一 Span ループの GetReference + Unsafe.Add 化**
+> - 関連パターン: [MEM-01](../../../dotnet-performance/README.md)(複数 Span 同時走査での適用判断表)
+>
+> 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
+
+## 過去の測定結果(参考)
+
 ```
 BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.6901)
 AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores

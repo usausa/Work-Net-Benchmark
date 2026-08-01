@@ -1,3 +1,15 @@
+> [!WARNING]
+> **⚠️ OBSOLETE — 本プロジェクトの検証内容は dotnet-performance リポジトリへ移行済みです。**
+>
+> CollectionsMarshal による内部直接アクセスは移行先で再測定し、SetCount まで含めてパターン化済みです。
+>
+> - パターン: **COL-01 CollectionsMarshal による内部直接アクセス**([README](../../../dotnet-performance/README.md))
+> - 実測: [COL-01-CollectionsMarshal.md](../../../dotnet-performance/benchmarks/results/COL-01-CollectionsMarshal.md)(反復 / 辞書 ref 化 / SetCount)
+>
+> 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
+
+## 過去の測定結果(参考)
+
 ```
 BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.6901)
 AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores

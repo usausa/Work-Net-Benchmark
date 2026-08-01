@@ -330,6 +330,7 @@ public sealed class StructArrayContainer
     public object? Find5(Type type)
     {
         ref var entry = ref MemoryMarshal.GetArrayDataReference(entries);
+        ref var end = ref Unsafe.Add(ref entry, entries.Length);
         do
         {
             if (entry.Key == type)
@@ -338,15 +339,8 @@ public sealed class StructArrayContainer
             }
 
             entry = ref Unsafe.Add(ref entry, 1);
-            ref var end = ref Unsafe.Add(ref entry, entries.Length);
-            if (Unsafe.IsAddressLessThan(ref entry, ref end))
-            {
-                continue;
-            }
-
-            break;
         }
-        while (true);
+        while (Unsafe.IsAddressLessThan(ref entry, ref end));
 
         return null;
     }

@@ -1,3 +1,16 @@
+> [!WARNING]
+> **⚠️ OBSOLETE — 本プロジェクトの検証内容は dotnet-performance リポジトリへ移行済みです。**
+>
+> 文字列構築手段の比較は移行先で ValueStringBuilder として実装・再測定済みです。
+>
+> - パターン: **TXT-02 文字列構築の stackalloc ファースト化**([README](../../../dotnet-performance/README.md))
+> - 実装: [ValueStringBuilder.cs](../../../dotnet-performance/src/PerformancePatterns/Txt/ValueStringBuilder.cs)
+> - 実測: [TXT-02-ValueStringBuilder.md](../../../dotnet-performance/benchmarks/results/TXT-02-ValueStringBuilder.md)
+>
+> 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
+
+## 過去の測定結果(参考)
+
 ```
 BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.7019)
 AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores

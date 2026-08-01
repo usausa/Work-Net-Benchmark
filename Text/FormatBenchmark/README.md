@@ -1,3 +1,17 @@
+> [!WARNING]
+> **⚠️ OBSOLETE — 本プロジェクトの検証内容は dotnet-performance リポジトリへ移行済みです。**
+>
+> 固定書式整形のテーブル化は移行先で実装・再測定済みです。
+>
+> - パターン: **TXT-01 ルックアップテーブルによる整形・変換**([README](../../../dotnet-performance/README.md))
+> - 実装: [Utf8DateTimeFormatter.cs](../../../dotnet-performance/src/PerformancePatterns/Txt/Utf8DateTimeFormatter.cs)
+> - 実測: [TXT-01-Utf8DateTimeFormatter.md](../../../dotnet-performance/benchmarks/results/TXT-01-Utf8DateTimeFormatter.md)
+> - 関連パターン: **TXT-05 Utf8.TryWrite**(可変フォーマット向けの選択肢)
+>
+> 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
+
+## 過去の測定結果(参考)
+
 ```
 BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.7019)
 AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores

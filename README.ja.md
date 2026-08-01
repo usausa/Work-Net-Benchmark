@@ -1,6 +1,19 @@
 # Work-Net-Benchmark
 
-BenchmarkDotNet を使用した .NET 性能検証プロジェクト集。
+BenchmarkDotNet を使用した .NET 性能検証プロジェクト集。**検証作業用のリポジトリ**であり、確定した知見(パターン・実測値・不採用判断)の正は [dotnet-performance](../dotnet-performance/README.md) リポジトリ。
+
+## 🔗 dotnet-performance との関係
+
+| リポジトリ | 役割 |
+|---|---|
+| **dotnet-performance** | 🏛️ **正**。パターンカタログ(README)・実装例・確定済み実測値・不採用判断の記録 |
+| Work-Net-Benchmark(本リポジトリ) | 🧪 **検証作業用**。仮説の試作、生成コードと連動した実験、未移行の測定 |
+
+新しい知見が確定したら dotnet-performance のカタログへ反映し、本リポジトリ側は 🗄️ OBSOLETE として残置する運用とする。
+
+### 🗄️ OBSOLETE プロジェクト
+
+検証内容が dotnet-performance へ移行済みのプロジェクト。各プロジェクトの README に移行先(パターン ID・実測記録)を記載している。履歴として残置しており、新規の測定・判断は移行先を参照する。
 
 ---
 
@@ -34,8 +47,7 @@ BenchmarkDotNet を使用した .NET 性能検証プロジェクト集。
 
 ---
 
-#### 🤔⭕DelegateBenchmark
-
+#### 🗄️DelegateBenchmark
 Delegate / Function Pointer / Lambda / 動的メソッド生成 (DynamicMethod, Expression) の生成・呼び出し性能を計測する。
 
 **内包クラス:** `DelegateInvokeBenchmark`, `DelegateCompareBenchmark`, `CallBridgeBenchmark`, `CallbackSortBenchmark`
@@ -92,8 +104,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 ---
 
-#### ⚠️SwitchBenchmark
-
+#### 🗄️SwitchBenchmark
 制御フロー分岐方式 (if-else / switch / Action delegate / interface dispatch) の性能を比較する。
 
 | 項目 | 設定 |
@@ -122,8 +133,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 ---
 
-#### ⭕ValueTaskBenchmark
-
+#### 🗄️ValueTaskBenchmark
 `Task<T>` vs `ValueTask<T>` の非同期コストを比較する。
 
 | 項目 | 設定 |
@@ -139,8 +149,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 ---
 
-#### ⭕DictionaryMarshalBenchmark
-
+#### 🗄️DictionaryMarshalBenchmark
 `Dictionary` への書き込み方式 (`TryAdd` vs `CollectionsMarshal.GetValueRef`) を比較する。
 
 **固有設定:** `CategoriesColumn` を追加 (read / write カテゴリで分類) 
@@ -221,8 +230,7 @@ List の反復・容量確保・Span 化を計測する。
 
 ---
 
-#### ⭕LoopListBenchmark
-
+#### 🗄️LoopListBenchmark
 List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
@@ -250,8 +258,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 ---
 
-#### ⭕ForBenchmark
-
+#### 🗄️ForBenchmark
 ループ制御方式 (for 昇順 / for 降順 / while / do-while / foreach) のオーバーヘッドを比較する。
 
 **固有設定:** `[Params(1, 4, 8, 16, 64, 256, 1024)]` で要素数を変化させて計測
@@ -295,8 +302,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 ---
 
-#### ⭕BoundaryAccessBenchmark
-
+#### 🗄️BoundaryAccessBenchmark
 配列アクセスの境界チェック最適化 (配列長参照 / 直接アクセス / 境界チェック有無) を比較する。
 
 | 項目 | 設定 |
@@ -321,8 +327,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 ---
 
-#### ⭕BufferAllocBenchmark
-
+#### 🗄️BufferAllocBenchmark
 バッファ割り当て方式 (new / stackalloc / ArrayPool / TemporaryBuffer / Marshal.AllocHGlobal / P/Invoke with Span) を比較する。
 
 **内包クラス:** 4 クラス (`PInvokeBufferBenchmark` は Windows のみ対象) 
@@ -346,8 +351,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 ---
 
-#### ⭕CopyBenchmark
-
+#### 🗄️CopyBenchmark
 バッファコピー方式 (Array.Copy / Buffer.BlockCopy / Buffer.MemoryCopy) と配列反転を計測する。
 
 **内包クラス:** `Benchmark`, `ReverseBenchmark`
@@ -408,8 +412,7 @@ Span インデックス vs `MemoryMarshal.GetReference` + `Unsafe.Add` による
 
 ---
 
-#### ⭕DisposableBenchmark
-
+#### 🗄️DisposableBenchmark
 IDisposable 利用方式 (using 文 / try-finally / クラスベース / 構造体ベース) の性能を比較する。
 
 **内包クラス:** `Benchmark`, `TryBenchmark`
@@ -428,8 +431,7 @@ IDisposable 利用方式 (using 文 / try-finally / クラスベース / 構造�
 
 ---
 
-#### ⭕CalcIndexBenchmark
-
+#### 🗄️CalcIndexBenchmark
 インデックス計算方式 (int vs uint 型のハッシュ値計算 / ビットシフト vs 乗除算) を比較する。
 
 **内包クラス:** `Benchmark`, `BitShiftBenchmark`
@@ -456,8 +458,7 @@ IDisposable 利用方式 (using 文 / try-finally / クラスベース / 構造�
 
 ---
 
-#### ⭕SortBenchmark
-
+#### 🗄️SortBenchmark
 ソート・比較アルゴリズム (標準 Sort / MergeSort / IComparable / IComparer / delegate) を比較する。
 
 **内包クラス:** `Benchmark`, `CompareSortBenchmark`
@@ -527,8 +528,7 @@ IDisposable 利用方式 (using 文 / try-finally / クラスベース / 構造�
 
 ---
 
-#### ⭕InlineBenchmark
-
+#### 🗄️InlineBenchmark
 コンパイラインライン最適化 (`AggressiveInlining` 有無 / `SkipLocalsInit`) の効果を計測する。
 
 **内包クラス:** `MethodInlineBenchmark`, `LocalsInitBenchmark`
@@ -581,8 +581,7 @@ IDisposable 利用方式 (using 文 / try-finally / クラスベース / 構造�
 
 ---
 
-#### ⭕ReadOnlyFieldBenchmark
-
+#### 🗄️ReadOnlyFieldBenchmark
 `readonly` 修飾子の有無が JIT 最適化 (devirtualization) に与える効果を計測する。
 
 **固有設定:** `DisassemblyDiagnoser` の `maxDepth: 4` (標準は 3) — readonly フィールド経由の devirtualization を追加の呼び出し深度まで追跡するため
@@ -607,8 +606,7 @@ TypeConverter のキャッシング (オンデマンド vs Cached 型変換) の
 
 ---
 
-#### ⭕TypeOfBenchmark
-
+#### 🗄️TypeOfBenchmark
 `typeof()` 演算子の最適化 (定義済み型情報の再利用 vs 毎回 `typeof()` 呼び出し) を計測する。
 
 **固有設定:** `DisassemblyDiagnoser` の `maxDepth: 4` (標準は 3) — `typeof()` キャッシュがヘルパー間接経由でどう伝播するかを追跡するため
@@ -627,8 +625,7 @@ TypeConverter のキャッシング (オンデマンド vs Cached 型変換) の
 
 ---
 
-#### ⭕CharConvertBenchmark
-
+#### 🗄️CharConvertBenchmark
 char 配列操作方式 (Unsafe 操作 vs Ref 操作) を比較する。
 
 | 項目 | 設定 |
@@ -639,8 +636,7 @@ char 配列操作方式 (Unsafe 操作 vs Ref 操作) を比較する。
 
 ---
 
-#### ⭕FormatBenchmark
-
+#### 🗄️FormatBenchmark
 DateTime / 数値の書式化方式 (ToString / Utf8Formatter / カスタム実装) を比較する。
 
 | 項目 | 設定 |
@@ -664,8 +660,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 ---
 
-#### ⭕IndexOfAnyBenchmark
-
+#### 🗄️IndexOfAnyBenchmark
 文字列検索の最適化 (`IndexOfAny` vs `SearchValues` キャッシュ) を比較する。
 
 | 項目 | 設定 |
@@ -687,8 +682,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 ---
 
-#### ⭕StringAppendBenchmark
-
+#### 🗄️StringAppendBenchmark
 文字列追記方式 (+ 演算子 / StringBuilder / PoolBuffer / ThreadStaticBuffer) を比較する。
 
 **内包クラス:** `Benchmark`, `PooledBuilderBenchmark`
@@ -701,8 +695,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 ---
 
-#### ⭕StringBuilderBenchmark
-
+#### 🗄️StringBuilderBenchmark
 文字列構築方式 (StringBuilder / `DefaultInterpolatedStringHandler` / ValueStringBuilder / Pooled) を比較する。
 
 | 項目 | 設定 |

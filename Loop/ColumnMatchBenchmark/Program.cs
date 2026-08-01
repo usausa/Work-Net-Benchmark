@@ -303,7 +303,7 @@ public sealed class Matcher
         for (var i = 0; i < length; i++)
         {
             ref var column1 = ref columns1[i];
-            ref var column2 = ref columns1[i];
+            ref var column2 = ref columns2[i];
 
             if ((column1.Type != column2.Type) || !String.Equals(column1.Name, column2.Name))
             {
