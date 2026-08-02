@@ -1,6 +1,12 @@
 > [!WARNING]
 > **⚠️ OBSOLETE — 本プロジェクトの検証内容は dotnet-performance リポジトリへ移行済みです。**
 >
+> 多数候補探索は移行先で候補数別(3 / 8 / 32)に再測定済みです。SearchValues は**候補数によらず約 6 ns で一定**(配列オーバーロードは候補 32 個で 5.6 倍悪化)である一方、**候補 2〜3 個では専用オーバーロード `IndexOfAny(a, b)` が最速**で SearchValues 化は不要と判定されています。
+>
+> - パターン: **TXT-08 SearchValues\<T\>**([README](../../../dotnet-performance/README.md))
+> - 不採用記録: **R-07 少数候補への SearchValues 適用**
+> - 実測: [TXT-08-SearchValues.md](../../../dotnet-performance/benchmarks/results/TXT-08-SearchValues.md)
+>
 > 少数候補での SearchValues は専用オーバーロードに劣ると判定され、不採用手法として記録済みです。
 >
 > - 判定: [rejected-patterns.md](../../../dotnet-performance/docs/rejected-patterns.md) の **R-07: 候補 2〜3 文字での SearchValues**

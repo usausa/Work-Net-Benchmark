@@ -15,6 +15,14 @@ BenchmarkDotNet を使用した .NET 性能検証プロジェクト集。**検�
 
 検証内容が dotnet-performance へ移行済みのプロジェクト。各プロジェクトの README に移行先(パターン ID・実測記録)を記載している。履歴として残置しており、新規の測定・判断は移行先を参照する。
 
+**一覧のマーカー:**
+
+| マーカー | 意味 |
+|---|---|
+| ⭕ | 現役。移行先に対応パターンがない、または本リポジトリ固有の検証 |
+| 🗄️ | 移行済み。README のバナーから移行先のパターン ID・実測記録を参照 |
+| 📎 | 一部移行済み。移行された範囲と、本プロジェクトに残る固有の検証を README に明記 |
+
 ---
 
 ## 現在のプロジェクト一覧
@@ -25,7 +33,7 @@ BenchmarkDotNet を使用した .NET 性能検証プロジェクト集。**検�
 
 ---
 
-#### ✅CallAbstractionBenchmark
+#### ⭕CallAbstractionBenchmark
 
 ファクトリー抽象化方式 (Func / Delegate / Interface / Abstract / 関数ポインタ) の呼び出し性能を比較する。
 
@@ -36,7 +44,7 @@ BenchmarkDotNet を使用した .NET 性能検証プロジェクト集。**検�
 
 ---
 
-#### ✅CallNopBenchmark
+#### ⭕CallNopBenchmark
 
 引数なし・戻り値なしの最小呼び出しにおけるオーバーヘッドを比較する (Lambda / Static / Curry / Interface / Abstract)。
 
@@ -60,7 +68,7 @@ Delegate / Function Pointer / Lambda / 動的メソッド生成 (DynamicMethod, 
 
 ---
 
-#### ✅FactoryEntryBenchmark
+#### ⭕FactoryEntryBenchmark
 
 `Func<T>` vs `Unsafe.As<T>` によるファクトリー保持方式の性能を比較する。
 
@@ -71,7 +79,7 @@ Delegate / Function Pointer / Lambda / 動的メソッド生成 (DynamicMethod, 
 
 ---
 
-#### ✅FunctionPointerBenchmark
+#### ⭕FunctionPointerBenchmark
 
 `Func<T>` vs 関数ポインタ (MethodHandle / GetFunctionPointer) の呼び出し性能を比較する。
 
@@ -82,7 +90,7 @@ Delegate / Function Pointer / Lambda / 動的メソッド生成 (DynamicMethod, 
 
 ---
 
-#### ✅LambdaLocalBenchmark
+#### ⭕LambdaLocalBenchmark
 
 Lambda 定義 vs Local 関数定義の呼び出しコストを比較する。
 
@@ -93,7 +101,7 @@ Lambda 定義 vs Local 関数定義の呼び出しコストを比較する。
 
 ---
 
-#### ✅SealedDispatchBenchmark
+#### ⭕SealedDispatchBenchmark
 
 sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtualization) 効果を計測する。
 
@@ -146,6 +154,21 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 ### Collections/ — コレクション
 
 各種コレクション実装の構築・検索・反復コストを計測する。
+
+---
+
+#### 📎ColumnMetadataLookupBenchmark
+
+生成コードの「列名 → グループインデックス」解決を Direct(`String.Equals` 連鎖)と Switch(サンプリングハッシュ)で比較する。1〜32 列スイープ・衝突コスト・空列名ガードのコストを測る。
+
+→ サンプリングハッシュ自体は **BIT-02 / COL-04**、序数解決は **DAT-01** へ移行済み。上記 3 点の検証は本プロジェクトに残る
+
+**内包クラス:** `SweepBenchmark`, `CollisionBenchmark`, `GuardBenchmark`
+
+| 項目 | 設定 |
+|---|---|
+| TFM | `net10.0` |
+| Job | Medium |
 
 ---
 
@@ -205,9 +228,9 @@ Enumerable の実装方式 (Net73 / IEnumerator / Class / Yield) を比較する
 
 ---
 
-#### ⭕HandlersBenchmark
+#### 🗄️HandlersBenchmark
 
-ハンドラー保持構造 (配列型 vs リンク型) の性能を比較する。
+ハンドラー保持構造 (配列型 vs リンク型) の性能を比較する。→ **DSP-03**(購読者数スイープで再測定、損益分岐は購読者 2 個)
 
 | 項目 | 設定 |
 |---|---|
@@ -236,6 +259,19 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 | 項目 | 設定 |
 |---|---|
 | TFM | `net8.0` `net9.0` `net10.0` |
+| Job | Medium |
+
+---
+
+#### 📎PropertyNameSwitchBenchmark
+
+生成コードのプロパティ名 switch を、C# コンパイラの switch ロワリングとサンプリングハッシュ switch で比較する。
+
+→ サンプリングハッシュ自体は **BIT-02 / COL-04** へ移行済み。**コンパイラ出力との比較**は本プロジェクトにしかない
+
+| 項目 | 設定 |
+|---|---|
+| TFM | `net10.0` |
 | Job | Medium |
 
 ---
@@ -425,6 +461,39 @@ IDisposable 利用方式 (using 文 / try-finally / クラスベース / 構造�
 
 ---
 
+#### ⭕EnumNameParseBenchmark
+
+enum 名のパースを BCL の `Enum.TryParse<T>(ReadOnlySpan<char>, ignoreCase: true)` と、生成コードが出しうる特化実装(`Equals` 連鎖 / サンプリングハッシュ switch)で比較する。Smart.AspNetCore ほかの enum バインドが対象。
+
+| 項目 | 設定 |
+|---|---|
+| TFM | `net10.0` |
+| Job | Medium |
+
+---
+
+#### ⭕EnumsLookupBenchmark
+
+`Smart.Enums<T>` の名前 → 値ルックアップについて、(1) `ReadOnlySpan<char>` オーバーロードを足す価値、(2) ヒット時の `Dictionary` vs `FrozenDictionary`、(3) `(T)Enum.Parse(Type, name)` のボックス化の有無、を検証する。
+
+| 項目 | 設定 |
+|---|---|
+| TFM | `net10.0` |
+| Job | Medium |
+
+---
+
+#### ⭕SkiaResourceBenchmark
+
+SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現状の形と、固定リソースをキャッシュして `SKPaint` を再利用する形を比較する。
+
+| 項目 | 設定 |
+|---|---|
+| TFM | `net10.0` |
+| Job | Medium |
+
+---
+
 ### Numeric/ — 数値演算
 
 インデックス計算・数値型演算・ソート・比較の性能を計測する。
@@ -555,9 +624,9 @@ IDisposable 利用方式 (using 文 / try-finally / クラスベース / 構造�
 
 ---
 
-#### ⭕ParameterBenchmark
+#### 📎ParameterBenchmark
 
-構造体パラメータ渡し方式 (値渡し / ref / in / readonly ref) および構造体サイズ別の影響を計測する。
+構造体パラメータ渡し方式 (値渡し / ref / in / readonly ref) および構造体サイズ別の影響を計測する。→ 値渡し vs `in` と防御的コピーは **MEM-06** へ移行済み。`ref` 渡し・`ref struct`・16/24 バイトの検証は本プロジェクトに残る
 
 **内包クラス:** `Benchmark`, `StructSizeBenchmark`, `StructRefBenchmark`
 
@@ -705,9 +774,9 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 ---
 
-#### ⭕StringHashBenchmark
+#### 🗄️StringHashBenchmark
 
-文字列ハッシュ方式 (XxHash3 vs XxHash3b / fixed char ポインタ) を比較する。
+文字列ハッシュ方式 (XxHash3 vs XxHash3b / fixed char ポインタ) を比較する。→ **BIT-05**(入力長別に再測定、自前 FNV-1a は BCL より遅いと判定)
 
 | 項目 | 設定 |
 |---|---|

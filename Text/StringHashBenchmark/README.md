@@ -1,3 +1,16 @@
+> [!WARNING]
+> **⚠️ OBSOLETE — 本プロジェクトの検証内容は dotnet-performance リポジトリへ移行済みです。**
+>
+> 文字列ハッシュの選択は移行先で入力長別(8 / 64 / 512 文字)に再測定済みです。`MemoryMarshal.AsBytes` 経由と `fixed` 経由が同速(ゼロコスト再解釈)であること、**自前 FNV-1a は 64 文字以降 `string.GetHashCode` より遅く手書きの意味がない**ことまで判定されています。
+>
+> - パターン: **BIT-05 XxHash3 による汎用ハッシュ**([README](../../../dotnet-performance/README.md))
+> - 関連パターン: **BIT-02 ドメイン制約を活かした軽量ハッシュ**(既知キー集合なら長さに依存せず約 0.9 ns)
+> - 実測: [BIT-05-XxHash3.md](../../../dotnet-performance/benchmarks/results/BIT-05-XxHash3.md)
+>
+> 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
+
+## 過去の測定結果(参考)
+
 ```
 BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.7019)
 AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores

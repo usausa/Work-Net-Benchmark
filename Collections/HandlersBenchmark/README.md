@@ -1,3 +1,16 @@
+> [!WARNING]
+> **⚠️ OBSOLETE — 本プロジェクトの検証内容は dotnet-performance リポジトリへ移行済みです。**
+>
+> ハンドラ列の不変配列化(マルチキャストデリゲート回避)は移行先で実装・再測定済みです。購読者数 1 / 2 / 4 / 8 のスイープにより、**損益分岐が購読者 2 個**であること(購読 1 個ではマルチキャストが 2.87 倍速い)まで判定されています。
+>
+> - パターン: **DSP-03 ハンドラ列の不変配列化**([README](../../../dotnet-performance/README.md))
+> - 実装: [HandlerList.cs](../../../dotnet-performance/src/PerformancePatterns/Dsp/HandlerList.cs)
+> - 実測: [DSP-03-HandlerList.md](../../../dotnet-performance/benchmarks/results/DSP-03-HandlerList.md)
+>
+> 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
+
+## 過去の測定結果(参考)
+
 ```
 BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.7019)
 AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores

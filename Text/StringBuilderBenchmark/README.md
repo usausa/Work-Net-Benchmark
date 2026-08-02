@@ -6,6 +6,7 @@
 > - パターン: **TXT-02 文字列構築の stackalloc ファースト化**([README](../../../dotnet-performance/README.md))
 > - 実装: [ValueStringBuilder.cs](../../../dotnet-performance/src/PerformancePatterns/Txt/ValueStringBuilder.cs)
 > - 実測: [TXT-02-ValueStringBuilder.md](../../../dotnet-performance/benchmarks/results/TXT-02-ValueStringBuilder.md)
+> - 追加検証: **TXT-07 string.Create / TryFormat** — 長さを事前確定できる組み立てでは `string.Create` が最速(15.3 ns / 0.57 倍、割り当ては結果文字列のみ)。[TXT-07-StringCreate.md](../../../dotnet-performance/benchmarks/results/TXT-07-StringCreate.md)
 >
 > 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
 

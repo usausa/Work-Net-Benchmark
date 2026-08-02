@@ -7,6 +7,7 @@
 > - 実装: [Utf8DateTimeFormatter.cs](../../../dotnet-performance/src/PerformancePatterns/Txt/Utf8DateTimeFormatter.cs)
 > - 実測: [TXT-01-Utf8DateTimeFormatter.md](../../../dotnet-performance/benchmarks/results/TXT-01-Utf8DateTimeFormatter.md)
 > - 関連パターン: **TXT-05 Utf8.TryWrite**(可変フォーマット向けの選択肢)
+> - 追加検証: **TXT-09 固定長整形** — `TryFormat` + `Fill` が最速(5.32 ns)。手書きの桁順トリック(右詰め→前方シフト 4.79 倍遅 / LSB 書き→Reverse 2.51 倍遅)は **R-16 として不採用**。[TXT-09-FixedFieldFormat.md](../../../dotnet-performance/benchmarks/results/TXT-09-FixedFieldFormat.md)
 >
 > 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
 

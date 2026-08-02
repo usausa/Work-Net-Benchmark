@@ -1,3 +1,15 @@
+> [!NOTE]
+> **📎 一部移行済み — 構造体引数の値渡し / `in` 渡しは dotnet-performance へ移行しました。**
+>
+> 8 / 32 / 64 バイトの値渡し vs `in` 渡し(64 バイトで 0.55 倍)と、**非 readonly メンバーへの `in` 渡しで防御的コピーが発生する罠**(1.86 倍遅・コードサイズ 2 倍)は移行先で再測定・パターン化済みです。
+>
+> - パターン: **MEM-06 構造体引数の in / ref 渡し戦略**([README](../../../dotnet-performance/README.md))
+> - 実測: [MEM-06-StructPass.md](../../../dotnet-performance/benchmarks/results/MEM-06-StructPass.md)
+>
+> **本プロジェクトに残る固有の検証:** `ref` 渡しと `in` 渡しの比較、`ref struct` / `readonly ref struct` の呼び出しコスト、16 / 24 バイトの中間サイズ。これらは移行先で未測定のため、本プロジェクトを引き続き参照してください。
+
+## 測定結果
+
 ```
 BenchmarkDotNet v0.15.4, Windows 11 (10.0.26200.7019)
 AMD Ryzen AI 9 HX 370 w/ Radeon 890M 2.00GHz, 1 CPU, 24 logical and 12 physical cores

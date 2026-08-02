@@ -5,6 +5,8 @@
 >
 > - 判定: [rejected-patterns.md](../../../dotnet-performance/docs/rejected-patterns.md) の **R-01: typeof(X) の static readonly キャッシュ**
 > - 関連パターン: **JIT-03 typeof(T) 分岐によるジェネリック特殊化**(こちらは有効、[README](../../../dotnet-performance/README.md))
+> - 追加検証: **TYP-01 静的型スロット(TypeMap)** — ジェネリック経路は `Dictionary<Type, T>` の 0.02 倍(約 54 倍)。ただし**実行時 Type 経路は 1.93 倍で素の Dictionary より遅い**ため、型が静的に分かる呼び出しでのみ有効。[TYP-01-TypeMap.md](../../../dotnet-performance/benchmarks/results/TYP-01-TypeMap.md)
+> - 追加検証: **TYP-06 型別成果物の静的事前組み立て** — ジェネリック static フィールド読みは 0.09 ns(辞書キャッシュ比 約 53 倍)。[TYP-06-StaticArtifact.md](../../../dotnet-performance/benchmarks/results/TYP-06-StaticArtifact.md)
 >
 > 履歴として残置しています。新規の測定・判断は移行先のカタログを参照してください。
 
