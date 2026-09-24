@@ -71,7 +71,6 @@
     <File Path="AGENTS.md" />
     <File Path="Benchmark.ruleset" />
     <File Path="Benchmark.sln.DotSettings" />
-    <File Path="CLAUDE.md" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
     <File Path="README.ja.md" />
