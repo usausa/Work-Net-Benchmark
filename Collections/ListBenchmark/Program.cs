@@ -43,9 +43,8 @@ public class BenchmarkConfig : ManualConfig
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class ListCapacityBenchmark
 {
     [Benchmark]
@@ -122,9 +121,8 @@ public class ListCapacityBenchmark
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class ListEnumerationBenchmark
 {
     private const int N = 1000;
@@ -179,9 +177,8 @@ public class ListEnumerationBenchmark
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class IndexLoopBenchmark
 {
     private const int N = 1000;
@@ -286,9 +283,8 @@ public class IndexLoopBenchmark
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class EnumerableBenchmark
 {
     [Params(4, 32, 128)]
@@ -366,9 +362,8 @@ public class EnumerableBenchmark
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class EnumeratorBenchmark
 {
     private readonly StructArray structArray = new(CreateArray());

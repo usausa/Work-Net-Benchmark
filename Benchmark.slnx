@@ -43,6 +43,7 @@
   </Folder>
   <Folder Name="/Misc/">
     <Project Path="Misc/EnumNameParseBenchmark/EnumNameParseBenchmark.csproj" />
+    <Project Path="Misc/EnumsLookupBenchmark/EnumsLookupBenchmark.csproj" />
     <Project Path="Misc/SkiaResourceBenchmark/SkiaResourceBenchmark.csproj" />
     <Project Path="Misc/DisposableBenchmark/DisposableBenchmark.csproj" />
   </Folder>

@@ -38,9 +38,8 @@ public class BenchmarkConfig : ManualConfig
 
 [CategoriesColumn]
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class Benchmark
 {
     [Params(1, 1000)]

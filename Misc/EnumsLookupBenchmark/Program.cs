@@ -148,6 +148,7 @@ public enum EnumSize
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class Benchmark
 {
     private const int N = 10_000;

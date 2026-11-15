@@ -38,8 +38,8 @@ public class BenchmarkConfig : ManualConfig
 
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public unsafe class Benchmark
 {
     private const int N = 1000000;

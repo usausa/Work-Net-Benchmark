@@ -39,9 +39,8 @@ public class BenchmarkConfig : ManualConfig
 
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class Benchmark
 {
     private const uint UIntValue9 = 1000000000;
@@ -177,9 +176,8 @@ public class Benchmark
 #pragma warning restore CA1822
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class DecimalBitsBenchmark
 {
     private const int N = 1000;

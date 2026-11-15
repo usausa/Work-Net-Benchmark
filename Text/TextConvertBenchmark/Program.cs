@@ -36,9 +36,8 @@ public class BenchmarkConfig : ManualConfig
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class EncodingBenchmark
 {
     private static readonly byte[] Bytes = "0123456789"u8.ToArray();
@@ -68,9 +67,8 @@ public class EncodingBenchmark
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 #pragma warning disable CA1822
 public class ParseNumberBenchmark
 {

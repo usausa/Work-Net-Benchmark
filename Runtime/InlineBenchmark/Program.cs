@@ -36,9 +36,8 @@ public class BenchmarkConfig : ManualConfig
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class MethodInlineBenchmark
 {
     private int a = 17;
@@ -54,9 +53,8 @@ public class MethodInlineBenchmark
 
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class LocalsInitBenchmark
 {
     public static IEnumerable<int> Size() => new[] { 4, 16, 64, 256, 1024, 2048 };

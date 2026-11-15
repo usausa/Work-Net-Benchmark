@@ -46,9 +46,8 @@ public class BenchmarkConfig : ManualConfig
 
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public unsafe class AllocBenchmark
 {
     private const int N = 1000;
@@ -90,7 +89,7 @@ public unsafe class AllocBenchmark
         Marshal.FreeHGlobal(ptr);
     }
 
-    private static int Sum(Span<byte> span)
+    private static int Sum(ReadOnlySpan<byte> span)
     {
         var total = 0;
         foreach (var value in span)
@@ -105,9 +104,8 @@ public unsafe class AllocBenchmark
 
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class CharBufferBenchmark
 {
     [Benchmark]
@@ -161,9 +159,8 @@ public class CharBufferBenchmark
 #pragma warning restore CA1822
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class TemporaryBenchmark
 {
     private const int N = 1000;
@@ -315,9 +312,8 @@ public class TemporaryBenchmark
 #pragma warning disable CA1822
 [SupportedOSPlatform("windows")]
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class PInvokeBufferBenchmark
 {
     [Benchmark]

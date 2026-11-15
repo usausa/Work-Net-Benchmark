@@ -42,9 +42,8 @@ public class BenchmarkConfig : ManualConfig
 // TODO int mix
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 #pragma warning disable CA1822
 public class Benchmark
 {

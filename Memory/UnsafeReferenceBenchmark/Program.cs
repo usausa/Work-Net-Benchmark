@@ -112,9 +112,8 @@ public class Benchmark
 
 // Span 内の値検索における実装方式 (Span indexer / Unsafe.Add for / Unsafe.Add while / unsafe pointer) を比較する。
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class SpanSearchBenchmark
 {
     [Params(4, 16, 64, 256)]

@@ -9,6 +9,7 @@ using BenchmarkDotNet.Jobs;
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class ReconcileBenchmark
 {
     private const int N = 10_000;
@@ -102,6 +103,7 @@ public class ReconcileBenchmark
         return Sum(ordinals);
     }
 
+#pragma warning disable SA1107
 #pragma warning disable SA1503
 #pragma warning disable IDE0011
     private int ResolveDirectSmall()
@@ -193,5 +195,6 @@ public class ReconcileBenchmark
     }
 #pragma warning restore IDE0011
 #pragma warning restore SA1503
+#pragma warning restore SA1107
 }
 #pragma warning restore CA1822

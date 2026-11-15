@@ -177,6 +177,7 @@ public class BenchmarkConfig : ManualConfig
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class SweepBenchmark
 {
     private const int N = 10_000;
@@ -258,6 +259,7 @@ public class SweepBenchmark
 // Measurement B: a key set that degenerates the fixed first/middle/last hash.
 [Config(typeof(BenchmarkConfig))]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class CollisionBenchmark
 {
     private const int N = 10_000;
@@ -336,6 +338,7 @@ public class CollisionBenchmark
 // Measurement C: what the empty-column-name guard costs.
 [Config(typeof(BenchmarkConfig))]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class GuardBenchmark
 {
     private const int N = 10_000;

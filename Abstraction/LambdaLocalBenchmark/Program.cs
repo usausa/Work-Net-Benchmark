@@ -39,8 +39,8 @@ public class BenchmarkConfig : ManualConfig
 #pragma warning disable CA1822
 #pragma warning disable IDE0039
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class Benchmark
 {
     [Benchmark]

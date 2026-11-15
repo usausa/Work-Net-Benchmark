@@ -42,8 +42,8 @@ REM
 REM  Each project is run from its own directory so that BenchmarkDotNet
 REM  places artifacts (BenchmarkDotNet.Artifacts\) under that directory.
 REM  --no-build uses the binaries produced by Step 1.
-REM  --framework net10.0 selects the host process; BenchmarkDotNet's
-REM  [MediumRunJob] attributes handle launching the net8/9/10 child jobs.
+REM  --framework net11.0 selects the host process; BenchmarkDotNet's
+REM  [MediumRunJob] attributes handle launching the net10/11 child jobs.
 
 REM /Abstraction/
 call :RUN Abstraction\CallAbstractionBenchmark
@@ -131,7 +131,7 @@ REM =====================================================================
 set "_PROJ=%~1"
 call :LOG "[RUN ] begin  %_PROJ%"
 pushd "%ROOT%%_PROJ%"
-dotnet run -c Release --framework net10.0 --no-build
+dotnet run -c Release --framework net11.0 --no-build
 set "_RC=%ERRORLEVEL%"
 popd
 if %_RC% neq 0 (

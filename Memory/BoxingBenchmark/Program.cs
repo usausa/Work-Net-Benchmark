@@ -37,9 +37,8 @@ public class BenchmarkConfig : ManualConfig
 }
 
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class Benchmark
 {
     // ReSharper disable once ConvertToConstant.Local
@@ -75,9 +74,8 @@ public class Benchmark
 // よく使う値 (0, 1, -1) をあらかじめボックス化してキャッシュしておくことで
 // ヒープ割り当てを回避できるかを検証する。
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class BoxCacheBenchmark
 {
     private const int N = 1000;

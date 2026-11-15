@@ -39,7 +39,7 @@ BenchmarkDotNet を使用した .NET 性能検証プロジェクト集。**検�
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -50,7 +50,7 @@ BenchmarkDotNet を使用した .NET 性能検証プロジェクト集。**検�
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -62,7 +62,7 @@ Delegate / Function Pointer / Lambda / 動的メソッド生成 (DynamicMethod, 
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `DelegateBenchmark`, `DelegateCompareBenchmark`, `CallBridgeBenchmark`, `CallbackBenchmark` を吸収統合 |
 
@@ -74,7 +74,7 @@ Delegate / Function Pointer / Lambda / 動的メソッド生成 (DynamicMethod, 
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -85,7 +85,7 @@ Delegate / Function Pointer / Lambda / 動的メソッド生成 (DynamicMethod, 
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -96,7 +96,7 @@ Lambda 定義 vs Local 関数定義の呼び出しコストを比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -107,7 +107,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -117,7 +117,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -134,9 +134,8 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium ×2 |
-| | `System.Threading.Lock` が .NET 9 以降でのみ使用可能なため net8.0 を対象外とする |
 | | 再構成前からの変更: ルート直下から `Async/` へ移動 |
 
 ---
@@ -146,7 +145,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -167,7 +166,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -179,7 +178,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -190,7 +189,7 @@ sealed / non-sealed クラスの仮想メソッド呼び出し最適化 (devirtu
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -201,7 +200,7 @@ Enumerable の実装方式 (Net73 / IEnumerator / Class / Yield) を比較する
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -212,7 +211,7 @@ Enumerable の実装方式 (Net73 / IEnumerator / Class / Yield) を比較する
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -223,7 +222,7 @@ Enumerable の実装方式 (Net73 / IEnumerator / Class / Yield) を比較する
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -234,7 +233,7 @@ Enumerable の実装方式 (Net73 / IEnumerator / Class / Yield) を比較する
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -247,7 +246,7 @@ List の反復・容量確保・Span 化を計測する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `ListCapacityBenchmark`, `ListEnumerationBenchmark`, `EnumerableBenchmark`, `EnumeratorBenchmark`, `IndexLoopBenchmark` を吸収統合 |
 
@@ -258,7 +257,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -271,7 +270,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -282,7 +281,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | default |
 | | バージョン間比較は不要なため net10.0 のみ対象 |
 
@@ -301,7 +300,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | default |
 | | マイクロループのオーバーヘッド計測のため net10.0 のみ対象 |
 | | 再構成前からの変更: ルート直下から `Loop/` へ移動 |
@@ -314,7 +313,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Loop/` へ移動 |
 
@@ -326,7 +325,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Loop/` へ移動 |
 
@@ -343,7 +342,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Memory/` へ移動 |
 
@@ -357,7 +356,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `BoxCacheBenchmark` (int のキャッシュ) を吸収統合。ルート直下から `Memory/` へ移動 |
 
@@ -370,7 +369,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `AllocBenchmark`, `BufferBenchmark`, `TemporaryBenchmark`, `PInvokeBufferBenchmark` を吸収統合 |
 
@@ -382,7 +381,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -394,7 +393,7 @@ List の反復方式 (for(Count) / while / foreach / Span) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `CopyBenchmark`, `ReverseBenchmark` を吸収統合 |
 
@@ -408,7 +407,7 @@ Span 操作の複合計測 (Indexer / Sliced / Hybrid / GetRef によるアク�
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | default |
 | | 再構成前からの変更: ルート直下から `Memory/` へ移動 |
 
@@ -422,7 +421,7 @@ Span / Unsafe 参照アクセスと境界チェックの網羅的計測。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `ArrayAccessBenchmark`, `FieldArrayAccessBenchmark`, `FuncArrayBenchmark`, `RefLoopBenchmark`, `SpanLoopBenchmark`, `LengthCheckBenchmark` を吸収統合 |
 
@@ -436,7 +435,7 @@ Span インデックス vs `MemoryMarshal.GetReference` + `Unsafe.Add` による
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Memory/` へ移動 |
 
@@ -455,7 +454,7 @@ IDisposable 利用方式 (using 文 / try-finally / クラスベース / 構造�
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `DisposableBenchmark`, `TryBenchmark` を吸収統合 |
 
@@ -467,7 +466,7 @@ enum 名のパースを BCL の `Enum.TryParse<T>(ReadOnlySpan<char>, ignoreCase
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -478,7 +477,7 @@ enum 名のパースを BCL の `Enum.TryParse<T>(ReadOnlySpan<char>, ignoreCase
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -489,7 +488,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -507,7 +506,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `BitShiftBenchmark` を吸収統合。ルート直下から `Numeric/` へ移動 |
 
@@ -521,7 +520,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `NumericBenchmark`, `DecimalBitsBenchmark` を吸収統合。ルート直下から `Numeric/` へ移動 |
 
@@ -534,7 +533,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `CompareBenchmark` を吸収統合。ルート直下から `Numeric/` へ移動 |
 
@@ -552,7 +551,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -565,7 +564,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `ContainerConverterBenchmark` を吸収統合 |
 
@@ -579,7 +578,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `ConverterBenchmark`, `ConvertMethodBenchmark` を吸収統合 |
 
@@ -591,7 +590,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Runtime/` へ移動 |
 
@@ -604,7 +603,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `DisassemblyBenchmark`, `SkipLocalsInitBenchmark` を吸収統合 |
 
@@ -618,7 +617,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `MemberAccessBenchmark`, `SetStorageBenchmark` を吸収統合。ルート直下から `Runtime/` へ移動 |
 
@@ -632,7 +631,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `StructArgumentBenchmark`, `StructParameterBenchmark` を吸収統合。ルート直下から `Runtime/` へ移動 |
 
@@ -644,7 +643,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Runtime/` へ移動 |
 
@@ -657,7 +656,7 @@ SkiaSharp の `SKFont` / `SKPaint` を描画のたびに生成・破棄する現
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Runtime/` へ移動 |
 
@@ -669,7 +668,7 @@ TypeConverter のキャッシング (オンデマンド vs Cached 型変換) の
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Runtime/` へ移動 |
 
@@ -682,7 +681,7 @@ TypeConverter のキャッシング (オンデマンド vs Cached 型変換) の
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Runtime/` へ移動 |
 
@@ -699,7 +698,7 @@ char 配列操作方式 (Unsafe 操作 vs Ref 操作) を比較する。
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Text/` へ移動 |
 
@@ -710,7 +709,7 @@ DateTime / 数値の書式化方式 (ToString / Utf8Formatter / カスタム実�
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -723,7 +722,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `HexBenchmark` を吸収統合 |
 
@@ -734,7 +733,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -745,7 +744,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Text/` へ移動 |
 
@@ -758,7 +757,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `StringAppendBenchmark`, `OldStringBuilderBenchmark` を吸収統合 |
 
@@ -769,7 +768,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 
 ---
@@ -780,7 +779,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: ルート直下から `Text/` へ移動 |
 
@@ -794,7 +793,7 @@ Hex エンコード / デコード方式 (Index / Pointer / Reference) を比較
 
 | 項目 | 設定 |
 |---|---|
-| TFM | `net8.0` `net9.0` `net10.0` |
+| TFM | `net11.0` `net10.0` |
 | Job | Medium |
 | | 再構成前からの変更: Old/ の `ConvertBenchmark` を吸収統合 |
 

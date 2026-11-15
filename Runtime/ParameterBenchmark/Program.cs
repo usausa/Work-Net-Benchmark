@@ -42,9 +42,8 @@ public class BenchmarkConfig : ManualConfig
 
 #pragma warning disable CA1822
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class Benchmark
 {
     private const int N = 1000;
@@ -208,9 +207,8 @@ public readonly ref struct ReadonlyRefStructParameter
 
 // 構造体のサイズ (8/16/24 バイト) が値渡し・ref 渡し・in 渡しのコストに与える影響を検証する。
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class StructSizeBenchmark
 {
     private readonly SizedStruct8 field8 = new() { Value = 1 };
@@ -400,9 +398,8 @@ public static class SizedFunctions
 
 // 大きな構造体の引数渡し (by value vs in) とスタティックフィールドの更新方式 (代入 vs ref) を検証する。
 [Config(typeof(BenchmarkConfig))]
-[MediumRunJob(RuntimeMoniker.Net80)]
-[MediumRunJob(RuntimeMoniker.Net90)]
 [MediumRunJob(RuntimeMoniker.Net10_0)]
+[MediumRunJob(RuntimeMoniker.Net11_0)]
 public class StructRefBenchmark
 {
     private const int N = 1000;
